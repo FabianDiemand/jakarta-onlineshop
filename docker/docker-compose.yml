@@ -22,7 +22,7 @@ services:
     image: fabiandiemand/glassfish-postgres-image:v1
     volumes:
       # Mount the .war from the host to the autodeploy directory in the docker glassfish container
-      - ./../build/libs/jakarta-onlineshop-1.0-SNAPSHOT.war:/usr/local/glassfish/glassfish/domains/domain1/autodeploy/jakarta-onlineshop-1.0-SNAPSHOT.war
+      - ./../build/libs/tech2go.war:/usr/local/glassfish/glassfish/domains/domain1/autodeploy/tech2go.war
     ports:
       - "8080:8080"
       - "4848:4848"
