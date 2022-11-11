@@ -25,7 +25,7 @@
     </deployment>
     <method v="2">
       <option name="BuildArtifacts" enabled="true">
-        <artifact name="Gradle : io.github.fd_education : jakarta-onlineshop-1.0-SNAPSHOT.war" />
+        <artifact name="Gradle : io.github.fd_education : tech2go.war" />
       </option>
     </method>
   </configuration>

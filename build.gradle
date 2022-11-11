@@ -6,6 +6,10 @@ plugins {
 group 'io.github.fd_education'
 version '1.0-SNAPSHOT'
 
+war {
+    archiveName('tech2go.war')
+}
+
 repositories {
     mavenCentral()
 }
