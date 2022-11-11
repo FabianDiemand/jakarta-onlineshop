@@ -19,7 +19,7 @@ services:
 
   jak-onlineshop-webapp:
     container_name: jak-onlineshop-webapp
-    image: fabiandiemand/glassfish-postgres-image:v1
+    image: fabiandiemand/glassfish-postgres-image:latest
     volumes:
       # Mount the .war from the host to the autodeploy directory in the docker glassfish container
       - ./../build/libs/tech2go.war:/usr/local/glassfish/glassfish/domains/domain1/autodeploy/tech2go.war
