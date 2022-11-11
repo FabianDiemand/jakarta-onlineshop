@@ -15,6 +15,8 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [2.3 Glassfish Server](#vt_glassfish)
   - [2.4 PostgreSQL](#vt_postgresql)
   - [2.5 GitLab](#vt_gitlab)
+  - [2.6 Docker](#vt_docker)
+  - [2.7 Spezifikation (Drawio, Figma)](#vt_spezifikation)
 - [3 Funktionale Anforderungen](#fa_funktionaleanforderungen)
   - [3.1 Shop - Product Overview](#fa_productoverview)
   - [3.2 Shop - Product Cart](#fa_productcart)
@@ -30,6 +32,13 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [4.3 Cart](#dm_cart)
   - [4.4 Order](#dm_order)
   - [4.5 Wishlist](#dm_wishlist)
+- [5 UI & Bedienungsprototyp](#ui_prototyp)
+- [6 Architekturentscheidungen](#ae_architekturentscheidungen)
+- [7 Installation](#i_installation)
+  - [7.1 Container: jak-onlineshop-database](#i_dbcontainer)  
+  - [7.2 Container: jak-onlineshop-webapp](#i_webappcontainer)  
+  - [7.3 Run-Konfiguration](#i_runconfig)
+  - [7.4 Setup-Anleitung](#i_setup)
 - [Quellen](#quellen)
 - [Statusberichte](#statusberichte)
 
@@ -86,6 +95,15 @@ um User Stories und Tasks zu erfassen. Zu Planungszwecken wird ausserdem ein Boa
 "Verification" und "Done" erstellt.
 
 Die Branch-Strategie folgt grundsätzlich den Empfehlungen des Git-flow-Workflow (vgl. [GitFlow]).
+
+<a name="vt_docker"></a>
+### 2.6 Docker  
+Für das Deployment bzw. die Abgabe der Applikation wird eine Container-Gruppe mit Docker Compose zur Verfügung gestellt.
+
+<a name="vt_spezifikation></a>
+### 2.7 Spezifikation (Drawio, Figma)
+Für sämtliche Modelle und Diagramme wurde [Drawio](https://www.diagrams.net/) verwendet.
+Der UI- und Bedienungsprototyp wurde mit [Figma](https://www.figma.com/de) erstellt.
 
 ---
 
@@ -534,6 +552,50 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
 <a name="dm_wishlist"></a>
 ## 4.5 Wishlist
 <img src="./img/erd_wishlist.jpg" alt="ERD für die Wishlist Entity.">
+
+<a name="ui_prototyp"></a>
+## 5 UI & Bedienungsprototyp
+
+<a name="ae_architekturentscheidungen"></a>
+## 6 Architekturentscheidungen
+
+<a name="i_installation"></a>
+## 7 Installation
+Für eine unkomplizierte Installation, ohne den Server selbst konfigurieren zu müssen, wird auf Docker gesetzt.
+Das [docker-compose.yml](../docker/docker-compose.yml) im Verzeichnis 'jakarta-onlineshop/docker' setzt eine 
+Container Group _**'jak-onlineshop-congrp'**_ bestehend aus zwei Containern _**'jak-onlineshop-database'**_ und _**'jak-onlineshop-webapp'**_ auf.
+Die beiden Container kommunizieren über ein bridge-Netzwerk namens _**'jak-onlineshop-network'**_.
+Der ganze Prozess wird in einer Run-Konfiguration zusammengehalten.
+
+<a name="i_dbcontainer"></a>
+### 7.1 Container: jak-onlineshop-database
+Der Container basiert auf dem aktuellsten PostgreSQL Image. Darin werden ein User (onlineshop_user), mit Passwort (shop_12345) und eine Datenbank (jak_onlineshop)
+aufgesetzt. Mit diesen Credentials kann z.B. über das Database Widget in IntelliJ über _host.docker.internal:5432/jak_onlineshop_ eine Verbindung zu der Datenbank
+hergestellt werden.
+
+<a name="i_webappcontainer"></a>
+### 7.2 Container: jak-onlineshop-webapp
+Das Base-Image für den Container ist ein um eine Glassfish Installation und den PostgreSQL JDBC Driver erweitertes jdk11 Image, das vom 
+Autor veröffentlicht wurde und somit von Dockerhub bezogen werden kann. Dadurch entfällt die Konfiguration des Servers gänzlich.
+Das war-File der Applikation wird über einen Mount direkt ins autodeploy Verzeichnis des Glassfish Servers im Container kopiert.
+
+<a name="i_runconfig"></a>
+### 7.3 Run-Konfiguration
+Die Run-Konfiguration builded zunächst das Projekt, sodass unter 'build/lib/tech2go.war' die aktuellste Version zur Verfügung steht.
+Danach werden die beiden Container mit den bereits erwähnten Konfigurationen aufgesetzt und gestartet.
+
+<a name="i_setup"></a>
+### 7.4 Setup-Anleitung
+Die Anleitung geht davon aus, dass der Anwender den aktuellsten Release im Main-Branch des [Repositories](https://git.ffhs.ch/fabian.diemand/jakarta-onlineshop/-/tree/main) gecloned 
+und Docker bzw. Docker Desktop installiert hat.
+
+1. Starte Docker Desktop
+2. In IntelliJ: Öffne die Run-Konfiguration 'Jakarta Onlineshop.run.xml' im 'jakarta-onlineshop/.run'-Verzeichnis
+3. In IntelliJ: Klicke rechts im blauen Banner 'Open/ Debug Configurations...'
+4. In IntelliJ: In der folgenden Übersicht der Run-Konfiguration muss 'Docker' als Server noch spezifiziert werden
+5. In IntelliJ: Lasse die Konfiguration mit einem Klick auf das grüne Dreieck neben der Run-Konfiguration laufen
+6. Im Browser: Besuche die URL [localhost:8080/tech2go](http://localhost:8080/tech2go/)
+
 
 <a name="quellen"></a>
 ## Quellen
