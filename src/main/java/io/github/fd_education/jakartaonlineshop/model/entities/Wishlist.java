@@ -1,49 +1,28 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
+@Entity @Table(schema = "ONLINESHOP", name = "WISHLIST")
+@Getter @Setter
 public class Wishlist {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishlist_id")
     private int wishlistId;
-    @Basic
+
     @Column(name = "customer")
-    private int customer;
-    @Basic
+    private int customerForeignKey;
+
     @Column(name = "product")
-    private int product;
+    private int productForeignKey;
     @ManyToOne
     @JoinColumn(name = "customer", referencedColumnName = "customer_id", nullable = false)
-    private Customer customerByCustomer;
+    private Customer customer;
     @ManyToOne
     @JoinColumn(name = "product", referencedColumnName = "product_id", nullable = false)
-    private Product productByProduct;
-
-    public int getWishlistId() {
-        return wishlistId;
-    }
-
-    public void setWishlistId(int wishlistId) {
-        this.wishlistId = wishlistId;
-    }
-
-    public int getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(int customer) {
-        this.customer = customer;
-    }
-
-    public int getProduct() {
-        return product;
-    }
-
-    public void setProduct(int product) {
-        this.product = product;
-    }
+    private Product product;
 
     @Override
     public boolean equals(Object o) {
@@ -51,35 +30,24 @@ public class Wishlist {
         if (o == null || getClass() != o.getClass()) return false;
 
         Wishlist wishlist = (Wishlist) o;
-
-        if (wishlistId != wishlist.wishlistId) return false;
-        if (customer != wishlist.customer) return false;
-        if (product != wishlist.product) return false;
-
-        return true;
+        return wishlistId == wishlist.wishlistId;
     }
 
     @Override
     public int hashCode() {
-        int result = wishlistId;
-        result = 31 * result + customer;
-        result = 31 * result + product;
-        return result;
+        int id = wishlistId;
+        final int prime = 31;
+        return prime + ((Integer) id).hashCode();
     }
 
-    public Customer getCustomerByCustomer() {
-        return customerByCustomer;
-    }
-
-    public void setCustomerByCustomer(Customer customerByCustomer) {
-        this.customerByCustomer = customerByCustomer;
-    }
-
-    public Product getProductByProduct() {
-        return productByProduct;
-    }
-
-    public void setProductByProduct(Product productByProduct) {
-        this.productByProduct = productByProduct;
+    @Override
+    public String toString() {
+        return "Wishlist{" +
+                "wishlistId=" + wishlistId +
+                ", customerForeignKey=" + customerForeignKey +
+                ", productForeignKey=" + productForeignKey +
+                ", customer=" + customer +
+                ", product=" + product +
+                '}';
     }
 }

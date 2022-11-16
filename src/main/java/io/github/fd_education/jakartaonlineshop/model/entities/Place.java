@@ -1,47 +1,26 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 
-@Entity
+@Entity @Table(schema = "ONLINESHOP", name = "PLACE")
+@Getter @Setter
 public class Place {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
     private int placeId;
-    @Basic
+
     @Column(name = "postal_code")
     private String postalCode;
-    @Basic
+
     @Column(name = "place_name")
     private String placeName;
-    @OneToMany(mappedBy = "placeByPlace")
-    private Collection<Address> addressesByPlaceId;
 
-    public int getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(int placeId) {
-        this.placeId = placeId;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
+    @OneToMany(mappedBy = "place")
+    private Collection<Address> addressesByPlace;
 
     @Override
     public boolean equals(Object o) {
@@ -49,27 +28,22 @@ public class Place {
         if (o == null || getClass() != o.getClass()) return false;
 
         Place place = (Place) o;
-
-        if (placeId != place.placeId) return false;
-        if (postalCode != null ? !postalCode.equals(place.postalCode) : place.postalCode != null) return false;
-        if (placeName != null ? !placeName.equals(place.placeName) : place.placeName != null) return false;
-
-        return true;
+        return placeId == place.placeId;
     }
 
     @Override
     public int hashCode() {
-        int result = placeId;
-        result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
-        result = 31 * result + (placeName != null ? placeName.hashCode() : 0);
-        return result;
+        int id = placeId;
+        final int prime = 31;
+        return prime + ((Integer) id).hashCode();
     }
 
-    public Collection<Address> getAddressesByPlaceId() {
-        return addressesByPlaceId;
-    }
-
-    public void setAddressesByPlaceId(Collection<Address> addressesByPlaceId) {
-        this.addressesByPlaceId = addressesByPlaceId;
+    @Override
+    public String toString() {
+        return "Place{" +
+                "placeId=" + placeId +
+                ", postalCode='" + postalCode + '\'' +
+                ", placeName='" + placeName + '\'' +
+                '}';
     }
 }

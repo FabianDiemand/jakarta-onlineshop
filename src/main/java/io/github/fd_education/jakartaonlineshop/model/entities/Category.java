@@ -1,43 +1,19 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
+@Entity @Table(schema = "ONLINESHOP", name = "CATEGORY")
+@Getter @Setter
 public class Category {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private int categoryId;
-    @Basic
-    @Column(name = "name")
+
     private String name;
-    @Basic
-    @Column(name = "description")
+
     private String description;
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -45,20 +21,22 @@ public class Category {
         if (o == null || getClass() != o.getClass()) return false;
 
         Category category = (Category) o;
-
-        if (categoryId != category.categoryId) return false;
-        if (name != null ? !name.equals(category.name) : category.name != null) return false;
-        if (description != null ? !description.equals(category.description) : category.description != null)
-            return false;
-
-        return true;
+        return categoryId == category.categoryId;
     }
 
     @Override
     public int hashCode() {
-        int result = categoryId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
+        int id = categoryId;
+        final int prime = 31;
+        return prime + ((Integer) id).hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

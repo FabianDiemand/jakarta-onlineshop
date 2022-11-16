@@ -1,98 +1,49 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 
-@Entity
+@Entity @Table(schema = "ONLINESHOP", name = "ORDER")
+@Getter @Setter
 public class Order {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private int orderId;
-    @Basic
+
     @Column(name = "is_payed")
     private boolean isPayed;
-    @Basic
+
     @Column(name = "payed_at")
     private Date payedAt;
-    @Basic
+
     @Column(name = "customer")
-    private int customer;
-    @Basic
+    private int customerForeignKey;
+
     @Column(name = "billing_address")
-    private int billingAddress;
-    @Basic
+    private int billingAddressForeignKey;
+
     @Column(name = "shipping_address")
-    private int shippingAddress;
-    @Basic
+    private int shippingAddressForeignKey;
+
     @Column(name = "order_status")
-    private int orderStatus;
+    private int orderStatusForeignKey;
+
+    @OneToOne
+    @JoinColumn(name = "order_status", referencedColumnName = "status_id")
+    private OrderStatus orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "customer", referencedColumnName = "customer_id", nullable = false)
-    private Customer customerByCustomer;
+    private Customer customer;
     @ManyToOne
     @JoinColumn(name = "billing_address", referencedColumnName = "address_id", nullable = false)
-    private Address addressByBillingAddress;
+    private Address billingAddress;
     @ManyToOne
     @JoinColumn(name = "shipping_address", referencedColumnName = "address_id", nullable = false)
-    private Address addressByShippingAddress;
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public boolean isPayed() {
-        return isPayed;
-    }
-
-    public void setPayed(boolean payed) {
-        isPayed = payed;
-    }
-
-    public Date getPayedAt() {
-        return payedAt;
-    }
-
-    public void setPayedAt(Date payedAt) {
-        this.payedAt = payedAt;
-    }
-
-    public int getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(int customer) {
-        this.customer = customer;
-    }
-
-    public int getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(int billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
-    public int getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(int shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public int getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+    private Address shippingAddress;
 
     @Override
     public boolean equals(Object o) {
@@ -100,51 +51,13 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
 
         Order order = (Order) o;
-
-        if (orderId != order.orderId) return false;
-        if (isPayed != order.isPayed) return false;
-        if (customer != order.customer) return false;
-        if (billingAddress != order.billingAddress) return false;
-        if (shippingAddress != order.shippingAddress) return false;
-        if (orderStatus != order.orderStatus) return false;
-        if (payedAt != null ? !payedAt.equals(order.payedAt) : order.payedAt != null) return false;
-
-        return true;
+        return orderId == order.orderId;
     }
 
     @Override
     public int hashCode() {
-        int result = orderId;
-        result = 31 * result + (isPayed ? 1 : 0);
-        result = 31 * result + (payedAt != null ? payedAt.hashCode() : 0);
-        result = 31 * result + customer;
-        result = 31 * result + billingAddress;
-        result = 31 * result + shippingAddress;
-        result = 31 * result + orderStatus;
-        return result;
-    }
-
-    public Customer getCustomerByCustomer() {
-        return customerByCustomer;
-    }
-
-    public void setCustomerByCustomer(Customer customerByCustomer) {
-        this.customerByCustomer = customerByCustomer;
-    }
-
-    public Address getAddressByBillingAddress() {
-        return addressByBillingAddress;
-    }
-
-    public void setAddressByBillingAddress(Address addressByBillingAddress) {
-        this.addressByBillingAddress = addressByBillingAddress;
-    }
-
-    public Address getAddressByShippingAddress() {
-        return addressByShippingAddress;
-    }
-
-    public void setAddressByShippingAddress(Address addressByShippingAddress) {
-        this.addressByShippingAddress = addressByShippingAddress;
+        int id = orderId;
+        final int prime = 31;
+        return prime + ((Integer) id).hashCode();
     }
 }
