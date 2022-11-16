@@ -2,7 +2,7 @@
   <configuration default="false" name="GlassFish 6.2.5" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 6.2.5" ALTERNATIVE_JRE_ENABLED="false">
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
-      <artifact name="Gradle : io.github.fd_education : jakarta-onlineshop-1.0-SNAPSHOT.war (exploded)">
+      <artifact name="Gradle : io.github.fd_education : tech2go.war (exploded)">
         <settings />
       </artifact>
     </deployment>

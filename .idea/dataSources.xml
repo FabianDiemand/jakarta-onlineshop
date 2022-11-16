@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="onlineshop_db" uuid="a9ce5d32-00d0-403f-9fa0-93769540595e">
+    <data-source source="LOCAL" name="jak_onlineshop@localhost" uuid="019ff422-0138-45b9-817a-0b55091c8392">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/jak_onlineshop</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="jak_onlineshop/Hibernate" uuid="a9f2cfd3-d2ec-418b-bf00-56fdf29e1a48">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/fabia/projects/ffhs/jakarta-onlineshop/src/main/resources/META-INF/persistence.xml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/jak_onlineshop</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
