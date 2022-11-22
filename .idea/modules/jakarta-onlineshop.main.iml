@@ -12,4 +12,13 @@
       </configuration>
     </facet>
   </component>
+  <component name="com.intellij.jsf.UserDefinedFacesConfigs">
+    <option name="USER_DEFINED_CONFIGS">
+      <value>
+        <list size="1">
+          <item index="0" class="java.lang.String" itemvalue="src/main/webapp/WEB-INF/faces-config.xml" />
+        </list>
+      </value>
+    </option>
+  </component>
 </module>

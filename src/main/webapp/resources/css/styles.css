@@ -1,0 +1,61 @@
+* {
+  font-family: sans-serif;
+  color: black;
+  padding: 0;
+  margin: 0;
+}
+
+body > header,
+body > footer {
+  box-sizing: border-box;
+  background: url("#{resource['img:circuit.jpg']}");
+  background-blend-mode: darken;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+body > header {
+  justify-content: space-between;
+}
+
+header > nav > a,
+header > nav > span,
+header > form > input{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.title {
+  font-size: 3em;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  text-shadow: 0 0 10px white, 0 0 20px white;
+}
+
+input:not([type='image']), textarea {
+  width: 200px;
+}
+
+body > footer{
+  justify-content: end;
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 100%;
+  bottom: 0;
+}
+
+.register_form{
+  padding: 10px;
+}
