@@ -30,6 +30,7 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.platform:jakarta.jakartaee-api:9.1.0')
 
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
     compileOnly("org.projectlombok:lombok:1.18.24")
 
     implementation('org.postgresql:postgresql:42.5.0')
