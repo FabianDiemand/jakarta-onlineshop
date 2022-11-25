@@ -36,18 +36,6 @@
                         value="#{registerController.customer.phoneNumber}">
                 </h:inputText>
                 <h:message for="mobilenumber"/>
-                <h:outputLabel value="#{msg['birthday']}:"/>
-                <h:message for="birthday"/>
-                <h:inputText
-                        id="birthday"
-                        value="#{registerController.customer.birthdate}"
-                        converterMessage="Please provide your date!"
-                        >
-                    <f:convertDateTime
-                            for="birthday"
-                            type="localDate"
-                            pattern="dd.mm.yyyy" />
-                </h:inputText>
                 <h:outputLabel value="#{msg['street']}:"/>
                 <h:inputText
                         id="street"
