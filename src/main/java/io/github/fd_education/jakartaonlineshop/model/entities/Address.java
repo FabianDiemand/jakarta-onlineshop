@@ -16,6 +16,9 @@ public class Address implements Serializable {
     @Column(name = "address_id", nullable = false)
     private Long id;
 
+    @Version
+    private Long version;
+
     @Column(name = "streetname", nullable = false)
     private String streetname;
 

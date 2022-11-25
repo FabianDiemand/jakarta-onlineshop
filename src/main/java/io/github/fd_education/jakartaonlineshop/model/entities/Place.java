@@ -16,6 +16,9 @@ public class Place implements Serializable {
     @Column(name = "place_id", nullable = false)
     private Long id;
 
+    @Version
+    private Long version;
+
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
 

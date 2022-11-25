@@ -13,11 +13,12 @@ import java.util.Objects;
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @SequenceGenerator(name = "CUSTOMER_ID_GENERATOR", sequenceName = "SEQ_CUSTOMER")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUSTOMER_ID_GENERATOR")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Long id;
+
+    @Version
+    private Long version;
 
     @Column(name = "firstname", nullable = false)
     private String firstName;
