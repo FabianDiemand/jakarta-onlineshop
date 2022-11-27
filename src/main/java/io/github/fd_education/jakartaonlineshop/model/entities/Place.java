@@ -8,7 +8,8 @@ import java.util.Objects;
 
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
-@Entity @Table(name = "place", schema = "onlineshop")
+@Entity
+@Table(name = "place", schema = "onlineshop", uniqueConstraints = {@UniqueConstraint(columnNames = {"postal_code", "place_name"})})
 public class Place implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
-@Entity @Table(name = "address", schema = "onlineshop")
+@Entity @Table(name = "address", schema = "onlineshop", uniqueConstraints = {@UniqueConstraint(columnNames = {"streetname", "housenumber", "place"})})
 public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -23,10 +23,10 @@ public class Address implements Serializable {
     private String streetname;
 
     @Column(name = "housenumber", nullable = false)
-    private int housenumber;
+    private String housenumber;
 
-    @ManyToOne
-    @JoinColumn(name = "place")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "place", unique = true)
     private Place place;
 
     @Override

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Getter @Setter @ToString
@@ -35,11 +34,8 @@ public class Customer implements Serializable {
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
-    @Column(name = "birthdate")
-    private LocalDate birthdate;
-
-    @ManyToOne
-    @JoinColumn(name = "address")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address", unique = true)
     private Address address;
 
     @Override
