@@ -21,56 +21,57 @@
                 <h:outputLabel value="#{msg['firstname']}:"/>
                 <h:inputText
                         id="firstname"
-                        value="#{registerController.customer.firstName}">
+                        value="#{registerController.firstname}">
                 </h:inputText>
                 <h:message for="firstname"/>
+
                 <h:outputLabel value="#{msg['lastname']}:"/>
                 <h:inputText
                         id="lastname"
-                        value="#{registerController.customer.lastName}">
+                        value="#{registerController.lastname}">
                 </h:inputText>
                 <h:message for="lastname"/>
                 <h:outputLabel value="#{msg['mobilenumber']}:"/>
                 <h:inputText
                         id="mobilenumber"
-                        value="#{registerController.customer.phoneNumber}">
+                        value="#{registerController.phone}">
                 </h:inputText>
                 <h:message for="mobilenumber"/>
                 <h:outputLabel value="#{msg['street']}:"/>
                 <h:inputText
                         id="street"
-                        value="#{registerController.address.streetname}">
+                        value="#{registerController.street}">
                 </h:inputText>
                 <h:message for="street"/>
                 <h:outputLabel value="#{msg['house_number']}:"/>
                 <h:inputText
                         id="house_number"
-                        value="#{registerController.address.housenumber}">
+                        value="#{registerController.houseNumber}">
                 </h:inputText>
                 <h:message for="house_number"/>
                 <h:outputLabel value="#{msg['plz']}:"/>
                 <h:inputText
                         id="plz"
-                        value="#{registerController.place.postalCode}">
+                        value="#{registerController.postalCode}">
                 </h:inputText>
                 <h:message for="place"/>
                 <h:outputLabel value="#{msg['place']}:"/>
                 <h:inputText
                         id="place"
-                        value="#{registerController.place.placeName}">
+                        value="#{registerController.placeName}">
                 </h:inputText>
                 <h:message for="place"/>
 
                 <h:outputLabel value="#{msg['email']}:"/>
                 <h:inputText
                         id="email"
-                        value="#{registerController.customer.email}">
+                        value="#{registerController.email}">
                 </h:inputText>
                 <h:message for="email"/>
                 <h:outputLabel value="#{msg['password']}:"/>
                 <h:inputSecret
                         id="password"
-                        value="#{registerController.customer.password}">
+                        value="#{registerController.password}">
                 </h:inputSecret>
                 <h:message for="password"/>
                 <h:commandButton

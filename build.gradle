@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'war'
+    id 'ear'
 }
 
 group 'io.github.fd_education'
@@ -8,6 +9,10 @@ version '1.0-SNAPSHOT'
 
 war {
     archiveName('tech2go.war')
+}
+
+ear {
+    archiveName('tech2go.ear')
 }
 
 repositories {
