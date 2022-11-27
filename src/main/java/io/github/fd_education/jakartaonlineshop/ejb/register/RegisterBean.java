@@ -47,22 +47,4 @@ public class RegisterBean implements RegisterBeanLocal {
         System.out.println("Customer " + customer + " persisted");
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Customer " + customer + " persisted");
     }
-
-    private Place checkPlaceDuplicate(String postalCode, String placeName) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Place> cq = cb.createQuery(Place.class);
-
-        Root<Place> p = cq.from(Place.class);
-        Path<Object> name = p.get("place_name");
-        Path<Object> code = p.get("postal_code");
-
-        Predicate pPlaceName = cb.equal(name, placeName);
-        Predicate pPostalCode = cb.equal(code, postalCode);
-
-        cq.select(p).where(pPlaceName).where(pPostalCode);
-
-        TypedQuery<Place> typedQuery = em.createQuery(cq);
-
-        return typedQuery.getSingleResult();
-    }
 }

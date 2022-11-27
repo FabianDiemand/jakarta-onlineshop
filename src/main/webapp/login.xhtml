@@ -9,9 +9,6 @@
         <h:form
             id="signinForm"
             prependId="false">
-            <h:message
-                for="signinForm"
-                showSummary="true" />
             <h:panelGrid columns="3">
                 <f:facet name="header">
                     <h:outputText value="#{msg['signin']}" />
@@ -34,6 +31,9 @@
                     value="#{msg['signin']}" />
                 <h:message for="signin" />
             </h:panelGrid>
+            <h:message
+                    for="signinForm"
+                    showSummary="true" />
         </h:form>
     </ui:define>
 </ui:composition>
