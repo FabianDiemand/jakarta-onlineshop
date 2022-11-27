@@ -1,4 +1,4 @@
-package io.github.fd_education.jakartaonlineshop.controller.ejb.register;
+package io.github.fd_education.jakartaonlineshop.ejb.register;
 
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;

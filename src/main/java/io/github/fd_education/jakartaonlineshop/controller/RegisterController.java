@@ -1,17 +1,11 @@
 package io.github.fd_education.jakartaonlineshop.controller;
 
-import io.github.fd_education.jakartaonlineshop.controller.ejb.register.RegisterBeanLocal;
-import io.github.fd_education.jakartaonlineshop.model.entities.Address;
-import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
-import io.github.fd_education.jakartaonlineshop.model.entities.Place;
-import jakarta.annotation.Resource;
+import io.github.fd_education.jakartaonlineshop.ejb.register.RegisterBeanLocal;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.UserTransaction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,8 +29,23 @@ public class RegisterController implements Serializable {
     @EJB
     RegisterBeanLocal registerBeanLocal;
 
-    public String persist(){
-        registerBeanLocal.persist(firstname, lastname, phone, street, houseNumber, postalCode, placeName, email, password);
+    public String persist() {
+        try {
+            registerBeanLocal.persist(firstname, lastname, phone, street, houseNumber, postalCode, placeName, email, password);
+
+            FacesMessage m = new FacesMessage("Successfully registered.");
+            FacesContext.getCurrentInstance().addMessage("registerForm", m);
+        } catch(Exception e){
+            FacesMessage fm = new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    e.getMessage(),
+                    e.getCause().getMessage());
+            FacesContext
+                    .getCurrentInstance()
+                    .addMessage(
+                            "registerForm",
+                            fm);
+        }
 
         return "/register.jsf";
     }

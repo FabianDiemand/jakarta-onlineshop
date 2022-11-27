@@ -9,6 +9,10 @@ import java.util.Objects;
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name = "customer", schema = "onlineshop")
+@NamedQuery(
+        name = "Customer.findAll",
+        query = "SELECT c FROM Customer c"
+)
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 

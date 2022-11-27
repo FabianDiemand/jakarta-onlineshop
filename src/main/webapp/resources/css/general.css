@@ -1,0 +1,15 @@
+.info {
+    color:green;
+}
+
+.warn {
+    color:red;
+}
+
+.error {
+    color: orange;
+}
+
+.fatal {
+    color: purple;
+}
