@@ -6,17 +6,15 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
 
-
+        <h1>
+            <h:outputText value="#{msg['register']}" />
+        </h1>
             <!--@elvariable id="msg" type="java.util.Map"-->
             <h:form
                     id="registerForm"
                     prependId="false">
 
                 <h:panelGrid class="register_form" columns="3" cellpadding="10">
-
-                    <f:facet name="header">
-                        <h:outputText value="#{msg['register']}"/>
-                    </f:facet>
 
                     <h:outputLabel for="firstname" value="#{msg['firstname']}:"/>
                     <h:inputText

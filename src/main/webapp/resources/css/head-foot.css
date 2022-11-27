@@ -5,26 +5,32 @@
   margin: 0;
 }
 
-body > header,
-body > footer {
+header,
+footer {
   box-sizing: border-box;
-  background: url("#{resource['img:circuit.jpg']}");
+  background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url("#{resource['img:circuit.jpg']}");
   background-blend-mode: darken;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-body > header {
+header {
   justify-content: space-between;
 }
 
 header > nav > a,
 header > nav > span,
 header > form > input{
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 20px;
+  text-decoration: none;
+}
+
+.header-text{
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .title {
@@ -32,18 +38,8 @@ header > form > input{
   color: white;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-}
-
 a:hover {
-  color: white;
-  text-shadow: 0 0 10px white, 0 0 20px white;
-}
-
-input:not([type='image']), textarea {
-  width: 200px;
+  text-shadow: 0 0 20px white, 0 0 20px white;
 }
 
 body > footer{

@@ -49,6 +49,9 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "buyer")
     private List<Product> orders;
 
+    @Transient
+    private boolean loggedIn = false;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
