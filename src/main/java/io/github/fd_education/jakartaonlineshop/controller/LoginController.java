@@ -54,6 +54,9 @@ public class LoginController implements Serializable {
                         "Succesfully signed in!",
                         "You signed in under id " +
                                 customer.getId());
+
+                customer.setLoggedIn(true);
+
                 FacesContext
                         .getCurrentInstance()
                         .addMessage("signinForm", m);

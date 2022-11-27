@@ -6,13 +6,14 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
+        <h1>
+            <h:outputText value="#{msg['login']}" />
+        </h1>
+
         <h:form
-            id="signinForm"
+            id="loginForm"
             prependId="false">
             <h:panelGrid columns="3">
-                <f:facet name="header">
-                    <h:outputText value="#{msg['signin']}" />
-                </f:facet>
                 <h:outputLabel value="#{msg['email']}:" />
                 <h:inputText
                     id="email"
@@ -28,11 +29,11 @@
                 <h:commandButton
                     id="signin"
                     action="#{loginController.find()}"
-                    value="#{msg['signin']}" />
+                    value="#{msg['login']}" />
                 <h:message for="signin" />
             </h:panelGrid>
             <h:message
-                    for="signinForm"
+                    for="loginForm"
                     showSummary="true" />
         </h:form>
     </ui:define>

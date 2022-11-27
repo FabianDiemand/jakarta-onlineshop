@@ -11,25 +11,32 @@
         </h1>
     </hgroup>
     <nav>
-        <h:link
+        <h:link styleClass="header-text"
             outcome="index"
             value="#{msg['home']}" />
-        <h:link
+        <h:link styleClass="header-text"
             outcome="register"
             value="#{msg['register']}" />
-        <h:link
-            rendered="#{true}"
+        <h:link styleClass="header-text"
+            rendered="#{!loginController.customer.loggedIn}"
             outcome="signin"
-            value="#{msg['signin']}" />
-        <h:link
+            value="#{msg['login']}" />
+        <h:link styleClass="header-text"
             outcome="sell"
             value="#{msg['sell']}" />
-        <h:link
+        <h:link styleClass="header-text"
             outcome="search"
             value="#{msg['search']}" />
         <br />
     </nav>
+
+
     <h:form>
+        <span class="header-text">
+            <h:outputText
+                    rendered="#{loginController.customer.loggedIn}"
+                    value="Logged in as #{loginController.customer.firstName} #{loginController.customer.lastName}"/>
+        </span>
         <h:commandButton
             action="#{localeController.change('en')}"
             image="#{resource['img:us.gif']}" />
