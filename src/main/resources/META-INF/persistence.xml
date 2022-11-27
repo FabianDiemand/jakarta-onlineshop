@@ -9,6 +9,8 @@
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Address</class>
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Customer</class>
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Place</class>
+        <class>io.github.fd_education.jakartaonlineshop.model.entities.Product</class>
+
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/jak_onlineshop"/>
@@ -18,8 +20,8 @@
 
             <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="jakarta.persistence.schema-generation.scripts.action" value="drop-and-create"/>
-            <property name="jakarta.persistence.schema-generation.scripts.create-target" value="./createddl.sql"/>
-            <property name="jakarta.persistence.schema-generation.scripts.drop-target" value="./dropddl.sql"/>
+            <property name="jakarta.persistence.schema-generation.scripts.create-target" value="metadata"/>
+            <property name="jakarta.persistence.schema-generation.scripts.drop-target" value="metadata"/>
         </properties>
     </persistence-unit>
 </persistence>

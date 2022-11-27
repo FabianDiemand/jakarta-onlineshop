@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter @Setter @ToString
@@ -29,15 +31,21 @@ public class Product implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
-
     @Column(name = "price", nullable = false)
     private double price;
 
     @Column(name = "image", nullable = false)
     @Lob @Basic(fetch = FetchType.LAZY)
     private byte[] image;
+
+    @Column(name = "sold")
+    private LocalDateTime sold;
+
+    @ManyToOne
+    private Customer seller;
+
+    @ManyToOne
+    private Customer buyer;
 
     @Override
     public boolean equals(Object o) {

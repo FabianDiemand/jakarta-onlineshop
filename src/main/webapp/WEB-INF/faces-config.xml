@@ -28,6 +28,13 @@
             </to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>search</from-outcome>
+            <to-view-id>
+                /search.xhtml
+            </to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
 

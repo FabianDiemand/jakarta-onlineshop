@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Getter @Setter @ToString
@@ -41,6 +42,12 @@ public class Customer implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address", unique = true)
     private Address address;
+
+    @OneToMany(mappedBy = "seller")
+    private List<Product> offers;
+
+    @OneToMany(mappedBy = "buyer")
+    private List<Product> orders;
 
     @Override
     public boolean equals(Object o) {
