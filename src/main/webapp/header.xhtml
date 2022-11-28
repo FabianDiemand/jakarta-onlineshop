@@ -7,13 +7,12 @@
     <!--@elvariable id="msg" type="java.util.Map"-->
     <hgroup>
         <h1 class="title">
-            <h:outputText value="#{msg['title']}" />
+            <h:link styleClass="header-text"
+                    outcome="index"
+                    value="#{msg['title']}" />
         </h1>
     </hgroup>
     <nav>
-        <h:link styleClass="header-text"
-            outcome="index"
-            value="#{msg['home']}" />
         <h:link styleClass="header-text"
             outcome="register"
             value="#{msg['register']}" />
@@ -22,12 +21,9 @@
             outcome="signin"
             value="#{msg['login']}" />
         <h:link styleClass="header-text"
+            rendered="#{loginController.customer.loggedIn}"
             outcome="sell"
             value="#{msg['sell']}" />
-        <h:link styleClass="header-text"
-            outcome="search"
-            value="#{msg['search']}" />
-        <br />
     </nav>
 
 

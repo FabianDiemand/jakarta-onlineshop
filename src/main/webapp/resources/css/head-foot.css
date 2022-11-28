@@ -23,12 +23,12 @@ header {
 header > nav > a,
 header > nav > span,
 header > form > input{
-  padding: 0px 20px;
-  text-decoration: none;
+  padding: 0 20px;
 }
 
 .header-text{
   color: white;
+  text-decoration: none;
   font-weight: bold;
   font-size: 1.2em;
 }
