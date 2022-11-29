@@ -23,10 +23,12 @@
                     <h:message for="firstname"/>
                 </h:outputLabel>
 
-                <h:outputLabel value="#{msg['lastname']}">
+                <h:outputLabel for="lastname" value="#{msg['lastname']}">
                     <h:inputText
                             id="lastname"
-                            value="#{registerController.lastname}">
+                            value="#{registerController.lastname}"
+                            required="true"
+                            requiredMessage="#{msg['lastname_empty']}">
                     </h:inputText>
                     <h:message for="lastname"/>
                 </h:outputLabel>
@@ -36,7 +38,9 @@
                 <h:outputLabel value="#{msg['street']}">
                     <h:inputText
                             id="street"
-                            value="#{registerController.street}">
+                            value="#{registerController.street}"
+                            required="true"
+                            requiredMessage="#{msg['street_empty']}">
                     </h:inputText>
                     <h:message for="street"/>
                 </h:outputLabel>
@@ -44,32 +48,38 @@
                 <h:outputLabel value="#{msg['house_number']}">
                     <h:inputText
                             id="house_number"
-                            value="#{registerController.houseNumber}">
+                            value="#{registerController.houseNumber}"
+                            required="true"
+                            requiredMessage="#{msg['house_number_empty']}">
                     </h:inputText>
                     <h:message for="house_number"/>
                 </h:outputLabel>
             </div>
 
             <div class="registration-block" id="customer-address-place">
-                <h:outputLabel value="#{msg['plz']}">
+                <h:outputLabel value="#{msg['postal_code']}">
                     <h:inputText
-                            id="plz"
-                            value="#{registerController.postalCode}">
+                            id="postal_code"
+                            value="#{registerController.postalCode}"
+                            required="true"
+                            requiredMessage="#{msg['postal_code_empty']}">
                     </h:inputText>
-                    <h:message for="plz"/>
+                    <h:message for="postal_code"/>
                 </h:outputLabel>
 
                 <h:outputLabel value="#{msg['place']}">
                     <h:inputText
                             id="place"
-                            value="#{registerController.placeName}">
+                            value="#{registerController.placeName}"
+                            required="true"
+                            requiredMessage="#{msg['place_empty']}">
                     </h:inputText>
                     <h:message for="place"/>
                 </h:outputLabel>
             </div>
 
             <div class="registration-block" id="customer-contact">
-                <h:outputLabel value="#{msg['mobilenumber']}">
+                <h:outputLabel value="#{msg['mobile_number']} (optional)">
                     <h:inputText
                             id="mobilenumber"
                             value="#{registerController.phone}">
@@ -80,7 +90,9 @@
                 <h:outputLabel value="#{msg['email']}">
                     <h:inputText
                             id="email"
-                            value="#{registerController.email}">
+                            value="#{registerController.email}"
+                            required="true"
+                            requiredMessage="#{msg['email_empty']}">
                     </h:inputText>
                     <h:message for="email"/>
                 </h:outputLabel>
@@ -90,24 +102,33 @@
                 <h:outputLabel value="#{msg['password']}">
                     <h:inputSecret
                             id="password"
-                            value="#{registerController.password}">
+                            value="#{registerController.password}"
+                            required="true"
+                            requiredMessage="#{msg['password_empty']}">
                     </h:inputSecret>
                     <h:message for="password" warnClass="warn"/>
                 </h:outputLabel>
+                <h:message for="registration-form"
+                           infoClass="info"
+                           warnClass="warn"
+                           errorClass="error"
+                           fatalClass="fatal"
+                />
             </div>
 
+            <div class="registration-block" id="customer-controlls">
+                <h:commandButton
+                        id="register"
+                        action="#{registerController.persist()}"
+                        value="#{msg['register']}"/>
+                <h:message for="register"/>
 
-            <h:commandButton
-                    id="register"
-                    action="#{registerController.persist()}"
-                    value="#{msg['register']}"/>
-            <h:message for="register"/>
-
-            <h:button
-                id="cancel"
-                outcome="/index.jsf"
-                value="#{msg['cancel']}"
-            />
+                <h:button
+                        id="cancel"
+                        outcome="/index.jsf"
+                        value="#{msg['cancel']}"
+                />
+            </div>
 
             <h:message for="registration-form"
                        infoClass="info"

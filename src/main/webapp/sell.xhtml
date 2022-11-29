@@ -17,22 +17,29 @@
             <h:message
                 for="sellForm"
                 showSummary="true" />
-            <h:panelGrid columns="2">
-                <h:outputLabel value="#{msg['item.title']}:" />
+
+                <h:outputLabel value="#{msg['product.title']}:">
                 <h:inputText
                     id="title"
                     value="#{sellController.product.name}" />
-                <h:outputLabel value="#{msg['item.description']}:" />
+                </h:outputLabel>
+
+                <h:outputLabel value="#{msg['product.description']}:">
                 <h:inputTextarea
                     value="#{sellController.product.description}" />
-                <h:outputLabel value="#{msg['item.price']}:" />
+                </h:outputLabel>
+
+                <h:outputLabel value="#{msg['product.price']}:">
                 <h:inputText value="#{sellController.product.price}" />
-                <h:outputLabel value="#{msg['item.foto']}:" />
+                </h:outputLabel>
+
+                <h:outputLabel value="#{msg['product.foto']}:">
                 <h:inputFile value="#{sellController.part}" />
+                </h:outputLabel>
+
                 <h:commandButton
                     value="#{msg['sell']}"
                     action="#{sellController.persist(loginController)}" />
-            </h:panelGrid>
         </h:form>
     </ui:define>
 </ui:composition>

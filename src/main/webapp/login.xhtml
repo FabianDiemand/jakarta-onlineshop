@@ -1,40 +1,42 @@
 <ui:composition
-    template="/template.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
+        template="/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <h1>
-            <h:outputText value="#{msg['login']}" />
+            <h:outputText value="#{msg['login']}"/>
         </h1>
 
         <h:form
-            id="loginForm"
-            prependId="false">
-            <h:panelGrid columns="3">
-                <h:outputLabel value="#{msg['email']}:" />
+                id="loginForm"
+                prependId="false">
+
+            <h:outputLabel value="#{msg['email']}:">
                 <h:inputText
-                    id="email"
-                    value="#{loginController.email}">
+                        id="email"
+                        value="#{loginController.email}">
                 </h:inputText>
-                <h:message for="email" />
-                <h:outputLabel value="#{msg['password']}:" />
+                <h:message for="email"/>
+            </h:outputLabel>
+
+            <h:outputLabel value="#{msg['password']}:">
                 <h:inputSecret
-                    id="password"
-                    value="#{loginController.password}">
+                        id="password"
+                        value="#{loginController.password}">
                 </h:inputSecret>
-                <h:message for="password" />
-                <h:commandButton
+                <h:message for="password"/>
+            </h:outputLabel>
+
+
+            <h:commandButton
                     id="signin"
                     action="#{loginController.find()}"
-                    value="#{msg['login']}" />
-                <h:message for="signin" />
-            </h:panelGrid>
-            <h:message
-                    for="loginForm"
-                    showSummary="true" />
+                    value="#{msg['login']}"/>
+            <h:message for="signin"/>
+            <h:message for="loginForm"/>
         </h:form>
     </ui:define>
 </ui:composition>

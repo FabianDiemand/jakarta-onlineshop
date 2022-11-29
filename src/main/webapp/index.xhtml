@@ -8,5 +8,21 @@
         <h1>
             <h:outputText value="#{msg['welcome']}" />
         </h1>
+
+        <h:form>
+            <h:dataTable
+                    value="#{productListController.products}"
+                    var="product">
+                <h:column>
+                         <h:graphicImage url="image?id=#{product.id}" />
+                        <h:outputText styleClass="product-title" value="#{product.name}" />
+                        <h:outputText styleClass="product-description" value="#{product.description}" />
+                        <h:outputText styleClass="product-price" value="#{product.price}" />
+                        <h:commandButton
+                                value="#{msg['buy']}"
+                                action="#{buyController.update(product.id)}" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>
