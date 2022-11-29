@@ -21,8 +21,7 @@ import java.util.logging.Logger;
 public class BuyController implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final static Logger log = Logger
-            .getLogger(BuyController.class.toString());
+    private final static Logger log = Logger.getLogger(BuyController.class.toString());
 
     @PersistenceContext
     private EntityManager em;
@@ -31,16 +30,10 @@ public class BuyController implements Serializable {
     private UserTransaction ut;
 
     public String update(Long id) {
-        FacesContext ctx = FacesContext
-                .getCurrentInstance();
+        FacesContext ctx = FacesContext.getCurrentInstance();
         ELContext elc = ctx.getELContext();
-        ELResolver elr = ctx.getApplication()
-                .getELResolver();
-        LoginController loginController = (LoginController) elr
-                .getValue(
-                        elc,
-                        null,
-                        "signinController");
+        ELResolver elr = ctx.getApplication().getELResolver();
+        LoginController loginController = (LoginController) elr.getValue(elc,null,"signinController");
 
         Customer customer = loginController.getCustomer();
         try {

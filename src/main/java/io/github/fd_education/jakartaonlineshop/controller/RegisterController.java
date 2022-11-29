@@ -36,15 +36,8 @@ public class RegisterController implements Serializable {
             FacesMessage m = new FacesMessage("Successfully registered.");
             FacesContext.getCurrentInstance().addMessage("registerForm", m);
         } catch(Exception e){
-            FacesMessage fm = new FacesMessage(
-                    FacesMessage.SEVERITY_WARN,
-                    e.getMessage(),
-                    e.getCause().getMessage());
-            FacesContext
-                    .getCurrentInstance()
-                    .addMessage(
-                            "registerForm",
-                            fm);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getCause().getMessage());
+            FacesContext.getCurrentInstance().addMessage("registerForm", fm);
         }
 
         return "/register.jsf";
