@@ -11,7 +11,6 @@
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Place</class>
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Product</class>
 
-
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/jak_onlineshop"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>

@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
-@Entity @Table(name = "product")
+@Entity @Table(name = "product", schema = "onlineshop")
 @NamedQuery(
         name = "Product.findAll",
         query = "SELECT p from Product p"
@@ -36,6 +35,7 @@ public class Product implements Serializable {
 
     @Column(name = "image", nullable = false)
     @Lob @Basic(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private byte[] image;
 
     @Column(name = "sold")

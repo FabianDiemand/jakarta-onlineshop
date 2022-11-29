@@ -38,32 +38,29 @@ public class SellController implements Serializable {
     @Resource
     private UserTransaction ut;
 
-    @Getter  @Setter
+    @Getter
+    @Setter
     private Part part;
 
     @Inject
-    @Getter @Setter
+    @Getter
+    @Setter
     private Product product;
 
-    public String persist(
-            LoginController loginController) {
+    public String persist(LoginController loginController) {
         try {
             ut.begin();
             InputStream input = part.getInputStream();
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buffer = new byte[10240];
-            for (int length = 0; (length = input
-                    .read(buffer)) > 0;) {
+            for (int length; (length = input.read(buffer)) > 0; ) {
                 output.write(buffer, 0, length);
             }
             product.setImage(scale(output.toByteArray()));
 
-            Customer customer = loginController
-                    .getCustomer();
+            Customer customer = loginController.getCustomer();
 
-            customer = em.find(
-                    Customer.class,
-                    customer.getId());
+            customer = em.find(Customer.class, customer.getId());
 
             product.setSeller(customer);
             em.persist(product);
@@ -72,52 +69,33 @@ public class SellController implements Serializable {
 
             log.info("Offered item: " + product);
 
-            FacesMessage m = new FacesMessage(
-                    "Succesfully saved item!",
-                    "You offered the item " +
-                            product);
-            FacesContext
-                    .getCurrentInstance()
-                    .addMessage("sellForm", m);
+            FacesMessage m = new FacesMessage("Successfully saved item! You offered the item " + product);
+            FacesContext.getCurrentInstance().addMessage("sellForm", m);
         } catch (Exception e) {
             log.severe(e.getMessage());
         }
+
         return "/sell.jsf";
     }
 
     public byte[] scale(byte[] foto) throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
-                foto);
-        BufferedImage originalBufferedImage = ImageIO
-                .read(byteArrayInputStream);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(foto);
+        BufferedImage originalBufferedImage = ImageIO.read(byteArrayInputStream);
 
-        double originalWidth = (double) originalBufferedImage
-                .getWidth();
-        double originalHeight = (double) originalBufferedImage
-                .getHeight();
+        double originalWidth = originalBufferedImage.getWidth();
+        double originalHeight = originalBufferedImage.getHeight();
         double relevantLength = Math.max(originalWidth, originalHeight);
 
-        double transformationScale = MAX_IMAGE_LENGTH
-                / relevantLength;
-        int width = (int) Math
-                .round(transformationScale * originalWidth);
-        int height = (int) Math.round(
-                transformationScale * originalHeight);
+        double transformationScale = MAX_IMAGE_LENGTH / relevantLength;
+        int width = (int) Math.round(transformationScale * originalWidth);
+        int height = (int) Math.round(transformationScale * originalHeight);
 
-        BufferedImage resizedBufferedImage = new BufferedImage(
-                width,
-                height,
-                BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = resizedBufferedImage
-                .createGraphics();
-        g2d.setRenderingHint(
-                RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        AffineTransform affineTransform = AffineTransform
-                .getScaleInstance(transformationScale,
-                        transformationScale);
-        g2d.drawRenderedImage(originalBufferedImage,
-                affineTransform);
+        BufferedImage resizedBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D g2d = resizedBufferedImage.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        AffineTransform affineTransform = AffineTransform.getScaleInstance(transformationScale, transformationScale);
+        g2d.drawRenderedImage(originalBufferedImage, affineTransform);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(resizedBufferedImage, "PNG", baos);
