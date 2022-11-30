@@ -28,7 +28,7 @@ public class RegisterBean implements RegisterBeanLocal {
     private EntityManager em;
 
     @Override
-    public void persist(String firstname, String lastname, String phone, String street, String houseNumber, String postalCode, String placeName, String email, String password) {
+    public void persist(String firstname, String lastname, String street, String houseNumber, String postalCode, String placeName, String email, String password) {
         place.setPostalCode(postalCode);
         place.setPlaceName(placeName);
 
@@ -38,7 +38,6 @@ public class RegisterBean implements RegisterBeanLocal {
 
         customer.setFirstName(firstname);
         customer.setLastName(lastname);
-        customer.setPhoneNumber(phone);
         customer.setEmail(email);
         customer.setPassword(password);
         customer.setAddress(address);

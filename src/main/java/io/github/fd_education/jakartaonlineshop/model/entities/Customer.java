@@ -33,9 +33,6 @@ public class Customer implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "phone")
-    private String phoneNumber;
-
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
