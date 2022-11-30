@@ -22,16 +22,9 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>signin</from-outcome>
+            <from-outcome>login</from-outcome>
             <to-view-id>
                 /login.xhtml
-            </to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>search</from-outcome>
-            <to-view-id>
-                /search.xhtml
             </to-view-id>
             <redirect/>
         </navigation-case>

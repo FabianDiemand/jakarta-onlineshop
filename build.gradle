@@ -38,7 +38,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.24")
     compileOnly("org.projectlombok:lombok:1.18.24")
 
-    implementation('org.postgresql:postgresql:42.5.0')
+    implementation('org.postgresql:postgresql:42.5.1')
 
     implementation('org.glassfish.main.core:glassfish:6.2.5')
 
