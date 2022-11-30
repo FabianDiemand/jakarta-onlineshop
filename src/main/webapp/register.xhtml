@@ -79,26 +79,17 @@
             </div>
 
             <div class="registration-block" id="customer-contact">
-                <h:outputLabel value="#{msg['mobile_number']} (optional)">
-                    <h:inputText
-                            id="mobilenumber"
-                            value="#{registerController.phone}">
-                    </h:inputText>
-                    <h:message for="mobilenumber"/>
-                </h:outputLabel>
+
 
                 <h:outputLabel value="#{msg['email']}">
                     <h:inputText
                             id="email"
                             value="#{registerController.email}"
-                            required="true"
-                            requiredMessage="#{msg['email_empty']}">
+                            validator="#{registerController.isEmail}">
                     </h:inputText>
                     <h:message for="email"/>
                 </h:outputLabel>
-            </div>
 
-            <div class="registration-block" id="customer-auth">
                 <h:outputLabel value="#{msg['password']}">
                     <h:inputSecret
                             id="password"
