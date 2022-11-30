@@ -34,6 +34,10 @@
                     value="Logged in as #{loginController.customer.firstName} #{loginController.customer.lastName}"/>
         </span>
         <h:commandButton
+                rendered="#{loginController.customer.loggedIn}"
+                action="#{loginController.logout()}"
+                image="#{resource['img:logout.png']}" />
+        <h:commandButton
             action="#{localeController.change('en')}"
             image="#{resource['img:us.gif']}" />
         <h:commandButton

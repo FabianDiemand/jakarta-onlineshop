@@ -31,7 +31,7 @@ public class LoginController implements Serializable {
     @Inject
     private Customer customer;
 
-    public String find() {
+    public String login() {
         try {
             TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.email= :email AND c.password= :password", Customer.class);
             query.setParameter("email", email);
@@ -55,5 +55,11 @@ public class LoginController implements Serializable {
         }
 
         return "/signin.jsf";
+    }
+
+    public String logout(){
+        customer.setLoggedIn(false);
+
+        return "/index.jsf";
     }
 }
