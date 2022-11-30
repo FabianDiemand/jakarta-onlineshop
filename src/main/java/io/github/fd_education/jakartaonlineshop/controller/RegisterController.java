@@ -16,11 +16,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-@Named
-@RequestScoped
+@Named @RequestScoped
 @Getter @Setter
 public class RegisterController implements Serializable {
-
     private String firstname;
     private String lastname;
     private String phone;
