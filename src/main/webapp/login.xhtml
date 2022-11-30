@@ -3,15 +3,15 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:c="http://xmlns.jcp.org/jsf/composite"
         xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <h1>
             <h:outputText value="#{msg['login']}"/>
         </h1>
-
         <h:form
-                id="loginForm"
+                id="signin_form"
                 prependId="false">
 
             <h:outputLabel value="#{msg['email']}:">
@@ -36,7 +36,15 @@
                     action="#{loginController.login()}"
                     value="#{msg['login']}"/>
             <h:message for="signin"/>
-            <h:message for="loginForm"/>
         </h:form>
+        <br/>
+        <h:message for="signin_form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+
+        <div id="not_registered">
+            <h:outputText value="#{msg['not_registered']}   "/>
+            <h:link
+                    value="#{msg['register_here']}"
+                    outcome="/register"/>
+        </div>
     </ui:define>
 </ui:composition>

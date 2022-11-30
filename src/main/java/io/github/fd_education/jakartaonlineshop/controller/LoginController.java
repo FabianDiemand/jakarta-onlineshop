@@ -38,19 +38,20 @@ public class LoginController implements Serializable {
 
             List<Customer> customers = query.getResultList();
             if(customers.isEmpty()) {
-                FacesMessage m = new FacesMessage("Signing in was not successful! Sorry, try again!");
-                FacesContext.getCurrentInstance().addMessage("signinForm", m);
+                FacesMessage m = new FacesMessage("Signin in was not successful! Sorry, try again!");
+                m.setSeverity(FacesMessage.SEVERITY_WARN);
+                FacesContext.getCurrentInstance().addMessage("signin_form", m);
             } else {
                 customer = customers.get(0);
                 FacesMessage m = new FacesMessage("Succesfully signed in! You signed in under id " + customer.getId());
 
                 customer.setLoggedIn(true);
 
-                FacesContext.getCurrentInstance().addMessage("signinForm", m);
+                FacesContext.getCurrentInstance().addMessage("signin_form", m);
             }
         } catch (Exception e) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getCause().getMessage());
-            FacesContext.getCurrentInstance().addMessage("signinForm", fm);
+            FacesContext.getCurrentInstance().addMessage("signin_form", fm);
         }
 
         return "/signin.jsf";
