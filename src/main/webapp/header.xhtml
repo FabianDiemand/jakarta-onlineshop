@@ -14,13 +14,6 @@
     </hgroup>
     <nav>
         <h:link styleClass="header-text"
-            outcome="register"
-            value="#{msg['register']}" />
-        <h:link styleClass="header-text"
-            rendered="#{!loginController.customer.loggedIn}"
-            outcome="signin"
-            value="#{msg['login']}" />
-        <h:link styleClass="header-text"
             rendered="#{loginController.customer.loggedIn}"
             outcome="sell"
             value="#{msg['sell']}" />
@@ -34,15 +27,27 @@
                     value="Logged in as #{loginController.customer.firstName} #{loginController.customer.lastName}"/>
         </span>
         <h:commandButton
+                styleClass="icon"
+                action="/index"
+                image="#{resource['img:home.png']}"/>
+        <h:commandButton
+                styleClass="icon"
                 rendered="#{loginController.customer.loggedIn}"
                 action="#{loginController.logout()}"
                 image="#{resource['img:logout.png']}" />
         <h:commandButton
-            action="#{localeController.change('en')}"
-            image="#{resource['img:us.gif']}" />
+                styleClass="icon"
+                rendered="#{!loginController.customer.loggedIn}"
+                action="/login"
+                image="#{resource['img:login.png']}" />
         <h:commandButton
-            action="#{localeController.change('de')}"
-            image="#{resource['img:de.gif']}" />
+                styleClass="flags"
+                action="#{localeController.change('en')}"
+                image="#{resource['img:us.gif']}" />
+        <h:commandButton
+                styleClass="flags"
+                action="#{localeController.change('de')}"
+                image="#{resource['img:de.gif']}" />
     </h:form>
 </header>
 </html>
