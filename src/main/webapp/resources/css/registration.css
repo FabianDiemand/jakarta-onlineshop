@@ -1,0 +1,21 @@
+.registration-block{
+    display: flex;
+}
+
+#customer-auth label{
+    margin-bottom: 0;
+}
+
+
+#customer-controls input{
+    margin-top: 0;
+}
+
+#customer-contact{
+    margin: 15px 0;
+}
+
+
+
+
+
