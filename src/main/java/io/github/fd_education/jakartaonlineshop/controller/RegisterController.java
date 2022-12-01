@@ -55,12 +55,12 @@ public class RegisterController implements Serializable {
             FacesMessage fm = new FacesMessage(bundle.getString("email_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
-        } else if(!Pattern.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", value)){
+        }
+
+        if(!Pattern.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", value)){
             FacesMessage fm = new FacesMessage(bundle.getString("email_invalid"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
-        } else {
-            fc.getMessages().remove();
         }
     }
 
