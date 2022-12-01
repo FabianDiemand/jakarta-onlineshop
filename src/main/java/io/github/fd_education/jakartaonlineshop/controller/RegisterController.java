@@ -45,7 +45,7 @@ public class RegisterController implements Serializable {
         return "/register.jsf";
     }
 
-    public void isEmail(FacesContext fc, UIComponent uic, Object obj) throws ValidatorException {
+    public void isEmail(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) throws ValidatorException {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -55,16 +55,16 @@ public class RegisterController implements Serializable {
             FacesMessage fm = new FacesMessage(bundle.getString("email_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
-        }
-
-        if(!Pattern.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", value)){
+        } else if(!Pattern.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", value)){
             FacesMessage fm = new FacesMessage(bundle.getString("email_invalid"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
+        } else {
+            fc.getMessages().remove();
         }
     }
 
-    public void isStrongPassword(FacesContext fc, UIComponent uic, Object obj) throws ValidatorException {
+    public void isStrongPassword(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) throws ValidatorException {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -76,6 +76,7 @@ public class RegisterController implements Serializable {
             throw new ValidatorException(fm);
         }
 
+        //noinspection RegExpRedundantNestedCharacterClass
         if(!Pattern.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$", value)){
             FacesMessage fm = new FacesMessage(bundle.getString("password_weak"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
@@ -83,7 +84,7 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void verifyPassword(FacesContext fc, UIComponent uic, Object obj) {
+    public void verifyPassword(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -96,7 +97,7 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void isPlace(FacesContext fc, UIComponent uic, Object obj) {
+    public void isPlace(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -109,7 +110,7 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void isPostalCode(FacesContext fc, UIComponent uic, Object obj) {
+    public void isPostalCode(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -122,7 +123,7 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void isHouseNumber(FacesContext fc, UIComponent uic, Object obj) {
+    public void isHouseNumber(FacesContext fc, @SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -135,7 +136,7 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void isStreet(FacesContext fc, UIComponent uic, Object obj) {
+    public void isStreet(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -148,7 +149,8 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void isLastName(FacesContext fc, UIComponent uic, Object obj) {
+
+    public void isLastName(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();
@@ -161,7 +163,8 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void isFirstName(FacesContext fc, UIComponent uic, Object obj) {
+
+    public void isFirstName(FacesContext fc, @SuppressWarnings("unused") UIComponent ignored_, Object obj) {
         String value = (String) obj;
 
         Locale locale = fc.getViewRoot().getLocale();

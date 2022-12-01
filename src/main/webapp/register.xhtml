@@ -2,8 +2,7 @@
         template="/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:f="http://xmlns.jcp.org/jsf/core">
+        xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="content">
 
         <h1>
@@ -90,6 +89,9 @@
                             value="#{registerController.password}"
                             validator="#{registerController.isStrongPassword}">
                     </h:inputSecret>
+                    <pre>
+                        <h:outputText value="#{msg['password_rules']}"/>
+                    </pre>
                 </h:outputLabel>
 
                 <h:outputLabel value="#{msg['password_repeat']}">
@@ -102,7 +104,7 @@
                 <h:message for="registration-form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
             </div>
 
-            <div class="registration-block" id="customer-controlls">
+            <div class="registration-block" id="customer-controls">
                 <h:commandButton
                         id="register"
                         action="#{registerController.persist()}"
