@@ -2,3 +2,7 @@
     margin-top: 30px;
     font-size: 1.2rem;
 }
+
+#signin_form input {
+    margin: 0 0 10px 0;
+}

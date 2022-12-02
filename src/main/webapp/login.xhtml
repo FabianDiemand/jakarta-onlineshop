@@ -3,12 +3,14 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <h1>
             <h:outputText value="#{msg['login']}"/>
         </h1>
+        <h:message for="signin_form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+
         <h:form
                 id="signin_form"
                 prependId="false">
@@ -37,7 +39,6 @@
             <h:message for="signin"/>
         </h:form>
         <br/>
-        <h:message for="signin_form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
 
         <div id="not_registered">
             <h:outputText value="#{msg['not_registered']}   "/>
