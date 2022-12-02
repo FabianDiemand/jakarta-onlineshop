@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -90,7 +91,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(!Objects.equals(value, password)){
             FacesMessage fm = new FacesMessage(bundle.getString("passwords_not_matching"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
@@ -103,7 +104,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(value.isEmpty()){
             FacesMessage fm = new FacesMessage(bundle.getString("place_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
@@ -116,7 +117,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(value.isEmpty()){
             FacesMessage fm = new FacesMessage(bundle.getString("postal_code_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
@@ -129,7 +130,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(value.isEmpty()){
             FacesMessage fm = new FacesMessage(bundle.getString("house_number_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
@@ -142,7 +143,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(value.isEmpty()){
             FacesMessage fm = new FacesMessage(bundle.getString("street_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
@@ -156,7 +157,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(value.isEmpty()){
             FacesMessage fm = new FacesMessage(bundle.getString("lastname_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
@@ -170,7 +171,7 @@ public class RegisterController implements Serializable {
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!value.equals(password)){
+        if(value.isEmpty()){
             FacesMessage fm = new FacesMessage(bundle.getString("firstname_empty"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
