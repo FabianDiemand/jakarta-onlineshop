@@ -2,7 +2,7 @@
         template="/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://xmlns.jcp.org/jsf/html">
+        xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
@@ -81,11 +81,13 @@
                 </h:outputLabel>
             </div>
 
+            <!--@elvariable id="passwordComponent" type="jakarta.faces.component"-->
             <div class="registration-block" id="customer-auth">
                 <h:outputLabel value="#{msg['password']}">
-                    <h:message for="password" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                    <h:message for="password"  infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputSecret
                             id="password"
+                            binding="#{passwordComponent}"
                             value="#{registerController.password}"
                             validator="#{registerController.isStrongPassword}">
                     </h:inputSecret>
@@ -94,11 +96,12 @@
                     </pre>
                 </h:outputLabel>
 
-                <h:outputLabel value="#{msg['password_repeat']}">
-                    <h:message for="password_repeat" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:outputLabel value="#{msg['password_confirmation']}">
+                    <h:message for="password_confirmation" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputSecret
-                            id="password_repeat"
-                            validator="#{registerController.verifyPassword}">
+                            id="password_confirmation"
+                            validator="#{registerController.confirmPassword}">
+                        <f:attribute name="password" value="#{passwordComponent.value}"/>
                     </h:inputSecret>
                 </h:outputLabel>
                 <h:message for="registration-form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>

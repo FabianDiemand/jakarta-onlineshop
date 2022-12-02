@@ -85,13 +85,15 @@ public class RegisterController implements Serializable {
         }
     }
 
-    public void verifyPassword(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) {
+    public void confirmPassword(FacesContext fc, UIComponent uic, Object obj) {
         String value = (String) obj;
+
+        String otherPassword = (String) uic.getAttributes().get("password");
 
         Locale locale = fc.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
-        if(!Objects.equals(value, password)){
+        if(!Objects.equals(value, otherPassword)){
             FacesMessage fm = new FacesMessage(bundle.getString("passwords_not_matching"));
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
