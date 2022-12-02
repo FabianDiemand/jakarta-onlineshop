@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html">
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html">
 <header>
     <!--@elvariable id="msg" type="java.util.Map"-->
     <hgroup>
         <h1 class="title">
             <h:link styleClass="header-text"
                     outcome="index"
-                    value="#{msg['title']}" />
+                    value="#{msg['title']}"/>
         </h1>
     </hgroup>
-    <nav>
-        <h:link styleClass="header-text"
-            rendered="#{loginController.customer.loggedIn}"
-            outcome="sell"
-            value="#{msg['sell']}" />
-    </nav>
 
-
-    <h:form>
-        <span class="header-text">
+    <span class="header-text">
             <h:outputText
                     rendered="#{loginController.customer.loggedIn}"
                     value="Logged in as #{loginController.customer.firstName} #{loginController.customer.lastName}"/>
         </span>
+
+    <h:form id="navigation">
         <h:commandButton
                 styleClass="icon"
                 action="/index"
@@ -33,21 +27,36 @@
         <h:commandButton
                 styleClass="icon"
                 rendered="#{loginController.customer.loggedIn}"
-                action="#{loginController.logout()}"
-                image="#{resource['img:logout.png']}" />
+                action="/sell"
+                image="#{resource['img:sell.png']}"/>
+        <h:commandButton
+                styleClass="icon"
+                rendered="#{loginController.customer.loggedIn}"
+                action="/cart"
+                image="#{resource['img:cart.png']}"/>
+        <h:commandButton
+                styleClass="icon"
+                rendered="#{loginController.customer.loggedIn}"
+                action="/profile"
+                image="#{resource['img:profile.png']}"/>
+        <h:commandButton
+                styleClass="icon"
+                rendered="#{loginController.customer.loggedIn}"
+                action="#{loginController.logout}"
+                image="#{resource['img:logout.png']}"/>
         <h:commandButton
                 styleClass="icon"
                 rendered="#{!loginController.customer.loggedIn}"
                 action="/login"
-                image="#{resource['img:login.png']}" />
+                image="#{resource['img:login.png']}"/>
         <h:commandButton
                 styleClass="flags"
                 action="#{localeController.change('en')}"
-                image="#{resource['img:us.gif']}" />
+                image="#{resource['img:us.gif']}"/>
         <h:commandButton
                 styleClass="flags"
                 action="#{localeController.change('de')}"
-                image="#{resource['img:de.gif']}" />
+                image="#{resource['img:de.gif']}"/>
     </h:form>
 </header>
 </html>

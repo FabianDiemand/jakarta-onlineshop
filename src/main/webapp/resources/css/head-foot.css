@@ -54,6 +54,11 @@ a:hover {
   text-shadow: 0 0 20px white, 0 0 20px white;
 }
 
+#navigation{
+  display: flex;
+  align-items: center;
+}
+
 body > footer{
   justify-content: end;
   color: white;
