@@ -2,10 +2,17 @@
     display: flex;
 }
 
+#registration-title{
+    padding-bottom: 5px;
+}
+
+#registration-form{
+    padding-top: 20px;
+}
+
 #customer-auth label{
     margin-bottom: 0;
 }
-
 
 #customer-controls input{
     margin-top: 0;
@@ -13,6 +20,13 @@
 
 #customer-contact{
     margin: 15px 0;
+}
+
+#registration-feedback{
+    padding: 0;
+    margin: 0;
+
+    font-size: 1.2rem;
 }
 
 

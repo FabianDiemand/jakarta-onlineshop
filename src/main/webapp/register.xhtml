@@ -6,11 +6,12 @@
 
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
-        <h1>
+        <h1 id="registration-title">
             <h:outputText value="#{msg['register']}"/>
         </h1>
-        <h:form id="registration-form" prependId="false">
+        <h:message for="registration-form" id="registration-feedback" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
 
+        <h:form id="registration-form" prependId="false">
             <div class="registration-block" id="customer-name">
                 <h:outputLabel for="firstname" value="#{msg['firstname']}">
                     <h:message for="firstname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
@@ -104,7 +105,6 @@
                         <f:attribute name="password" value="#{passwordComponent.value}"/>
                     </h:inputSecret>
                 </h:outputLabel>
-                <h:message for="registration-form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
             </div>
 
             <div class="registration-block" id="customer-controls">
@@ -118,8 +118,6 @@
                         outcome="/index.jsf"
                         value="#{msg['cancel']}"/>
             </div>
-            <h:message for="registration-form" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-
         </h:form>
     </ui:define>
 </ui:composition>

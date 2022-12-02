@@ -33,17 +33,25 @@ public class RegisterController implements Serializable {
     RegisterBeanLocal registerBeanLocal;
 
     public String persist() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Locale locale = context.getViewRoot().getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+
         try {
             registerBeanLocal.persist(firstname, lastname, street, houseNumber, postalCode, placeName, email, password);
 
-            FacesMessage m = new FacesMessage("Successfully registered.");
-            FacesContext.getCurrentInstance().addMessage("registerForm", m);
+            FacesMessage m = new FacesMessage(bundle.getString("register_success"));
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            context.addMessage("registration-form", m);
+
         } catch(Exception e){
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getCause().getMessage());
-            FacesContext.getCurrentInstance().addMessage("registerForm", fm);
+            FacesMessage fm = new FacesMessage(bundle.getString("register_failure"));
+            fm.setSeverity(FacesMessage.SEVERITY_WARN);
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            context.addMessage("registration-form", fm);
         }
 
-        return "/register.jsf";
+        return "/register.jsf?faces-redirect=true";
     }
 
     public void isEmail(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) throws ValidatorException {
