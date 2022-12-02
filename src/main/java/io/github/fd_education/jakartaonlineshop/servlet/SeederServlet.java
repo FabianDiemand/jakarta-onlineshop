@@ -1,6 +1,5 @@
 package io.github.fd_education.jakartaonlineshop.servlet;
 
-import io.github.fd_education.jakartaonlineshop.controller.SellController;
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Place;
@@ -18,7 +17,7 @@ public class SeederServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final static Logger log = Logger
-            .getLogger(SellController.class.toString());
+            .getLogger(SeederServlet.class.toString());
 
     @PersistenceContext
     private EntityManager em;
