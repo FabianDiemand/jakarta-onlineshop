@@ -81,12 +81,12 @@
 
             <div class="profile-block" id="profile-controls">
                 <h:commandButton
-                        id="register"
-                        action="#{registerController.persist()}"
-                        value="#{msg['register']}"/>
-                <h:message for="register"/>
+                        id="profile-update"
+                        action=""
+                        value="#{msg['update_profile']}"/>
+                <h:message for="profile-update"/>
                 <h:button
-                        id="cancel"
+                        id="profile-cancel"
                         outcome="/index.jsf"
                         value="#{msg['cancel']}"/>
             </div>
