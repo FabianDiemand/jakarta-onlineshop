@@ -217,6 +217,6 @@ public class RegisterController implements Serializable {
         TypedQuery<Customer> query = em.createNamedQuery("Customer.findByEmail", Customer.class);
         query.setParameter("email", email);
 
-        return query.getSingleResult() != null;
+        return !query.getResultList().isEmpty();
     }
 }
