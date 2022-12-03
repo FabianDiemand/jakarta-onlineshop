@@ -13,6 +13,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.UserTransaction;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +47,14 @@ public class RegisterController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+
+        if(isExistingCustomer(customer.getEmail())){
+            FacesMessage m = new FacesMessage(bundle.getString("customer_exists"));
+            m.setSeverity(FacesMessage.SEVERITY_WARN);
+            context.addMessage("registration-form", m);
+
+            return "/register.jsf";
+        }
 
         try {
             ut.begin();
@@ -202,5 +211,12 @@ public class RegisterController implements Serializable {
             fm.setSeverity(FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
         }
+    }
+
+    private boolean isExistingCustomer(String email){
+        TypedQuery<Customer> query = em.createNamedQuery("Customer.findByEmail", Customer.class);
+        query.setParameter("email", email);
+
+        return query.getSingleResult() != null;
     }
 }
