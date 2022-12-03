@@ -21,40 +21,50 @@
 
     <h:form id="navigation">
         <h:commandButton
+                title="#{msg['home']}"
                 styleClass="icon"
                 action="/index"
                 image="#{resource['img:home.png']}"/>
         <h:commandButton
+                title="#{msg['sell']}"
                 styleClass="icon"
                 rendered="#{loginController.customer.loggedIn}"
                 action="/sell"
                 image="#{resource['img:sell.png']}"/>
         <h:commandButton
+                title="#{msg['cart']}"
                 styleClass="icon"
                 rendered="#{loginController.customer.loggedIn}"
                 action="/cart"
                 image="#{resource['img:cart.png']}"/>
         <h:commandButton
+                title="#{msg['profile']}"
                 styleClass="icon"
                 rendered="#{loginController.customer.loggedIn}"
                 action="/profile"
                 image="#{resource['img:profile.png']}"/>
         <h:commandButton
+                title="#{msg['logout']}"
                 styleClass="icon"
                 rendered="#{loginController.customer.loggedIn}"
                 action="#{loginController.logout}"
                 image="#{resource['img:logout.png']}"/>
         <h:commandButton
+                title="#{msg['login']}"
                 styleClass="icon"
                 rendered="#{!loginController.customer.loggedIn}"
                 action="/login"
                 image="#{resource['img:login.png']}"/>
         <h:commandButton
+                title="#{msg['english']}"
                 styleClass="flags"
+                rendered="#{localeController.lang != 'en'}"
                 action="#{localeController.change('en')}"
                 image="#{resource['img:us.gif']}"/>
         <h:commandButton
+                title="#{msg['german']}"
                 styleClass="flags"
+                rendered="#{localeController.lang != 'de'}"
                 action="#{localeController.change('de')}"
                 image="#{resource['img:de.gif']}"/>
     </h:form>
