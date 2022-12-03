@@ -1,0 +1,18 @@
+#profile-form{
+    padding-top: 20px;
+}
+
+.profile-block{
+    display: flex;
+}
+
+#profile-title{
+    padding-bottom: 5px;
+}
+
+#profile-feedback{
+    padding: 0;
+    margin: 0;
+
+    font-size: 1.2rem;
+}

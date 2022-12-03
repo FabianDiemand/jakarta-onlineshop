@@ -6,7 +6,7 @@
         xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
-        <h1>
+        <h1 id="profile-title">
             <h:outputText value="#{msg['profile']}"/>
         </h1>
         <h:message for="profile-form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
