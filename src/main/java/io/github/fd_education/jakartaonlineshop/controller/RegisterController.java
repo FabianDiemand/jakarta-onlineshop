@@ -1,14 +1,19 @@
 package io.github.fd_education.jakartaonlineshop.controller;
 
-import io.github.fd_education.jakartaonlineshop.ejb.register.RegisterBeanLocal;
-import io.github.fd_education.jakartaonlineshop.utils.HashingUtil;
-import jakarta.ejb.EJB;
+import io.github.fd_education.jakartaonlineshop.model.entities.Address;
+import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
+import io.github.fd_education.jakartaonlineshop.model.entities.Place;
+import jakarta.annotation.Resource;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.ValidatorException;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.UserTransaction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,17 +26,21 @@ import java.util.regex.Pattern;
 @Named @RequestScoped
 @Getter @Setter
 public class RegisterController implements Serializable {
-    private String firstname;
-    private String lastname;
-    private String street;
-    private String houseNumber;
-    private String postalCode;
-    private String placeName;
-    private String email;
-    private String password;
 
-    @EJB
-    RegisterBeanLocal registerBeanLocal;
+    @PersistenceContext
+    private EntityManager em;
+
+    @Resource
+    private UserTransaction ut;
+
+    @Inject
+    private Customer customer;
+
+    @Inject
+    private Address address;
+
+    @Inject
+    private Place place;
 
     public String persist() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -39,9 +48,13 @@ public class RegisterController implements Serializable {
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         try {
-            String passwordHash = HashingUtil.getHash(password);
+            ut.begin();
 
-            registerBeanLocal.persist(firstname, lastname, street, houseNumber, postalCode, placeName, email, passwordHash);
+            address.setPlace(place);
+            customer.setAddress(address);
+            em.persist(customer);
+
+            ut.commit();
 
             FacesMessage m = new FacesMessage(bundle.getString("register_success"));
             context.getExternalContext().getFlash().setKeepMessages(true);

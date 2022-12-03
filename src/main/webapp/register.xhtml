@@ -17,7 +17,7 @@
                     <h:message for="firstname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="firstname"
-                            value="#{registerController.firstname}"
+                            value="#{registerController.customer.firstName}"
                             validator="#{registerController.isFirstName}"/>
                 </h:outputLabel>
 
@@ -25,7 +25,7 @@
                     <h:message for="lastname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="lastname"
-                            value="#{registerController.lastname}"
+                            value="#{registerController.customer.lastName}"
                             validator="#{registerController.isLastName}">
                     </h:inputText>
                 </h:outputLabel>
@@ -36,7 +36,7 @@
                     <h:message for="street" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="street"
-                            value="#{registerController.street}"
+                            value="#{registerController.address.streetname}"
                             validator="#{registerController.isStreet}">
                     </h:inputText>
                 </h:outputLabel>
@@ -45,7 +45,7 @@
                     <h:message for="house_number" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="house_number"
-                            value="#{registerController.houseNumber}"
+                            value="#{registerController.address.housenumber}"
                             validator="#{registerController.isHouseNumber}">
                     </h:inputText>
                 </h:outputLabel>
@@ -56,7 +56,7 @@
                     <h:message for="postal_code" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="postal_code"
-                            value="#{registerController.postalCode}"
+                            value="#{registerController.place.postalCode}"
                             validator="#{registerController.isPostalCode}">
                     </h:inputText>
                 </h:outputLabel>
@@ -65,7 +65,7 @@
                     <h:message for="place" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="place"
-                            value="#{registerController.placeName}"
+                            value="#{registerController.place.placeName}"
                             validator="#{registerController.isPlace}">
                     </h:inputText>
                 </h:outputLabel>
@@ -76,7 +76,7 @@
                     <h:message for="email" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="email"
-                            value="#{registerController.email}"
+                            value="#{registerController.customer.email}"
                             validator="#{registerController.isEmail}">
                     </h:inputText>
                 </h:outputLabel>
@@ -89,7 +89,7 @@
                     <h:inputSecret
                             id="password"
                             binding="#{passwordComponent}"
-                            value="#{registerController.password}"
+                            value="#{registerController.customer.password}"
                             validator="#{registerController.isStrongPassword}">
                     </h:inputSecret>
                     <pre>

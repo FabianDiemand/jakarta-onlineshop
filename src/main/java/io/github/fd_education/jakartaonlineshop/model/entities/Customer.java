@@ -1,5 +1,6 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
+import io.github.fd_education.jakartaonlineshop.utils.HashingUtil;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,9 +11,17 @@ import java.util.Objects;
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name = "customer", schema = "onlineshop")
-@NamedQuery(
-        name = "Customer.findAll",
-        query = "SELECT c FROM Customer c"
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "Customer.findAll",
+                        query = "SELECT c FROM Customer c"
+                ),
+                @NamedQuery(
+                        name = "Customer.findByEmail",
+                        query = "SELECT c FROM Customer c WHERE c.email = :email "
+                )
+        }
 )
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -34,6 +43,7 @@ public class Customer implements Serializable {
     private String email;
 
     @Column(name = "password", nullable = false, unique = true)
+    @Setter(AccessLevel.NONE)
     private String password;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -41,13 +51,19 @@ public class Customer implements Serializable {
     private Address address;
 
     @OneToMany(mappedBy = "seller")
+    @ToString.Exclude
     private List<Product> offers;
 
     @OneToMany(mappedBy = "buyer")
+    @ToString.Exclude
     private List<Product> orders;
 
     @Transient
     private boolean loggedIn = false;
+
+    public void setPassword(String password){
+        this.password = HashingUtil.getHash(password);
+    }
 
     @Override
     public boolean equals(Object o) {
