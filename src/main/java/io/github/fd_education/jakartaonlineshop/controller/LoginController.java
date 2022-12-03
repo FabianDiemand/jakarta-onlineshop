@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -38,29 +37,22 @@ public class LoginController implements Serializable {
     private Customer customer;
 
     public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Locale locale = context.getViewRoot().getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+
         try {
-            String passwordHash = HashingUtil.getHash(password);
-            log.severe(passwordHash);
-
-            TypedQuery<Customer> query = em.createQuery(
-                    "SELECT c FROM Customer c WHERE c.email= :email AND c.password= :passwordHash", Customer.class);
-
+            TypedQuery<Customer> query = em.createNamedQuery("Customer.findByEmail", Customer.class);
             query.setParameter("email", email);
-            query.setParameter("passwordHash", passwordHash);
-            List<Customer> customers = query.getResultList();
+            customer = query.getSingleResult();
 
-            FacesContext context = FacesContext.getCurrentInstance();
-            Locale locale = context.getViewRoot().getLocale();
-            ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
-
-            if(customers.isEmpty()) {
+            if(HashingUtil.isMatchingHash(password, customer.getPassword())){
+                customer.setLoggedIn(true);
+                return "/index.jsf";
+            } else {
                 FacesMessage m = new FacesMessage(bundle.getString("signin_failure"));
                 m.setSeverity(FacesMessage.SEVERITY_WARN);
                 FacesContext.getCurrentInstance().addMessage("signin_form", m);
-            } else {
-                customer = customers.get(0);
-                customer.setLoggedIn(true);
-                return "/index.jsf";
             }
         } catch (Exception e) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getCause().getMessage());
