@@ -1,6 +1,7 @@
 package io.github.fd_education.jakartaonlineshop.controller;
 
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
+import io.github.fd_education.jakartaonlineshop.utils.HashingUtil;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -16,11 +17,15 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 @Named @SessionScoped
 @Setter @Getter
 public class LoginController implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    private final static Logger log = Logger
+            .getLogger(LoginController.class.toString());
 
     @PersistenceContext
     private EntityManager em;
@@ -34,11 +39,14 @@ public class LoginController implements Serializable {
 
     public String login() {
         try {
+            String passwordHash = HashingUtil.getHash(password);
+            log.severe(passwordHash);
+
             TypedQuery<Customer> query = em.createQuery(
-                    "SELECT c FROM Customer c WHERE c.email= :email AND c.password= :password", Customer.class);
+                    "SELECT c FROM Customer c WHERE c.email= :email AND c.password= :passwordHash", Customer.class);
 
             query.setParameter("email", email);
-            query.setParameter("password", password);
+            query.setParameter("passwordHash", passwordHash);
             List<Customer> customers = query.getResultList();
 
             FacesContext context = FacesContext.getCurrentInstance();

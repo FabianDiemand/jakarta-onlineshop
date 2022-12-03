@@ -1,6 +1,7 @@
 package io.github.fd_education.jakartaonlineshop.controller;
 
 import io.github.fd_education.jakartaonlineshop.ejb.register.RegisterBeanLocal;
+import io.github.fd_education.jakartaonlineshop.utils.HashingUtil;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -38,7 +39,9 @@ public class RegisterController implements Serializable {
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         try {
-            registerBeanLocal.persist(firstname, lastname, street, houseNumber, postalCode, placeName, email, password);
+            String passwordHash = HashingUtil.getHash(password);
+
+            registerBeanLocal.persist(firstname, lastname, street, houseNumber, postalCode, placeName, email, passwordHash);
 
             FacesMessage m = new FacesMessage(bundle.getString("register_success"));
             context.getExternalContext().getFlash().setKeepMessages(true);
