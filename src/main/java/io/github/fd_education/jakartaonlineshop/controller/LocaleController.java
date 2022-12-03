@@ -10,7 +10,7 @@ import jakarta.inject.Named;
 public class LocaleController implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String lang = "de_DE";
+    private String lang = "de";
 
     public String getLang() {
         return lang;
