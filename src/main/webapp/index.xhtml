@@ -2,7 +2,7 @@
         template="/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://xmlns.jcp.org/jsf/html">
+        xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <h1>
@@ -12,15 +12,46 @@
         <h:form>
             <h:dataTable
                     value="#{productsController.products}"
-                    var="product">
+                    var="product"
+                    styleClass="product-list">
                 <h:column>
-                    <h:graphicImage url="image?id=#{product.id}"/>
-                    <h:outputText styleClass="product-title" value="#{product.name}"/>
-                    <h:outputText styleClass="product-description" value="#{product.description}"/>
-                    <h:outputText styleClass="product-price" value="#{product.price}"/>
-                    <h:commandButton
-                            value="#{msg['buy']}"
-                            action="#{buyController.update(product.id)}"/>
+                    <div class="product">
+                        <h:graphicImage url="image?id=#{product.id}"/>
+                        <div class="product-details">
+
+                            <div class="details-topgroup">
+                                <h:outputText styleClass="product-title" value="#{product.name}"/>
+                                <h:outputText styleClass="product-description" value="#{product.description}"/>
+                            </div>
+
+                            <div class="details-bottomgroup">
+                                <h:outputText styleClass="product-price"
+                                              value="CHF #{product.price}">
+                                        <f:convertNumber
+                                            minFractionDigits="2"/>
+                                </h:outputText>
+                                <div class="product-controls">
+                                    <h:commandButton
+                                            title="#{msg['buy']}"
+                                            styleClass="product-icon"
+                                            action="#{buyController.update(product.id)}"
+                                            image="#{resource['img:cart_black.png']}"/>
+                                    <h:commandButton
+                                            title="#{msg['mark']}"
+                                            styleClass="product-icon"
+                                            rendered="#{true}"
+                                            action="#{buyController.update(product.id)}"
+                                            image="#{resource['img:heart_notactive.png']}"/>
+                                    <h:commandButton
+                                            title="#{msg['mark']}"
+                                            styleClass="product-icon"
+                                            rendered="#{false}"
+                                            action="#{buyController.update(product.id)}"
+                                            image="#{resource['img:heart_active.png']}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </h:column>
             </h:dataTable>
         </h:form>
