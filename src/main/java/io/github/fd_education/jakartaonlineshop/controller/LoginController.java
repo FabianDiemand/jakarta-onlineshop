@@ -36,6 +36,9 @@ public class LoginController implements Serializable {
     @Inject
     private Customer customer;
 
+    @Inject
+    private ProfileController profileController;
+
     public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
@@ -47,16 +50,17 @@ public class LoginController implements Serializable {
             customer = query.getSingleResult();
 
             if(HashingUtil.isMatchingHash(password, customer.getPassword())){
+                profileController.initializeProfile(customer.getId());
                 customer.setLoggedIn(true);
                 return "/index.jsf";
             } else {
                 FacesMessage m = new FacesMessage(bundle.getString("signin_failure"));
                 m.setSeverity(FacesMessage.SEVERITY_WARN);
-                FacesContext.getCurrentInstance().addMessage("signin_form", m);
+                context.addMessage("signin_form", m);
             }
         } catch (Exception e) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getCause().getMessage());
-            FacesContext.getCurrentInstance().addMessage("signin_form", fm);
+            context.addMessage("signin_form", fm);
         }
 
         return "/signin.jsf";

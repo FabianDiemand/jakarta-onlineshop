@@ -3,32 +3,30 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+>
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <h1 id="profile-title">
-            <h:outputText value="#{msg['profile']}"/>
+            <h:outputText value="#{msg['profile.page_title']}"/>
         </h1>
-        <h:message for="profile-form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
+        <h:message for="profile_form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
                    fatalClass="fatal"/>
 
-        <h:form id="profile-form" prependId="false">
+        <h:form id="profile_form" prependId="false">
             <div class="profile-block" id="profile-customer-name">
                 <h:outputLabel for="profile-firstname" value="#{msg['firstname']}">
                     <h:message for="profile-firstname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                         id="profile-firstname"
-                        value=""
-                        validator="#{registerController.isFirstName}"
-                        a:placeholder="#{loginController.customer.firstName}"/>
+                        value="#{profileController.customer.firstName}"
+                        validator="#{registerController.isFirstName}"/>
                 </h:outputLabel>
                 <h:outputLabel for="profile-lastname" value="#{msg['lastname']}">
                     <h:message for="profile-lastname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="profile-lastname"
-                            value=""
-                            validator="#{registerController.isLastName}"
-                            a:placeholder="#{loginController.customer.lastName}"/>
+                            value="#{profileController.customer.lastName}"
+                            validator="#{registerController.isLastName}"/>
                 </h:outputLabel>
             </div>
             <div class="profile-block" id="profile-customer-address-street">
@@ -36,17 +34,15 @@
                     <h:message for="profile-streetname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="profile-streetname"
-                            value=""
-                            validator="#{registerController.isStreet}"
-                            a:placeholder="#{loginController.customer.address.streetname}"/>
+                            value="#{profileController.address.streetname}"
+                            validator="#{registerController.isStreet}"/>
                 </h:outputLabel>
                 <h:outputLabel for="profile-house_number" value="#{msg['house_number']}">
                     <h:message for="profile-house_number" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="profile-house_number"
-                            value=""
-                            validator="#{registerController.isHouseNumber}"
-                            a:placeholder="#{loginController.customer.address.housenumber}"/>
+                            value="#{profileController.address.housenumber}"
+                            validator="#{registerController.isHouseNumber}"/>
                 </h:outputLabel>
             </div>
             <div class="profile-block" id="profile-customer-address-place">
@@ -54,17 +50,15 @@
                     <h:message for="profile-postal_code" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="profile-postal_code"
-                            value=""
-                            validator="#{registerController.isPostalCode}"
-                            a:placeholder="#{loginController.customer.address.place.postalCode}"/>
+                            value="#{profileController.place.postalCode}"
+                            validator="#{registerController.isPostalCode}"/>
                 </h:outputLabel>
                 <h:outputLabel for="profile-place" value="#{msg['place']}">
                     <h:message for="profile-place" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="profile-place"
-                            value=""
-                            validator="#{registerController.isPlace}"
-                            a:placeholder="#{loginController.customer.address.place.placeName}"/>
+                            value="#{profileController.place.placeName}"
+                            validator="#{registerController.isPlace}"/>
                 </h:outputLabel>
             </div>
             <div class="profile-block" id="profile-customer-email">
@@ -72,9 +66,8 @@
                     <h:message for="email" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                     <h:inputText
                             id="email"
-                            value=""
-                            validator="#{registerController.isEmail}"
-                            a:placeholder="#{loginController.customer.email}">
+                            value="#{profileController.customer.email}"
+                            validator="#{registerController.isEmail}">
                     </h:inputText>
                 </h:outputLabel>
             </div>
@@ -82,7 +75,7 @@
             <div class="profile-block" id="profile-controls">
                 <h:commandButton
                         id="profile-update"
-                        action=""
+                        action="#{profileController.updateCustomer()}"
                         value="#{msg['update_profile']}"/>
                 <h:message for="profile-update"/>
                 <h:button
