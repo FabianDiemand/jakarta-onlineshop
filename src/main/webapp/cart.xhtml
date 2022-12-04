@@ -2,9 +2,13 @@
         template="/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
->
+        xmlns:h="http://java.sun.com/jsf/html">
    <ui:define name="content">
       <!--@elvariable id="msg" type="java.util.Map"-->
+      <!--@elvariable id="msg" type="java.util.Map"-->
+      <h1>
+         <h:outputText value="#{msg['cart']}"/>
+      </h1>
 
    </ui:define>
 </ui:composition>
