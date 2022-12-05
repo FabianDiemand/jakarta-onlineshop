@@ -46,12 +46,8 @@ public class CartController implements Serializable {
         return cart != null && !cart.isEmpty();
     }
 
-    private void calculateSum(){
-        if(cart == null || cart.isEmpty()){
-            sum = 0;
-        } else {
-            sum = cart.stream().mapToDouble(Product::getPrice).sum();
-        }
+    public void printCart(){
+        log.info(cart.toString());
     }
 
     public void removeFromCart(Product product) {
@@ -63,4 +59,21 @@ public class CartController implements Serializable {
             log.info("COMPLETED: Removed " + product + " from cart.");
         }
     }
+
+    public boolean containsProduct(Product product){
+        if(cart != null && !cart.isEmpty()){
+            return cart.contains(product);
+        }
+
+        return false;
+    }
+
+    private void calculateSum(){
+        if(cart == null || cart.isEmpty()){
+            sum = 0;
+        } else {
+            sum = cart.stream().mapToDouble(Product::getPrice).sum();
+        }
+    }
+
 }
