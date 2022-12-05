@@ -8,9 +8,13 @@ import lombok.Getter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Named @SessionScoped
 public class CartController implements Serializable {
+
+    private final static Logger log = Logger
+            .getLogger(CartController.class.toString());
 
     @Getter
     private List<Product> cart;
@@ -18,11 +22,18 @@ public class CartController implements Serializable {
     private double sum;
 
     public void addToCart(Product product){
+
+        log.info("CALLED: Add " + product + " to cart.");
+
         if(cart == null){
             cart = new ArrayList<>();
         }
 
-        cart.add(product);
+        if(!cart.contains(product)){
+            cart.add(product);
+        }
+
+        log.info("COMPLETED: Added " + product + " to cart.");
     }
 
     public double getSum(){
@@ -40,6 +51,16 @@ public class CartController implements Serializable {
             sum = 0;
         } else {
             sum = cart.stream().mapToDouble(Product::getPrice).sum();
+        }
+    }
+
+    public void removeFromCart(Product product) {
+        log.info("CALLED: Remove " + product + " from cart.");
+
+        if(cart != null && !cart.isEmpty()){
+            cart.remove(product);
+
+            log.info("COMPLETED: Removed " + product + " from cart.");
         }
     }
 }
