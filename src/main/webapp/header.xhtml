@@ -16,7 +16,7 @@
     <span class="header-text">
             <h:outputText
                     rendered="#{loginController.customer.loggedIn}"
-                    value="Logged in as #{loginController.customer.firstName} #{loginController.customer.lastName}"/>
+                    value="#{msg['logged_in_as']} #{loginController.customer.firstName} #{loginController.customer.lastName}"/>
         </span>
 
     <h:form id="navigation">
