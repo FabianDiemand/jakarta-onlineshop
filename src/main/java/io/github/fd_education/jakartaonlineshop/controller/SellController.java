@@ -97,7 +97,7 @@ public class SellController implements Serializable {
         int width = (int) Math.round(transformationScale * originalWidth);
         int height = (int) Math.round(transformationScale * originalHeight);
 
-        BufferedImage resizedBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage resizedBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2d = resizedBufferedImage.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
