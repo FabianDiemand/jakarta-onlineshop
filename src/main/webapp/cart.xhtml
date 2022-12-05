@@ -10,6 +10,10 @@
                 <h:outputText value="#{msg['cart']}"/>
             </h1>
 
+            <h:outputText id="empty_cart"
+                          rendered="#{!cartController.hasProducts()}"
+                          value="#{msg['empty_cart']}"/>
+
             <h:form>
                 <h:dataTable
                         value="#{cartController.cart}"

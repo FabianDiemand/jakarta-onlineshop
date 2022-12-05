@@ -2,6 +2,15 @@
     text-align: center;
 }
 
+#empty_cart{
+    align-self: center;
+    margin-top: 30px;
+
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: lightgray;
+}
+
 #cart-content{
     display: flex;
     flex-direction: column;
