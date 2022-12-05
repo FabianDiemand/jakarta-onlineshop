@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
@@ -46,7 +48,7 @@ public class Customer implements Serializable {
     @Setter(AccessLevel.NONE)
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "address", unique = true)
     private Address address;
 
@@ -58,11 +60,31 @@ public class Customer implements Serializable {
     @ToString.Exclude
     private List<Product> orders;
 
+    @ToString.Exclude
+    @ManyToMany(targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(name = "wishlist", schema = "onlineshop",
+            joinColumns = @JoinColumn(name = "customer_fk", referencedColumnName = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_fk", referencedColumnName = "product_id"))
+    private Set<Product> wishlist = new HashSet<>();
+
     @Transient
     private boolean loggedIn = false;
 
     public void setPassword(String password){
         this.password = HashingUtil.getHash(password);
+    }
+
+    public void addToWishlist(Product product){
+        wishlist.add(product);
+    }
+
+    public boolean wishlistContains(Product product){
+        product.getWishedBy().add(this);
+        return wishlist.contains(product);
+    }
+
+    public void removeFromWishlist(Product product){
+        wishlist.remove(product);
     }
 
     @Override

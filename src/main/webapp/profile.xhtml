@@ -6,107 +6,176 @@
         xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
-        <h1 id="profile-title">
-            <h:outputText value="#{msg['profile.page_title']}"/>
-        </h1>
-        <h:message for="profile_form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
-                   fatalClass="fatal"/>
+        <div id="profile_flex_container">
+            <div id="profile">
+                <h1 id="profile-title">
+                    <h:outputText value="#{msg['profile.page_title']}"/>
+                </h1>
+                <h:message for="profile_form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
+                           fatalClass="fatal"/>
 
-        <h:form id="profile_form" prependId="false">
-            <div class="profile-block" id="profile-customer-name">
-                <h:outputLabel for="profile-firstname" value="#{msg['firstname']}">
-                    <h:message for="profile-firstname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                        id="profile-firstname"
-                        value="#{profileController.customer.firstName}"
-                        validator="#{validationController.isFirstName}"/>
-                </h:outputLabel>
-                <h:outputLabel for="profile-lastname" value="#{msg['lastname']}">
-                    <h:message for="profile-lastname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                            id="profile-lastname"
-                            value="#{profileController.customer.lastName}"
-                            validator="#{validationController.isLastName}"/>
-                </h:outputLabel>
-            </div>
-            <div class="profile-block" id="profile-customer-address-street">
-                <h:outputLabel for="profile-streetname" value="#{msg['street']}">
-                    <h:message for="profile-streetname" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                            id="profile-streetname"
-                            value="#{profileController.address.streetname}"
-                            validator="#{validationController.isStreet}"/>
-                </h:outputLabel>
-                <h:outputLabel for="profile-house_number" value="#{msg['house_number']}">
-                    <h:message for="profile-house_number" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                            id="profile-house_number"
-                            value="#{profileController.address.housenumber}"
-                            validator="#{validationController.isHouseNumber}"/>
-                </h:outputLabel>
-            </div>
-            <div class="profile-block" id="profile-customer-address-place">
-                <h:outputLabel for="profile-postal_code" value="#{msg['postal_code']}">
-                    <h:message for="profile-postal_code" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                            id="profile-postal_code"
-                            value="#{profileController.place.postalCode}"
-                            validator="#{validationController.isPostalCode}"/>
-                </h:outputLabel>
-                <h:outputLabel for="profile-place" value="#{msg['place']}">
-                    <h:message for="profile-place" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                            id="profile-place"
-                            value="#{profileController.place.placeName}"
-                            validator="#{validationController.isPlace}"/>
-                </h:outputLabel>
-            </div>
-            <div class="profile-block" id="profile-customer-email">
-                <h:outputLabel value="#{msg['email']}">
-                    <h:message for="email" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputText
-                            id="email"
-                            value="#{profileController.customer.email}"
-                            validator="#{validationController.isEmail}">
-                    </h:inputText>
-                </h:outputLabel>
-            </div>
-            <!--@elvariable id="passwordComponent" type="jakarta.faces.component"-->
-            <div class="profile-block" id="customer-auth">
-                <h:outputLabel value="#{msg['profile.new_password']}">
-                    <h:message for="password"  infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputSecret
-                            id="password"
-                            binding="#{passwordComponent}"
-                            value="#{profileController.customer.password}"
-                            validator="#{validationController.isStrongPassword}">
-                    </h:inputSecret>
-                    <pre>
+                <h:form id="profile_form" prependId="false">
+                    <div class="profile-block" id="profile-customer-name">
+                        <h:outputLabel for="profile-firstname" value="#{msg['firstname']}">
+                            <h:message for="profile-firstname" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="profile-firstname"
+                                    value="#{profileController.customer.firstName}"
+                                    validator="#{validationController.isFirstName}"/>
+                        </h:outputLabel>
+                        <h:outputLabel for="profile-lastname" value="#{msg['lastname']}">
+                            <h:message for="profile-lastname" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="profile-lastname"
+                                    value="#{profileController.customer.lastName}"
+                                    validator="#{validationController.isLastName}"/>
+                        </h:outputLabel>
+                    </div>
+                    <div class="profile-block" id="profile-customer-address-street">
+                        <h:outputLabel for="profile-streetname" value="#{msg['street']}">
+                            <h:message for="profile-streetname" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="profile-streetname"
+                                    value="#{profileController.address.streetname}"
+                                    validator="#{validationController.isStreet}"/>
+                        </h:outputLabel>
+                        <h:outputLabel for="profile-house_number" value="#{msg['house_number']}">
+                            <h:message for="profile-house_number" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="profile-house_number"
+                                    value="#{profileController.address.housenumber}"
+                                    validator="#{validationController.isHouseNumber}"/>
+                        </h:outputLabel>
+                    </div>
+                    <div class="profile-block" id="profile-customer-address-place">
+                        <h:outputLabel for="profile-postal_code" value="#{msg['postal_code']}">
+                            <h:message for="profile-postal_code" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="profile-postal_code"
+                                    value="#{profileController.place.postalCode}"
+                                    validator="#{validationController.isPostalCode}"/>
+                        </h:outputLabel>
+                        <h:outputLabel for="profile-place" value="#{msg['place']}">
+                            <h:message for="profile-place" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="profile-place"
+                                    value="#{profileController.place.placeName}"
+                                    validator="#{validationController.isPlace}"/>
+                        </h:outputLabel>
+                    </div>
+                    <div class="profile-block" id="profile-customer-email">
+                        <h:outputLabel value="#{msg['email']}">
+                            <h:message for="email" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputText
+                                    id="email"
+                                    value="#{profileController.customer.email}"
+                                    validator="#{validationController.isEmail}">
+                            </h:inputText>
+                        </h:outputLabel>
+                    </div>
+                    <!--@elvariable id="passwordComponent" type="jakarta.faces.component"-->
+                    <div class="profile-block" id="customer-auth">
+                        <h:outputLabel value="#{msg['profile.new_password']}">
+                            <h:message for="password" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputSecret
+                                    id="password"
+                                    binding="#{passwordComponent}"
+                                    value="#{profileController.customer.password}"
+                                    validator="#{validationController.isStrongPassword}">
+                            </h:inputSecret>
+                            <pre>
                         <h:outputText value="#{msg['password_rules']}"/>
                     </pre>
-                </h:outputLabel>
+                        </h:outputLabel>
 
-                <h:outputLabel value="#{msg['profile.new_password_confirmation']}">
-                    <h:message for="password_confirmation" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
-                    <h:inputSecret
-                            id="password_confirmation"
-                            validator="#{validationController.isMatchingPassword}">
-                        <f:attribute name="password" value="#{passwordComponent.value}"/>
-                    </h:inputSecret>
-                </h:outputLabel>
-            </div>
+                        <h:outputLabel value="#{msg['profile.new_password_confirmation']}">
+                            <h:message for="password_confirmation" infoClass="info" warnClass="warn" errorClass="error"
+                                       fatalClass="fatal"/>
+                            <h:inputSecret
+                                    id="password_confirmation"
+                                    validator="#{validationController.isMatchingPassword}">
+                                <f:attribute name="password" value="#{passwordComponent.value}"/>
+                            </h:inputSecret>
+                        </h:outputLabel>
+                    </div>
 
-            <div class="profile-block" id="profile-controls">
-                <h:commandButton
-                        id="profile-update"
-                        action="#{profileController.updateCustomer()}"
-                        value="#{msg['update_profile']}"/>
-                <h:message for="profile-update"/>
-                <h:button
-                        id="cancel"
-                        outcome="/index.jsf"
-                        value="#{msg['cancel']}"/>
+                    <div class="profile-block" id="profile-controls">
+                        <h:commandButton
+                                id="profile-update"
+                                action="#{profileController.updateCustomer()}"
+                                value="#{msg['update_profile']}"/>
+                        <h:message for="profile-update"/>
+                        <h:button
+                                id="cancel"
+                                outcome="/index.jsf"
+                                value="#{msg['cancel']}"/>
+                    </div>
+                </h:form>
             </div>
-        </h:form>
+            <div id="wishlist">
+                <h1 id="wishlist-title">
+                    <h:outputText value="#{msg['wishlist.page_title']}"/>
+                </h1>
+                <h:dataTable
+                        value="#{profileController.customer.wishlist}"
+                        var="product"
+                        styleClass="product-list">
+                    <h:column>
+                        <div class="product">
+                            <h:graphicImage url="image?id=#{product.id}"/>
+                            <div class="product-details">
+
+                                <div class="details-topgroup">
+                                    <h:outputText styleClass="product-title" value="#{product.name}"/>
+                                    <h:outputText styleClass="product-description" value="#{product.description}"/>
+                                </div>
+
+                                <div class="details-bottomgroup">
+                                    <h:outputText styleClass="product-price"
+                                                  value="CHF #{product.price}">
+                                        <f:convertNumber
+                                                minFractionDigits="2"/>
+                                    </h:outputText>
+                                    <div class="product-controls">
+                                        <h:commandButton
+                                                title="#{msg['move_to_cart']}"
+                                                styleClass="product-icon"
+                                                rendered="#{loginController.customer.loggedIn and !cartController.containsProduct(product)}"
+                                                action="#{cartController.addToCart(product)}"
+                                                image="#{resource['img:cart_black.png']}"/>
+                                        <h:commandButton
+                                                title="#{msg['is_in_cart']}"
+                                                styleClass="product-icon"
+                                                disabled="true"
+                                                rendered="#{loginController.customer.loggedIn and cartController.containsProduct(product)}"
+                                                image="#{resource['img:cart_gray.png']}"/>
+                                        <h:commandButton
+                                                title="#{msg['mark']}"
+                                                styleClass="product-icon"
+                                                rendered="#{loginController.customer.loggedIn and !profileController.customer.wishlistContains(product)}"
+                                                action="#{profileController.addToWishlist(product)}"
+                                                image="#{resource['img:heart_notactive.png']}"/>
+                                        <h:commandButton
+                                                title="#{msg['mark']}"
+                                                styleClass="product-icon"
+                                                rendered="#{loginController.customer.loggedIn and profileController.customer.wishlistContains(product)}"
+                                                action="#{profileController.removeFromWishlist(product)}"
+                                                image="#{resource['img:heart_active.png']}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>

@@ -25,7 +25,7 @@ public class Address implements Serializable {
     @Column(name = "housenumber", nullable = false)
     private String housenumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "place", unique = true)
     private Place place;
 

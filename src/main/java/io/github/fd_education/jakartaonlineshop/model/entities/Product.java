@@ -6,6 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
@@ -46,6 +47,9 @@ public class Product implements Serializable {
 
     @ManyToOne
     private Customer buyer;
+
+    @ManyToMany(mappedBy = "wishlist", cascade = CascadeType.ALL)
+    private Set<Customer> wishedBy;
 
     @Override
     public boolean equals(Object o) {

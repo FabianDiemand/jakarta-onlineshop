@@ -3,6 +3,7 @@ package io.github.fd_education.jakartaonlineshop.controller;
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Place;
+import io.github.fd_education.jakartaonlineshop.model.entities.Product;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
@@ -44,19 +45,22 @@ public class ProfileController implements Serializable {
     @Inject
     private Place place;
 
-    @Transactional
     public void updateCustomer(){
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         try{
+            ut.begin();
+
             address.setPlace(place);
             customer.setAddress(address);
 
             customer = em.merge(customer);
             address = customer.getAddress();
             place = customer.getAddress().getPlace();
+
+            ut.commit();
 
             FacesMessage m = new FacesMessage(bundle.getString("profile.update_success"));
             context.addMessage("profile_form", m);
@@ -74,5 +78,34 @@ public class ProfileController implements Serializable {
 
         address = customer.getAddress();
         place = customer.getAddress().getPlace();
+
+        log.info("Profile initialized for customer " + customer.getFirstName() + " " + customer.getLastName());
+    }
+
+    public void addToWishlist(Product product){
+        log.info("Add product " + product.getName() + " to wishlist of " + customer.getFirstName() + " " + customer.getLastName());
+
+        try{
+            ut.begin();
+            customer.addToWishlist(product);
+            customer = em.merge(customer);
+            ut.commit();
+        } catch(Exception exception){
+            log.warning(exception.getMessage());
+        }
+
+    }
+
+    public void removeFromWishlist(Product product){
+        log.info("Remove product " + product.getName() + " from wishlist of " + customer.getFirstName() + " " + customer.getLastName());
+
+        try{
+            ut.begin();
+            customer.removeFromWishlist(product);
+            customer = em.merge(customer);
+            ut.commit();
+        } catch(Exception exception){
+            log.warning(exception.getMessage());
+        }
     }
 }
