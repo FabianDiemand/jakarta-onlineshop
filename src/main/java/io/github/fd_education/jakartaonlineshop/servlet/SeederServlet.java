@@ -3,6 +3,7 @@ package io.github.fd_education.jakartaonlineshop.servlet;
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Place;
+import io.github.fd_education.jakartaonlineshop.model.entities.Product;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -10,6 +11,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.transaction.UserTransaction;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 @WebServlet("/seeder-servlet")
@@ -30,22 +36,59 @@ public class SeederServlet extends HttpServlet {
         try{
             ut.begin();
 
-            em.persist(createCustomer("John", "Doe", "john@doe.com", "Johndoe1!",
+            Customer johnDoe = createCustomer("John", "Doe", "john@doe.com", "Johndoe1!",
                     createAddress("DoeStreet", "1",
-                            createPlace("1234", "DoePlace"))));
+                            createPlace("1234", "DoePlace")));
 
-            em.persist(createCustomer("Jane", "Doe", "jane@doe.com", "JaneDoe1!",
+            Customer janeDoe = createCustomer("Jane", "Doe", "jane@doe.com", "JaneDoe1!",
                     createAddress("DoeStreet", "3",
-                            createPlace("1234", "DoePlace"))));
+                            createPlace("1234", "DoePlace")));
 
-            em.persist(createCustomer("Tim", "Tom", "tim@tom.com", "TimTom1!",
+            Customer timTom = createCustomer("Tim", "Tom", "tim@tom.com", "TimTom1!",
                     createAddress("TimStreet", "99",
-                            createPlace("5678", "TimPlace"))));
+                            createPlace("5678", "TimPlace")));
+
+            Product graka = createProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/graka.png"))),
+                    "Grafikkarte",
+                    "Tolles Teil. Nur einmal geschmolzen! 320 letzte Preis.",
+                    320,
+                    johnDoe);
+
+            Product harddisk = createProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/harddisk.png"))),
+                    "Speicher-Dings",
+                    "Reicht für alles. Fotos können sie behalten. Preis VB.",
+                    200,
+                    janeDoe);
+
+            Product motherboard = createProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/motherboard.png"))),
+                    "Mainboard",
+                    "Hat bis vor kurzem super funktioniert.",
+                    100,
+                    janeDoe);
+
+            Product ram = createProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/ram.png"))),
+                    "RAM (nicht Auto!)",
+                    "Fehlkauf... kein PS. Nie gebraucht! Neupreis, nicht verhandelbar",
+                    999,
+                    timTom);
+
+            em.persist(johnDoe);
+            em.persist(janeDoe);
+            em.persist(timTom);
+            em.persist(graka);
+            em.persist(harddisk);
+            em.persist(motherboard);
+            em.persist(ram);
 
             ut.commit();
+
             log.info("Database Customer Seeded!");
         } catch(Exception e){
-            log.severe("Database Seeding failed!!!");
+            log.severe("FAILED SEED: " + getClass().getResource("/seed-images/graka.png") + e);
         }
     }
 
@@ -75,6 +118,22 @@ public class SeederServlet extends HttpServlet {
         c.setAddress(address);
 
         return c;
+    }
+
+    private Product createProduct(byte[] image, String name, String descr, double price, Customer customer){
+        Product p = new Product();
+        p.setImage(image);
+        p.setName(name);
+        p.setDescription(descr);
+        p.setPrice(price);
+        p.setSeller(customer);
+
+        return p;
+    }
+
+    private byte[] getImage(URL path) throws IOException {
+        File file = new File(path.getPath());
+        return Files.readAllBytes(file.toPath());
     }
 
 }
