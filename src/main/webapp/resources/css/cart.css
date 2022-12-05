@@ -1,0 +1,32 @@
+#cart-title{
+    text-align: center;
+}
+
+#cart-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cart-list ~ hr {
+    width: 100%;
+    border-top: 3px solid black;
+    margin: 1px 0;
+
+    border-radius: 5px;
+}
+
+#cart-total{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    margin: 10px 0;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#cart-buy{
+    width: min-content;
+}

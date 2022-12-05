@@ -2,13 +2,70 @@
         template="/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html">
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
    <ui:define name="content">
       <!--@elvariable id="msg" type="java.util.Map"-->
-      <!--@elvariable id="msg" type="java.util.Map"-->
-      <h1>
+      <div id="cart-content">
+      <h1 id="cart-title">
          <h:outputText value="#{msg['cart']}"/>
       </h1>
 
+      <h:dataTable
+         value="#{cartController.cart}"
+         var="product"
+         styleClass="cart-list">
+
+         <h:column>
+            <div class="product">
+               <h:graphicImage url="image?id=#{product.id}"/>
+               <div class="product-details">
+
+                  <div class="details-topgroup">
+                     <h:outputText styleClass="product-title" value="#{product.name}"/>
+                     <h:outputText styleClass="product-description" value="#{product.description}"/>
+                  </div>
+
+                  <div class="details-bottomgroup">
+                     <h:outputText styleClass="product-price"
+                                   value="CHF #{product.price}">
+                        <f:convertNumber
+                                minFractionDigits="2"/>
+                     </h:outputText>
+                     <div class="product-controls">
+                        <h:commandButton
+                                title="#{msg['cart.remove_product']}"
+                                styleClass="product-icon"
+                                action="#{cartController.removeFromCart(product)}"
+                                image="#{resource['img:bin.png']}"/>
+                        <h:commandButton
+                                title="#{msg['mark']}"
+                                styleClass="product-icon"
+                                rendered="#{true}"
+                                action="#{buyController.update(product.id)}"
+                                image="#{resource['img:heart_notactive.png']}"/>
+                        <h:commandButton
+                                title="#{msg['mark']}"
+                                styleClass="product-icon"
+                                rendered="#{false}"
+                                action="#{buyController.update(product.id)}"
+                                image="#{resource['img:heart_active.png']}"/>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </h:column>
+      </h:dataTable>
+      <hr/>
+      <div id="cart-total">
+         <h:outputText id="total-text" value="#{msg['cart.total']}"/>
+         <h:outputText id="total-sum" value="#{cartController.sum}"/>
+      </div>
+      <hr/>
+      <hr/>
+         <h:commandButton
+                 id="cart-buy"
+                 action="#{registerController.persist()}"
+                 value="#{msg['buy']}"/>
+      </div>
    </ui:define>
 </ui:composition>
