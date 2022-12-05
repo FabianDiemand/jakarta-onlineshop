@@ -1,45 +1,43 @@
 <ui:composition
-    template="/template.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
+        template="/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
-        <h1>
-            <h:outputText value="#{msg['sell']}" />
+        <h1 id="sell-title">
+            <h:outputText value="#{msg['sell']}"/>
         </h1>
+        <h:message for="sell-form" id="sell-feedback" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
 
         <h:form
-            id="sellForm"
-            prependId="false"
-            enctype="multipart/form-data">
-            <h:message
-                for="sellForm"
-                showSummary="true" />
+                id="sell-form"
+                prependId="false"
+                enctype="multipart/form-data">
 
-                <h:outputLabel value="#{msg['product.title']}:">
+            <h:outputLabel value="#{msg['product.title']}:">
                 <h:inputText
-                    id="title"
-                    value="#{sellController.product.name}" />
-                </h:outputLabel>
+                        id="title"
+                        value="#{sellController.product.name}"/>
+            </h:outputLabel>
 
-                <h:outputLabel value="#{msg['product.description']}:">
+            <h:outputLabel value="#{msg['product.description']}:">
                 <h:inputTextarea
-                    value="#{sellController.product.description}" />
-                </h:outputLabel>
+                        value="#{sellController.product.description}"/>
+            </h:outputLabel>
 
-                <h:outputLabel value="#{msg['product.price']}:">
-                <h:inputText value="#{sellController.product.price}" />
-                </h:outputLabel>
+            <h:outputLabel value="#{msg['product.price']}:">
+                <h:inputText value="#{sellController.product.price}"/>
+            </h:outputLabel>
 
-                <h:outputLabel value="#{msg['product.foto']}:">
-                <h:inputFile value="#{sellController.part}" />
-                </h:outputLabel>
+            <h:outputLabel value="#{msg['product.foto']}:">
+                <h:inputFile value="#{sellController.part}"/>
+            </h:outputLabel>
 
-                <h:commandButton
+            <h:commandButton
                     value="#{msg['sell']}"
-                    action="#{sellController.persist(loginController)}" />
+                    action="#{sellController.persist(loginController)}"/>
         </h:form>
     </ui:define>
 </ui:composition>

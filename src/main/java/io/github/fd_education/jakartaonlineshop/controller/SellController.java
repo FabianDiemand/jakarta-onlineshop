@@ -20,6 +20,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 @Named
@@ -48,6 +50,10 @@ public class SellController implements Serializable {
     private Product product;
 
     public String persist(LoginController loginController) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Locale locale = context.getViewRoot().getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+
         try {
             ut.begin();
             InputStream input = part.getInputStream();
@@ -69,13 +75,14 @@ public class SellController implements Serializable {
 
             log.info("Offered item: " + product);
 
-            FacesMessage m = new FacesMessage("Successfully saved item! You offered the item " + product);
-            FacesContext.getCurrentInstance().addMessage("sellForm", m);
+            FacesMessage m = new FacesMessage(bundle.getString("offer_success"));
+            context.getExternalContext().getFlash().setKeepMessages(true);
+            context.addMessage("sell-form", m);
         } catch (Exception e) {
             log.severe(e.getMessage());
         }
 
-        return "/sell.jsf";
+        return "/sell.jsf?faces-redirect=true";
     }
 
     public byte[] scale(byte[] foto) throws IOException {
