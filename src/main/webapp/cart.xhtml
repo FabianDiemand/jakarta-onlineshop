@@ -45,14 +45,14 @@
                                         <h:commandButton
                                                 title="#{msg['mark']}"
                                                 styleClass="product-icon"
-                                                rendered="#{true}"
-                                                action="#{cartController.printCart()}"
+                                                rendered="#{loginController.customer.loggedIn and !profileController.customer.wishlistContains(product)}"
+                                                action="#{profileController.addToWishlist(product)}"
                                                 image="#{resource['img:heart_notactive.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['mark']}"
                                                 styleClass="product-icon"
-                                                rendered="#{false}"
-                                                action="#{cartController.printCart()}"
+                                                rendered="#{loginController.customer.loggedIn and profileController.customer.wishlistContains(product)}"
+                                                action="#{profileController.removeFromWishlist(product)}"
                                                 image="#{resource['img:heart_active.png']}"/>
                                     </div>
                                 </div>

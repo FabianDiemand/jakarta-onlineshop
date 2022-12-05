@@ -12,7 +12,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -80,6 +79,10 @@ public class ProfileController implements Serializable {
         place = customer.getAddress().getPlace();
 
         log.info("Profile initialized for customer " + customer.getFirstName() + " " + customer.getLastName());
+    }
+
+    public boolean isEmptyWishlist(){
+        return customer.getWishlist().isEmpty();
     }
 
     public void addToWishlist(Product product){

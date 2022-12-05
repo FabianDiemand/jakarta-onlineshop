@@ -124,57 +124,62 @@
                 <h1 id="wishlist-title">
                     <h:outputText value="#{msg['wishlist.page_title']}"/>
                 </h1>
-                <h:dataTable
-                        value="#{profileController.customer.wishlist}"
-                        var="product"
-                        styleClass="product-list">
-                    <h:column>
-                        <div class="product">
-                            <h:graphicImage url="image?id=#{product.id}"/>
-                            <div class="product-details">
+                <h:outputText id="empty_wishlist"
+                              rendered="#{profileController.emptyWishlist}"
+                              value="#{msg['empty_wishlist']}"/>
+                <h:form>
+                    <h:dataTable
+                            value="#{profileController.customer.wishlist}"
+                            var="product"
+                            styleClass="product-list">
+                        <h:column>
+                            <div class="product">
+                                <h:graphicImage url="image?id=#{product.id}"/>
+                                <div class="product-details">
 
-                                <div class="details-topgroup">
-                                    <h:outputText styleClass="product-title" value="#{product.name}"/>
-                                    <h:outputText styleClass="product-description" value="#{product.description}"/>
-                                </div>
+                                    <div class="details-topgroup">
+                                        <h:outputText styleClass="product-title" value="#{product.name}"/>
+                                        <h:outputText styleClass="product-description" value="#{product.description}"/>
+                                    </div>
 
-                                <div class="details-bottomgroup">
-                                    <h:outputText styleClass="product-price"
-                                                  value="CHF #{product.price}">
-                                        <f:convertNumber
-                                                minFractionDigits="2"/>
-                                    </h:outputText>
-                                    <div class="product-controls">
-                                        <h:commandButton
-                                                title="#{msg['move_to_cart']}"
-                                                styleClass="product-icon"
-                                                rendered="#{loginController.customer.loggedIn and !cartController.containsProduct(product)}"
-                                                action="#{cartController.addToCart(product)}"
-                                                image="#{resource['img:cart_black.png']}"/>
-                                        <h:commandButton
-                                                title="#{msg['is_in_cart']}"
-                                                styleClass="product-icon"
-                                                disabled="true"
-                                                rendered="#{loginController.customer.loggedIn and cartController.containsProduct(product)}"
-                                                image="#{resource['img:cart_gray.png']}"/>
-                                        <h:commandButton
-                                                title="#{msg['mark']}"
-                                                styleClass="product-icon"
-                                                rendered="#{loginController.customer.loggedIn and !profileController.customer.wishlistContains(product)}"
-                                                action="#{profileController.addToWishlist(product)}"
-                                                image="#{resource['img:heart_notactive.png']}"/>
-                                        <h:commandButton
-                                                title="#{msg['mark']}"
-                                                styleClass="product-icon"
-                                                rendered="#{loginController.customer.loggedIn and profileController.customer.wishlistContains(product)}"
-                                                action="#{profileController.removeFromWishlist(product)}"
-                                                image="#{resource['img:heart_active.png']}"/>
+                                    <div class="details-bottomgroup">
+                                        <h:outputText styleClass="product-price"
+                                                      value="CHF #{product.price}">
+                                            <f:convertNumber
+                                                    minFractionDigits="2"/>
+                                        </h:outputText>
+                                        <div class="product-controls">
+                                            <h:commandButton
+                                                    title="#{msg['move_to_cart']}"
+                                                    styleClass="product-icon"
+                                                    rendered="#{loginController.customer.loggedIn and !cartController.containsProduct(product)}"
+                                                    action="#{cartController.addToCart(product)}"
+                                                    image="#{resource['img:cart_black.png']}"/>
+                                            <h:commandButton
+                                                    title="#{msg['is_in_cart']}"
+                                                    styleClass="product-icon"
+                                                    disabled="true"
+                                                    rendered="#{loginController.customer.loggedIn and cartController.containsProduct(product)}"
+                                                    image="#{resource['img:cart_gray.png']}"/>
+                                            <h:commandButton
+                                                    title="#{msg['mark']}"
+                                                    styleClass="product-icon"
+                                                    rendered="#{loginController.customer.loggedIn and !profileController.customer.wishlistContains(product)}"
+                                                    action="#{profileController.addToWishlist(product)}"
+                                                    image="#{resource['img:heart_notactive.png']}"/>
+                                            <h:commandButton
+                                                    title="#{msg['mark']}"
+                                                    styleClass="product-icon"
+                                                    rendered="#{loginController.customer.loggedIn and profileController.customer.wishlistContains(product)}"
+                                                    action="#{profileController.removeFromWishlist(product)}"
+                                                    image="#{resource['img:heart_active.png']}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </h:column>
-                </h:dataTable>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </div>
         </div>
     </ui:define>

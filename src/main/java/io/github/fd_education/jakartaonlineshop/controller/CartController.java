@@ -22,9 +22,6 @@ public class CartController implements Serializable {
     private double sum;
 
     public void addToCart(Product product){
-
-        log.info("CALLED: Add " + product + " to cart.");
-
         if(cart == null){
             cart = new ArrayList<>();
         }
@@ -33,7 +30,7 @@ public class CartController implements Serializable {
             cart.add(product);
         }
 
-        log.info("COMPLETED: Added " + product + " to cart.");
+        log.info("COMPLETED: Added " + product.getName() + " to cart.");
     }
 
     public double getSum(){
@@ -46,17 +43,11 @@ public class CartController implements Serializable {
         return cart != null && !cart.isEmpty();
     }
 
-    public void printCart(){
-        log.info(cart.toString());
-    }
-
     public void removeFromCart(Product product) {
-        log.info("CALLED: Remove " + product + " from cart.");
-
         if(cart != null && !cart.isEmpty()){
             cart.remove(product);
 
-            log.info("COMPLETED: Removed " + product + " from cart.");
+            log.info("Removed " + product.getName() + " from cart.");
         }
     }
 
