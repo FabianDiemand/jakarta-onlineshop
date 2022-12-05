@@ -34,18 +34,19 @@
                                     <h:commandButton
                                             title="#{msg['buy']}"
                                             styleClass="product-icon"
+                                            rendered="#{loginController.customer.loggedIn}"
                                             action="#{cartController.addToCart(product)}"
                                             image="#{resource['img:cart_black.png']}"/>
                                     <h:commandButton
                                             title="#{msg['mark']}"
                                             styleClass="product-icon"
-                                            rendered="#{true}"
+                                            rendered="#{loginController.customer.loggedIn and true}"
                                             action="#{buyController.update(product.id)}"
                                             image="#{resource['img:heart_notactive.png']}"/>
                                     <h:commandButton
                                             title="#{msg['mark']}"
                                             styleClass="product-icon"
-                                            rendered="#{false}"
+                                            rendered="#{loginController.customer.loggedIn and false}"
                                             action="#{buyController.update(product.id)}"
                                             image="#{resource['img:heart_active.png']}"/>
                                 </div>
