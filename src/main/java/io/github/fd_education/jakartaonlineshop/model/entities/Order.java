@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name = "order", schema = "onlineshop")
 public class Order implements Serializable {
-    private static final long serialVersionUID = 7246628013916940247L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
