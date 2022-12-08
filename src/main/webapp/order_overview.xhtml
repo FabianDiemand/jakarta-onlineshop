@@ -1,0 +1,28 @@
+<ui:composition
+        template="/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <!--@elvariable id="msg" type="java.util.Map"-->
+        <div class="profile_nav">
+            <h:link
+                    styleClass="profile.nav_element"
+                    outcome="profile"
+                    value="#{msg['profile.page_title']}"/>
+            <h:link
+                    styleClass="profile.nav_element"
+                    outcome="wishlist"
+                    value="#{msg['wishlist.page_title']}"/>
+            <h:link
+                    styleClass="profile.nav_element"
+                    outcome="order_overview"
+                    value="#{msg['order_overview.page_title']}"/>
+        </div>
+
+        <h1 id="order_overview-title">
+            <h:outputText value="#{msg['order_overview.page_title']}"/>
+        </h1>
+    </ui:define>
+</ui:composition>

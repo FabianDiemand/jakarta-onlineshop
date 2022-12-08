@@ -28,6 +28,20 @@
             </to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>wishlist</from-outcome>
+            <to-view-id>
+                /wishlist.xhtml
+            </to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>order_overview</from-outcome>
+            <to-view-id>
+                /order_overview.xhtml
+            </to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
 

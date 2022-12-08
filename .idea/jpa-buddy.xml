@@ -3,6 +3,8 @@
   <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="postgres">
     <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="019ff422-0138-45b9-817a-0b55091c8392_onlineshop" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/io/github/fd_education/jakartaonlineshop/model/entities" />
     <option name="newEntityIdType" value="Long" />
     <option name="newEntityIdStrategy" value="Auto" />
   </component>

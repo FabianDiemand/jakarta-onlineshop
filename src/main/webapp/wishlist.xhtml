@@ -2,25 +2,38 @@
         template="/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
-        <div id="cart-content">
-            <h1 id="cart-title">
-                <h:outputText value="#{msg['cart']}"/>
+        <div class="profile_nav">
+            <h:link
+                    styleClass="profile.nav_element"
+                    outcome="profile"
+                    value="#{msg['profile.page_title']}"/>
+            <h:link
+                    styleClass="profile.nav_element"
+                    outcome="wishlist"
+                    value="#{msg['wishlist.page_title']}"/>
+            <h:link
+                    styleClass="profile.nav_element"
+                    outcome="order_overview"
+                    value="#{msg['order_overview.page_title']}"/>
+        </div>
+
+        <div id="wishlist">
+            <h1 id="wishlist-title">
+                <h:outputText value="#{msg['wishlist.page_title']}"/>
             </h1>
-
-            <h:outputText id="empty_cart"
-                          rendered="#{!cartController.hasProducts()}"
-                          value="#{msg['empty_cart']}"/>
-
+            <h:outputText id="empty_wishlist"
+                          rendered="#{profileController.emptyWishlist}"
+                          value="#{msg['empty_wishlist']}"/>
             <h:form>
                 <h:dataTable
-                        value="#{cartController.cart}"
+                        value="#{profileController.customer.wishlist}"
                         var="product"
-                        styleClass="cart-list">
-
-                    <h:column rendered="#{cartController.hasProducts()}">
+                        styleClass="product-list">
+                    <h:column>
                         <div class="product">
                             <h:graphicImage url="image?id=#{product.id}"/>
                             <div class="product-details">
@@ -38,10 +51,17 @@
                                     </h:outputText>
                                     <div class="product-controls">
                                         <h:commandButton
-                                                title="#{msg['cart.remove_product']}"
+                                                title="#{msg['move_to_cart']}"
                                                 styleClass="product-icon"
-                                                action="#{cartController.removeFromCart(product)}"
-                                                image="#{resource['img:bin.png']}"/>
+                                                rendered="#{loginController.customer.loggedIn and !cartController.containsProduct(product)}"
+                                                action="#{cartController.addToCart(product)}"
+                                                image="#{resource['img:cart_black.png']}"/>
+                                        <h:commandButton
+                                                title="#{msg['is_in_cart']}"
+                                                styleClass="product-icon"
+                                                disabled="true"
+                                                rendered="#{loginController.customer.loggedIn and cartController.containsProduct(product)}"
+                                                image="#{resource['img:cart_gray.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['mark']}"
                                                 styleClass="product-icon"
@@ -60,20 +80,8 @@
                         </div>
                     </h:column>
                 </h:dataTable>
-                <h:panelGroup layout="block" rendered="#{cartController.hasProducts()}">
-                    <hr/>
-                    <div id="cart-total">
-                        <h:outputText id="total-text" value="#{msg['cart.total']}"/>
-                        <h:outputText id="total-sum" value="#{cartController.sum}"/>
-                    </div>
-                    <hr/>
-                    <hr/>
-                    <h:commandButton
-                            id="cart-buy"
-                            action="#{orderController.createOrderFromCart(cartController.cart)}"
-                            value="#{msg['buy']}"/>
-                </h:panelGroup>
             </h:form>
         </div>
+
     </ui:define>
 </ui:composition>
