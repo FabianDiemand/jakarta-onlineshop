@@ -70,7 +70,7 @@
                     <hr/>
                     <h:commandButton
                             id="cart-buy"
-                            action="#{orderController.createOrderFromCart(cartController.cart)}"
+                            action="#{orderController.createOrderFromCart(loginController.customer, cartController.cart)}"
                             value="#{msg['buy']}"/>
                 </h:panelGroup>
             </h:form>

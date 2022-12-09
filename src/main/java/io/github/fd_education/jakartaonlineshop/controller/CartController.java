@@ -7,7 +7,9 @@ import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Named @SessionScoped
@@ -17,18 +19,16 @@ public class CartController implements Serializable {
             .getLogger(CartController.class.toString());
 
     @Getter
-    private List<Product> cart;
+    private Set<Product> cart;
 
     private double sum;
 
     public void addToCart(Product product){
         if(cart == null){
-            cart = new ArrayList<>();
+            cart = new HashSet<>();
         }
 
-        if(!cart.contains(product)){
-            cart.add(product);
-        }
+        cart.add(product);
 
         log.info("COMPLETED: Added " + product.getName() + " to cart.");
     }

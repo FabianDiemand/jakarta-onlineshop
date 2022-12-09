@@ -10,6 +10,7 @@
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Customer</class>
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Place</class>
         <class>io.github.fd_education.jakartaonlineshop.model.entities.Product</class>
+        <class>io.github.fd_education.jakartaonlineshop.model.entities.Order</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/jak_onlineshop"/>

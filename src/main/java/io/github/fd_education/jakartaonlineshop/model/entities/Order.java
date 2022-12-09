@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "order", schema = "onlineshop")
+@Table(name = "\"order\"", schema = "onlineshop")
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,11 @@ public class Order implements Serializable {
     @Column(name = "ordered_at", nullable = false)
     private LocalDate orderedAt;
 
-    @Column(name = "is_paied", nullable = false)
-    private Boolean isPaied = false;
+    @Column(name = "is_paid", nullable = false)
+    private Boolean isPaid = false;
 
-    @Column(name = "payed_at")
-    private LocalDate payedAt;
+    @Column(name = "paid_at")
+    private LocalDate paidAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer", nullable = false)
@@ -41,7 +41,7 @@ public class Order implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "order_product",
-            joinColumns = @JoinColumn(name = "order"),
+            joinColumns = @JoinColumn(name = "\"order\""),
             inverseJoinColumns = @JoinColumn(name = "product"))
     private Set<Product> products = new LinkedHashSet<>();
 
