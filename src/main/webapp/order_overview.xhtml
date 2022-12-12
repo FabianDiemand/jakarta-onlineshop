@@ -21,8 +21,33 @@
                     value="#{msg['order_overview.page_title']}"/>
         </div>
 
-        <h1 id="order_overview-title">
-            <h:outputText value="#{msg['order_overview.page_title']}"/>
-        </h1>
+        <div class="page-content">
+            <!--@elvariable id="msg" type="java.util.Map"-->
+            <h1 id="order_overview-title">
+                <h:outputText value="#{msg['order_overview.page_title']}"/>
+            </h1>
+
+            <h:form>
+                <h:dataTable
+                        value="#{orderController.getOrdersByCustomer(loginController.customer)}"
+                        var="order"
+                        styleClass="order-list">
+                    <h:column>
+                                    <h:outputText value="#{order.orderedAt}"/>
+                                    <h:outputText value="#{order.isPaid? msg['paid'] : msg['unpaid']}"/>
+                                    <h:outputText value="#{order.orderStatus}"/>
+                            <h:dataTable
+                                value="#{order.products}"
+                                var="product">
+                                <h:column>
+                                    <h:outputText value="#{product.name}"/>
+                                    <h:outputText value="#{product.price}"/>
+                                </h:column>
+                            </h:dataTable>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+
     </ui:define>
 </ui:composition>

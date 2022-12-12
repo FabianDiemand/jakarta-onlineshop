@@ -14,8 +14,13 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "\"order\"", schema = "onlineshop")
+@Entity @Table(name = "\"order\"", schema = "onlineshop")
+@NamedQueries(
+        @NamedQuery(
+                name = "Order.findByCustomer",
+                query = "SELECT o FROM Order o WHERE o.customer = :customer"
+        )
+)
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
