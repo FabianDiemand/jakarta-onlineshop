@@ -1,3 +1,6 @@
-#wishlist{
-    margin: 0;
+#empty_wishlist{
+    margin-top: 30px;
+
+    font-size: 1.2rem;
+    color: #d3d3d3;
 }
