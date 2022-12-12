@@ -66,5 +66,4 @@ public class CartController implements Serializable {
             sum = cart.stream().mapToDouble(Product::getPrice).sum();
         }
     }
-
 }

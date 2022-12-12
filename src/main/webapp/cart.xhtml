@@ -23,20 +23,20 @@
                     <h:column rendered="#{cartController.hasProducts()}">
                         <div class="product">
                             <h:graphicImage url="image?id=#{product.id}"/>
-                            <div class="product-details">
+                            <div class="cart-product-details">
 
-                                <div class="details-topgroup">
-                                    <h:outputText styleClass="product-title" value="#{product.name}"/>
-                                    <h:outputText styleClass="product-description" value="#{product.description}"/>
+                                <div class="cart-details-topgroup">
+                                    <h:outputText styleClass="cart-product-title" value="#{product.name}"/>
+                                    <h:outputText styleClass="cart-product-description" value="#{product.description}"/>
                                 </div>
 
-                                <div class="details-bottomgroup">
+                                <div class="cart-details-bottomgroup">
                                     <h:outputText styleClass="product-price"
                                                   value="CHF #{product.price}">
                                         <f:convertNumber
                                                 minFractionDigits="2"/>
                                     </h:outputText>
-                                    <div class="product-controls">
+                                    <div class="cart-product-controls">
                                         <h:commandButton
                                                 title="#{msg['cart.remove_product']}"
                                                 styleClass="product-icon"
