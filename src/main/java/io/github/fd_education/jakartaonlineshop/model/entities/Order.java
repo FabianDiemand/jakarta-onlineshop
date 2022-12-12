@@ -40,7 +40,7 @@ public class Order implements Serializable {
     private String orderStatus;
 
     @ManyToMany
-    @JoinTable(name = "order_product",
+    @JoinTable(name = "order_product", schema = "onlineshop",
             joinColumns = @JoinColumn(name = "\"order\""),
             inverseJoinColumns = @JoinColumn(name = "product"))
     private Set<Product> products = new LinkedHashSet<>();
