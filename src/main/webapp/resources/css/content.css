@@ -6,6 +6,11 @@
     align-items: center;
 }
 
+.page-content{
+    width: 90%;
+    margin: 0 20px;
+}
+
 .content h1:first-of-type{
     padding: 20px 0;
     text-align: center;

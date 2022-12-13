@@ -1,12 +1,16 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
+import io.github.fd_education.jakartaonlineshop.controller.LocaleController;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -50,6 +54,10 @@ public class Order implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "product"))
     private Set<Product> products = new LinkedHashSet<>();
 
+    @Transient
+    @Getter(AccessLevel.NONE)
+    private double total;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,5 +69,11 @@ public class Order implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public double getTotal() {
+        total = products.stream().mapToDouble(Product::getPrice).sum();
+
+        return total;
     }
 }

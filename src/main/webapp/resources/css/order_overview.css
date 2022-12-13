@@ -1,0 +1,44 @@
+.order-overview{
+    width: 500px;
+    height: max-content;
+}
+
+.order-list{
+    display: flex;
+    justify-content: center;
+}
+
+.order hr {
+    width: 100%;
+    border-top: 2px solid black;
+    margin: 1px 0;
+
+    border-radius: 5px;
+}
+
+.order{
+    background: #bed0ff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px gray;
+}
+
+.top-order-details{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-products{
+    width: 100%;
+}
+
+.order-product-list{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-total{
+    display: flex;
+    justify-content: space-between;
+}

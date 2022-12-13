@@ -3,7 +3,7 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core">
+>
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <div class="profile_nav">
@@ -27,23 +27,39 @@
                 <h:outputText value="#{msg['order_overview.page_title']}"/>
             </h1>
 
-            <h:form>
+            <h:form
+                    id="order_overview_form"
+                    prependId="false">
                 <h:dataTable
                         value="#{orderController.getOrdersByCustomer(loginController.customer)}"
                         var="order"
                         styleClass="order-list">
-                    <h:column>
-                                    <h:outputText value="#{order.orderedAt}"/>
-                                    <h:outputText value="#{order.isPaid? msg['paid'] : msg['unpaid']}"/>
-                                    <h:outputText value="#{order.orderStatus}"/>
+                    <h:column styleClass="order-overview">
+                        <div class="order">
+                            <div class="top-order-details">
+                                <h:outputText styleClass="order-date"
+                                              value="#{localeController.formatDate(order.orderedAt)}"/>
+                                <h:outputText styleClass="order-payload-status"
+                                              value="#{order.isPaid? msg['paid'] : msg['unpaid']}"/>
+                                <h:outputText styleClass="order-order-status" value="#{order.orderStatus}"/>
+                            </div>
+                            <hr/>
                             <h:dataTable
-                                value="#{order.products}"
-                                var="product">
-                                <h:column>
-                                    <h:outputText value="#{product.name}"/>
-                                    <h:outputText value="#{product.price}"/>
+                                    value="#{order.products}"
+                                    var="product"
+                                    styleClass="order-products">
+                                <h:column styleClass="order-product-list">
+                                    <h:outputText styleClass="order-product-name" value="#{product.name}"/>
+                                    <h:outputText styleClass="order-product-price" value="#{product.price}"/>
                                 </h:column>
                             </h:dataTable>
+                            <hr/>
+                            <hr/>
+                            <div class="order-total">
+                                <h:outputText styleClass="order-total-text" value="#{msg['total']}"/>
+                                <h:outputText styleClass="order-total-value" value="#{order.total}"/>
+                            </div>
+                        </div>
                     </h:column>
                 </h:dataTable>
             </h:form>
