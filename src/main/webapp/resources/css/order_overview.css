@@ -1,5 +1,5 @@
 .order-overview{
-    width: 500px;
+    width: 800px;
     height: max-content;
 }
 
@@ -22,11 +22,15 @@
     padding: 10px;
     border-radius: 5px;
     box-shadow: 3px 3px 10px gray;
+
+    font-size: 1.2rem;
 }
 
 .top-order-details{
     display: flex;
     justify-content: space-between;
+
+    margin-bottom: 10px;
 }
 
 .order-products{
@@ -41,4 +45,15 @@
 .order-total{
     display: flex;
     justify-content: space-between;
+
+    font-weight: bold;
+}
+
+.paid{
+    color: green;
+}
+
+.unpaid{
+    color: red;
+    font-style: italic;
 }

@@ -36,14 +36,14 @@
                         styleClass="order-list">
                     <h:column styleClass="order-overview">
                         <div class="order">
+                            <h:outputText styleClass="order-number" value="#{msg['order_number']}: #{order.id}"/>
                             <div class="top-order-details">
                                 <h:outputText styleClass="order-date"
                                               value="#{localeController.formatDate(order.orderedAt)}"/>
-                                <h:outputText styleClass="order-payload-status"
+                                <h:outputText styleClass="order-payment-status #{order.isPaid? 'paid': 'unpaid'}"
                                               value="#{order.isPaid? msg['paid'] : msg['unpaid']}"/>
                                 <h:outputText styleClass="order-order-status" value="#{order.orderStatus}"/>
                             </div>
-                            <hr/>
                             <h:dataTable
                                     value="#{order.products}"
                                     var="product"
@@ -54,11 +54,12 @@
                                 </h:column>
                             </h:dataTable>
                             <hr/>
-                            <hr/>
                             <div class="order-total">
                                 <h:outputText styleClass="order-total-text" value="#{msg['total']}"/>
                                 <h:outputText styleClass="order-total-value" value="#{order.total}"/>
                             </div>
+                            <hr/>
+                            <hr/>
                         </div>
                     </h:column>
                 </h:dataTable>
