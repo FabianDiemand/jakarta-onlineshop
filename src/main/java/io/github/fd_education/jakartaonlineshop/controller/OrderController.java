@@ -5,7 +5,10 @@ import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Order;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;
 import jakarta.annotation.Resource;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.DataModel;
 import jakarta.inject.Inject;
@@ -42,6 +45,15 @@ public class OrderController {
         try {
             ut.begin();
 
+
+
+            for(Product product: cart){
+                product.setBuyer(customer);
+                product.setSold(true);
+
+                em.merge(product);
+            }
+
             order.setOrderedAt(LocalDate.now());
             order.setCustomer(customer);
             order.setIsPaid(false);
@@ -52,6 +64,13 @@ public class OrderController {
             em.persist(order);
 
             ut.commit();
+
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ELContext elc = ctx.getELContext();
+            ELResolver elr = ctx.getApplication().getELResolver();
+
+            CartController cartController = (CartController) elr.getValue(elc,null,"cartController");
+            cartController.emptyCart();
         } catch (Exception exception) {
             log.info(exception.toString());
         }

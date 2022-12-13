@@ -6,9 +6,7 @@ import jakarta.inject.Named;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -59,6 +57,10 @@ public class CartController implements Serializable {
         return false;
     }
 
+    public void emptyCart(){
+        cart.clear();
+    }
+
     private void calculateSum(){
         if(cart == null || cart.isEmpty()){
             sum = 0;
@@ -66,4 +68,6 @@ public class CartController implements Serializable {
             sum = cart.stream().mapToDouble(Product::getPrice).sum();
         }
     }
+
+
 }

@@ -12,8 +12,8 @@ import java.util.Set;
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name = "product", schema = "onlineshop")
 @NamedQuery(
-        name = "Product.findAll",
-        query = "SELECT p from Product p"
+        name = "Product.findAllAvailable",
+        query = "SELECT p from Product p WHERE p.sold = false"
 )
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class Product implements Serializable {
     private byte[] image;
 
     @Column(name = "sold")
-    private LocalDateTime sold;
+    private boolean sold = false;
 
     @ManyToOne
     private Customer seller;

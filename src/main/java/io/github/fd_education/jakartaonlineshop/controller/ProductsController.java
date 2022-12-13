@@ -37,7 +37,7 @@ public class ProductsController implements Serializable {
 
     public List<Product> findAll() {
         try {
-            TypedQuery<Product> query = em.createNamedQuery("Product.findAll", Product.class);
+            TypedQuery<Product> query = em.createNamedQuery("Product.findAllAvailable", Product.class);
             return query.getResultList();
         } catch (Exception e) {
             log.severe(e.getMessage());
