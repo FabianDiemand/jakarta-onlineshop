@@ -16,23 +16,40 @@
                 prependId="false"
                 enctype="multipart/form-data">
 
-            <h:outputLabel value="#{msg['product.title']}:">
+            <h:outputLabel for="sell_title" value="#{msg['product.title']}:">
+                <h:message for="sell_title" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                 <h:inputText
-                        id="title"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_title']}"
+                        id="sell_title"
                         value="#{sellController.product.name}"/>
             </h:outputLabel>
 
-            <h:outputLabel value="#{msg['product.description']}:">
+            <h:outputLabel for="sell_description" value="#{msg['product.description']}:">
+                <h:message for="sell_description" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                 <h:inputTextarea
+                        id="sell_description"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_description']}"
                         value="#{sellController.product.description}"/>
             </h:outputLabel>
 
-            <h:outputLabel value="#{msg['product.price']}:">
-                <h:inputText value="#{sellController.product.price}"/>
+            <h:outputLabel for="sell_price" value="#{msg['product.price']}:">
+                <h:message for="sell_price" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:inputText
+                        id="sell_price"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_price']}"
+                        value="#{sellController.product.price}"/>
             </h:outputLabel>
 
-            <h:outputLabel value="#{msg['product.foto']}:">
-                <h:inputFile value="#{sellController.part}"/>
+            <h:outputLabel for="sell_image" value="#{msg['product.foto']}:">
+                <h:message for="sell_image" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:inputFile
+                        id="sell_image"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_image']}"
+                        value="#{sellController.part}"/>
             </h:outputLabel>
 
             <h:commandButton
