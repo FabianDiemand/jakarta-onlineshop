@@ -16,19 +16,23 @@
                 prependId="false">
 
             <h:outputLabel value="#{msg['email']}:">
+                <h:message for="email" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                 <h:inputText
+                        required="true"
+                        requiredMessage="#{msg['email_empty']}"
                         id="email"
                         value="#{loginController.email}">
                 </h:inputText>
-                <h:message for="email"/>
             </h:outputLabel>
 
             <h:outputLabel value="#{msg['password']}:">
+                <h:message for="password" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
                 <h:inputSecret
+                        required="true"
+                        requiredMessage="#{msg['password_empty']}"
                         id="password"
                         value="#{loginController.password}">
                 </h:inputSecret>
-                <h:message for="password"/>
             </h:outputLabel>
 
 
