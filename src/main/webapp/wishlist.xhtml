@@ -35,6 +35,10 @@
                         styleClass="product-list">
                     <h:column>
                         <div class="product">
+                            <h:outputText
+                                    styleClass="sold"
+                                    rendered="#{product.sold}"
+                                    value="#{msg['sold']}"/>
                             <h:graphicImage url="image?id=#{product.id}"/>
                             <div class="product-details">
 
@@ -53,14 +57,14 @@
                                         <h:commandButton
                                                 title="#{msg['move_to_cart']}"
                                                 styleClass="product-icon"
-                                                rendered="#{loginController.customer.loggedIn and !cartController.containsProduct(product)}"
+                                                rendered="#{!product.sold and loginController.customer.loggedIn and !cartController.containsProduct(product)}"
                                                 action="#{cartController.addToCart(product)}"
                                                 image="#{resource['img:cart_black.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['is_in_cart']}"
                                                 styleClass="product-icon"
                                                 disabled="true"
-                                                rendered="#{loginController.customer.loggedIn and cartController.containsProduct(product)}"
+                                                rendered="#{!product.sold and loginController.customer.loggedIn and cartController.containsProduct(product)}"
                                                 image="#{resource['img:cart_gray.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['mark']}"

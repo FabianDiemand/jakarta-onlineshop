@@ -25,7 +25,7 @@ public class ProductsController implements Serializable {
     @PersistenceContext
     private EntityManager em;
 
-    public DataModel<Product> getProducts(){
+    public DataModel<Product> getAllProducts(){
         List<Product> list = findAll();
         Product[] products = list.toArray(new Product[list.size()]);
 
@@ -35,7 +35,7 @@ public class ProductsController implements Serializable {
         return dataModel;
     }
 
-    public List<Product> findAll() {
+    private List<Product> findAll() {
         try {
             TypedQuery<Product> query = em.createNamedQuery("Product.findAllAvailable", Product.class);
             return query.getResultList();

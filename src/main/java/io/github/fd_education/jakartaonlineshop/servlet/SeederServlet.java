@@ -7,7 +7,6 @@ import io.github.fd_education.jakartaonlineshop.model.entities.Product;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.transaction.UserTransaction;
 
@@ -18,7 +17,6 @@ import java.nio.file.Files;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-@WebServlet("/seeder-servlet")
 public class SeederServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

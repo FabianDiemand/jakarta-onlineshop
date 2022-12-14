@@ -42,16 +42,21 @@ public class OrderController {
     EntityManager em;
 
     public void createOrderFromCart(Customer customer, Set<Product> cart) {
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ELContext elc = ctx.getELContext();
+        ELResolver elr = ctx.getApplication().getELResolver();
+
         try {
             ut.begin();
 
-
-
             for(Product product: cart){
-                product.setBuyer(customer);
-                product.setSold(true);
+                Product p = em.find(Product.class, product.getId());
 
-                em.merge(product);
+                p.setBuyer(customer);
+                p.setSold(true);
+
+                em.merge(p);
             }
 
             order.setOrderedAt(LocalDate.now());
@@ -65,12 +70,12 @@ public class OrderController {
 
             ut.commit();
 
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            ELContext elc = ctx.getELContext();
-            ELResolver elr = ctx.getApplication().getELResolver();
-
             CartController cartController = (CartController) elr.getValue(elc,null,"cartController");
             cartController.emptyCart();
+
+            ProfileController profileController = (ProfileController) elr.getValue(elc, null, "profileController");
+            profileController.fetchCustomer();
+
         } catch (Exception exception) {
             log.info(exception.toString());
         }

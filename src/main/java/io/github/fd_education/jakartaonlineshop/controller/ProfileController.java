@@ -111,4 +111,14 @@ public class ProfileController implements Serializable {
             log.warning(exception.getMessage());
         }
     }
+
+    public void fetchCustomer(){
+        try{
+            ut.begin();
+            customer = em.find(Customer.class, customer.getId());
+            ut.commit();
+        } catch(Exception exception){
+            log.warning(exception.getMessage());
+        }
+    }
 }
