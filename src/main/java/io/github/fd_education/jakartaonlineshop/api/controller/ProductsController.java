@@ -27,7 +27,7 @@ public class ProductsController implements Serializable {
 
     public DataModel<Product> getAllProducts(){
         List<Product> list = findAll();
-        Product[] products = list.toArray(new Product[list.size()]);
+        Product[] products = list.toArray(new Product[0]);
 
         DataModel<Product> dataModel = new ArrayDataModel<>(products);
         dataModel.addDataModelListener(new ProductListener());

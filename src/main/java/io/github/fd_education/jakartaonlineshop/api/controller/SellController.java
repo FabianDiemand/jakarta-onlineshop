@@ -49,6 +49,7 @@ public class SellController implements Serializable {
     @Setter
     private Product product;
 
+    @SuppressWarnings("SameReturnValue")
     public String persist(LoginController loginController) {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();

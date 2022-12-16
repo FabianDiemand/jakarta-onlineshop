@@ -66,6 +66,7 @@ public class LoginController implements Serializable {
         return "/signin.jsf";
     }
 
+    @SuppressWarnings("SameReturnValue")
     public String logout(){
         customer.setLoggedIn(false);
 

@@ -84,7 +84,7 @@ public class OrderController {
     public DataModel<Order> getOrdersByCustomer(Customer customer){
         List<Order> list = findByCustomer(customer);
 
-        Order[] orders = list.toArray(new Order[list.size()]);
+        Order[] orders = list.toArray(new Order[0]);
 
         DataModel<Order> dataModel = new ArrayDataModel<>(orders);
         dataModel.addDataModelListener(new OrderListener());
