@@ -68,6 +68,8 @@ public class Order implements Serializable {
         return Objects.hash(id);
     }
 
+    // Used in orderOverview facelet
+    @SuppressWarnings("unused")
     public double getTotal() {
         total = products.stream().mapToDouble(Product::getPrice).sum();
 

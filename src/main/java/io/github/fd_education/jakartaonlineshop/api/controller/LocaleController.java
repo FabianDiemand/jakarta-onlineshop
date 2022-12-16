@@ -23,18 +23,18 @@ public class LocaleController implements Serializable {
         this.lang = lang;
     }
 
-    public String change(String lang) {
+    public void change(String lang) {
         this.lang = lang;
-        return "/index.jsf";
     }
 
     public String formatDate(LocalDate date){
+        DateTimeFormatter dtf;
+
         if(Objects.equals(lang, "de")){
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.uuuu");
-            return dtf.format(date);
+            dtf = DateTimeFormatter.ofPattern("dd.MM.uuuu");
         } else {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-            return dtf.format(date);
+            dtf = DateTimeFormatter.ofPattern("MM/dd/uuuu");
         }
+        return dtf.format(date);
     }
 }

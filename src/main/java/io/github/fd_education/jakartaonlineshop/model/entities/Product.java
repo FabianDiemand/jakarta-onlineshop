@@ -49,6 +49,7 @@ public class Product implements Serializable {
     private Customer buyer;
 
     @ManyToMany(mappedBy = "wishlist", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Customer> wishedBy;
 
     @Override
