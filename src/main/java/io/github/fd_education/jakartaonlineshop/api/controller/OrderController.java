@@ -1,6 +1,7 @@
 package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import io.github.fd_education.jakartaonlineshop.api.listeners.OrderListener;
+import io.github.fd_education.jakartaonlineshop.domain.enums.OrderStatus;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Order;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;
@@ -62,8 +63,7 @@ public class OrderController {
             order.setOrderedAt(LocalDate.now());
             order.setCustomer(customer);
             order.setIsPaid(false);
-            // TODO: Create ENUM for Order states
-            order.setOrderStatus("ORDERED");
+            order.setOrderStatus(OrderStatus.ORDERED.getStatus());
             order.setProducts(cart);
 
             em.persist(order);

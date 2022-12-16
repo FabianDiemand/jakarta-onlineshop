@@ -1,8 +1,10 @@
 package io.github.fd_education.jakartaonlineshop.domain.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 // According to ISO-639-1
+@AllArgsConstructor
 public enum LocaleEnum {
     DE("de"){
         @Override
@@ -19,10 +21,6 @@ public enum LocaleEnum {
 
     @Getter
     private final String code;
-
-    LocaleEnum(String code){
-        this.code = code;
-    }
 
     public String getDatePattern(){
         return null;
