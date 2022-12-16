@@ -40,4 +40,12 @@
             index.jsf
         </welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pageNotFound.jsf</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/systemError.jsf</location>
+    </error-page>
 </web-app>
