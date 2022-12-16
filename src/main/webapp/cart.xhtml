@@ -11,16 +11,16 @@
             </h1>
 
             <h:outputText id="empty_cart"
-                          rendered="#{!cartController.hasProducts()}"
+                          rendered="#{cartController.isEmpty()}"
                           value="#{msg['empty_cart']}"/>
 
             <h:form>
                 <h:dataTable
-                        value="#{cartController.cart}"
+                        value="#{cartController.cart.products}"
                         var="product"
                         styleClass="cart-list">
 
-                    <h:column rendered="#{cartController.hasProducts()}">
+                    <h:column rendered="#{!cartController.isEmpty()}">
                         <div class="product">
                             <h:graphicImage url="image?id=#{product.id}"/>
                             <div class="cart-product-details">
@@ -60,7 +60,7 @@
                         </div>
                     </h:column>
                 </h:dataTable>
-                <h:panelGroup layout="block" rendered="#{cartController.hasProducts()}">
+                <h:panelGroup layout="block" rendered="#{!cartController.isEmpty()}">
                     <hr/>
                     <div id="cart-total">
                         <h:outputText id="total-text" value="#{msg['total']}"/>

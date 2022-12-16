@@ -34,7 +34,7 @@
         <h:commandButton
                 title="#{msg['cart']}"
                 styleClass="icon"
-                rendered="#{loginController.customer.loggedIn and cartController.hasProducts()}"
+                rendered="#{loginController.customer.loggedIn and !cartController.isEmpty()}"
                 action="/cart"
                 image="#{resource['img:cart_white.png']}"/>
         <h:commandButton
