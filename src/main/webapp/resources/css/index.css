@@ -4,6 +4,11 @@
     justify-content: center;
 }
 
+#products-form{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .product-list tr{
     padding: 10px 0;
 }
