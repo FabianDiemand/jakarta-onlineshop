@@ -1,7 +1,7 @@
-package io.github.fd_education.jakartaonlineshop.controller;
+package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
-import io.github.fd_education.jakartaonlineshop.utils.HashingUtil;
+import io.github.fd_education.jakartaonlineshop.domain.utils.HashingUtil;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;

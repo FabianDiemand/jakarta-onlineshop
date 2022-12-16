@@ -1,4 +1,4 @@
-package io.github.fd_education.jakartaonlineshop.utils;
+package io.github.fd_education.jakartaonlineshop.domain.utils;
 
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 

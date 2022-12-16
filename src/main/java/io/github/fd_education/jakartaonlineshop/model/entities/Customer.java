@@ -1,6 +1,6 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
-import io.github.fd_education.jakartaonlineshop.utils.HashingUtil;
+import io.github.fd_education.jakartaonlineshop.domain.utils.HashingUtil;
 import jakarta.persistence.*;
 import lombok.*;
 

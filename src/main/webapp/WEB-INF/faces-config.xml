@@ -38,7 +38,7 @@
         <navigation-case>
             <from-outcome>order_overview</from-outcome>
             <to-view-id>
-                /order_overview.xhtml
+                /orderOverview.xhtml
             </to-view-id>
             <redirect/>
         </navigation-case>

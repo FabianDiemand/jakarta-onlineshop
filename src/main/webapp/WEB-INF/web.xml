@@ -15,7 +15,7 @@
         <!--suppress ServletWithoutMappingInspection -->
         <servlet-name>Seeder Servlet</servlet-name>
         <servlet-class>
-            io.github.fd_education.jakartaonlineshop.servlet.SeederServlet
+            io.github.fd_education.jakartaonlineshop.api.servlet.SeederServlet
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>

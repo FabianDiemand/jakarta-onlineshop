@@ -1,6 +1,5 @@
 package io.github.fd_education.jakartaonlineshop.model.entities;
 
-import io.github.fd_education.jakartaonlineshop.controller.LocaleController;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,9 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;

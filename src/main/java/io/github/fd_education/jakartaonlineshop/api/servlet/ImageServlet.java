@@ -1,4 +1,4 @@
-package io.github.fd_education.jakartaonlineshop.servlet;
+package io.github.fd_education.jakartaonlineshop.api.servlet;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,8 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-
 @WebServlet("/image")
 public class ImageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -19,7 +17,7 @@ public class ImageServlet extends HttpServlet {
     private EntityManager em;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         try{
             String id = req.getParameter("id");
 

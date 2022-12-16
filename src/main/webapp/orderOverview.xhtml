@@ -27,7 +27,7 @@
                 <h:outputText value="#{msg['order_overview.page_title']}"/>
             </h1>
             <h:outputText id="empty_wishlist"
-                          rendered="#{true}"
+                          rendered="#{empty orderController.getOrdersByCustomer(loginController.customer)}"
                           value="#{msg['no_orders']}"/>
             <h:form
                     id="order_overview_form"

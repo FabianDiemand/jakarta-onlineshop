@@ -1,6 +1,6 @@
-package io.github.fd_education.jakartaonlineshop.controller;
+package io.github.fd_education.jakartaonlineshop.api.controller;
 
-import io.github.fd_education.jakartaonlineshop.listeners.OrderListener;
+import io.github.fd_education.jakartaonlineshop.api.listeners.OrderListener;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Order;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;

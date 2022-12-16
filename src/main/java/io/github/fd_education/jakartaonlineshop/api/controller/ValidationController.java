@@ -1,4 +1,4 @@
-package io.github.fd_education.jakartaonlineshop.controller;
+package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;

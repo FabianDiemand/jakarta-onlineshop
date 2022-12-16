@@ -1,4 +1,4 @@
-package io.github.fd_education.jakartaonlineshop.controller;
+package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;

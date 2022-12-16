@@ -1,15 +1,12 @@
-package io.github.fd_education.jakartaonlineshop.controller;
-
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Locale;
-import java.util.Objects;
+package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Named
 @SessionScoped
