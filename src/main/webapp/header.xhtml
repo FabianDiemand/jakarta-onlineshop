@@ -58,14 +58,14 @@
         <h:commandButton
                 title="#{msg['english']}"
                 styleClass="flags"
-                rendered="#{localeController.lang != 'en'}"
-                action="#{localeController.change('en')}"
+                rendered="#{localeController.lang != localeConstants.EN}"
+                action="#{localeController.change(localeConstants.EN)}"
                 image="#{resource['img:us.gif']}"/>
         <h:commandButton
                 title="#{msg['german']}"
                 styleClass="flags"
-                rendered="#{localeController.lang != 'de'}"
-                action="#{localeController.change('de')}"
+                rendered="#{localeController.lang != localeConstants.DE}"
+                action="#{localeController.change(localeConstants.DE)}"
                 image="#{resource['img:de.gif']}"/>
     </h:form>
 </header>
