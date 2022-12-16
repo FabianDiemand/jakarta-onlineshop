@@ -17,11 +17,11 @@ footer {
 }
 
 header {
-  justify-content: space-between;
-  position: fixed;
+  align-self: flex-start;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
+  justify-content: space-between;
+  width: 100vw;
 }
 
 header > nav > a,
@@ -59,13 +59,13 @@ a:hover {
   align-items: center;
 }
 
-body > footer{
+footer{
+  align-self: flex-end;
+  width: 100vw;
   justify-content: end;
   color: white;
   font-weight: bold;
   font-size: 1.5em;
-  width: 100%;
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  left: 0;
 }

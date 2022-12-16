@@ -24,21 +24,22 @@
         <h:outputStylesheet name="order_overview.css" library="css"/>
         <h:outputStylesheet name="wishlist.css" library="css"/>
         <h:outputStylesheet name="cart.css" library="css"/>
+        <h:outputStylesheet name="error_pages.css" library="css"/>
     </h:head>
     <h:body>
-        <h:messages globalOnly="true"/>
-        <ui:insert name="header">
-            <ui:include src="header.xhtml"/>
-        </ui:insert>
+        <div class="container">
+            <ui:insert name="header">
+                <ui:include src="header.xhtml"/>
+            </ui:insert>
 
-        <div class="content">
-            <ui:insert name="content"/>
+            <div class="content">
+                <ui:insert name="content"/>
+            </div>
+
+            <ui:insert name="footer">
+                <ui:include src="footer.xhtml"/>
+            </ui:insert>
         </div>
-
-        <ui:insert name="footer">
-            <ui:include src="footer.xhtml"/>
-        </ui:insert>
-        <ui:debug/>
     </h:body>
 </f:view>
 </html>
