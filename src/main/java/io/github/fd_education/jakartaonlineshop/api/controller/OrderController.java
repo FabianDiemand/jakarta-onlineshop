@@ -2,10 +2,12 @@ package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import io.github.fd_education.jakartaonlineshop.api.listeners.OrderListener;
 import io.github.fd_education.jakartaonlineshop.domain.enums.OrderStatus;
+import io.github.fd_education.jakartaonlineshop.domain.pojo.Cart;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Order;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;
-import jakarta.annotation.Resource;
+import io.github.fd_education.jakartaonlineshop.model.repository.OrderRepository;
+import io.github.fd_education.jakartaonlineshop.model.repository.ProductRepository;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.enterprise.context.RequestScoped;
@@ -14,21 +16,17 @@ import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.DataModel;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.UserTransaction;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
-@Named @RequestScoped
-@Getter @Setter
+@Named
+@RequestScoped
+@Getter
+@Setter
 public class OrderController {
 
     private final static Logger log = Logger
@@ -36,53 +34,44 @@ public class OrderController {
     @Inject
     Order order;
 
-    @Resource
-    UserTransaction ut;
+    @Inject
+    OrderRepository orderRepository;
 
-    @PersistenceContext
-    EntityManager em;
+    @Inject
+    ProductRepository productRepository;
 
-    public void createOrderFromCart(Customer customer, Set<Product> cart) {
+    public void createOrderFromCart(Customer customer, Cart cart) {
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         ELContext elc = ctx.getELContext();
         ELResolver elr = ctx.getApplication().getELResolver();
 
-        try {
-            ut.begin();
+        for (Product product : cart.getProducts()) {
+            Product p = productRepository.getById(product.getId());
 
-            for(Product product: cart){
-                Product p = em.find(Product.class, product.getId());
+            p.setBuyer(customer);
+            p.setSold(true);
 
-                p.setBuyer(customer);
-                p.setSold(true);
-
-                em.merge(p);
-            }
-
-            order.setOrderedAt(LocalDate.now());
-            order.setCustomer(customer);
-            order.setIsPaid(false);
-            order.setOrderStatus(OrderStatus.ORDERED.getStatus());
-            order.setProducts(cart);
-
-            em.persist(order);
-
-            ut.commit();
-
-            CartController cartController = (CartController) elr.getValue(elc,null,"cartController");
-            cartController.emptyCart();
-
-            ProfileController profileController = (ProfileController) elr.getValue(elc, null, "profileController");
-            profileController.fetchCustomer();
-
-        } catch (Exception exception) {
-            log.info(exception.toString());
+            productRepository.update(p);
         }
+
+        order.setOrderedAt(LocalDate.now());
+        order.setCustomer(customer);
+        order.setIsPaid(false);
+        order.setOrderStatus(OrderStatus.ORDERED.getStatus());
+        order.setProducts(cart.getProducts());
+
+        orderRepository.create(order);
+
+        CartController cartController = (CartController) elr.getValue(elc, null, "cartController");
+        cartController.emptyCart();
+
+        ProfileController profileController = (ProfileController) elr.getValue(elc, null, "profileController");
+        profileController.fetchCustomer();
     }
 
-    public DataModel<Order> getOrdersByCustomer(Customer customer){
-        List<Order> list = findByCustomer(customer);
+    public DataModel<Order> getOrdersByCustomer(Customer customer) {
+        List<Order> list = orderRepository.getByCustomer(customer);
 
         Order[] orders = list.toArray(new Order[0]);
 
@@ -90,17 +79,5 @@ public class OrderController {
         dataModel.addDataModelListener(new OrderListener());
 
         return dataModel;
-    }
-
-    public List<Order> findByCustomer(Customer customer){
-        try{
-            TypedQuery<Order> query = em.createNamedQuery("Order.findByCustomer", Order.class);
-            query.setParameter("customer", customer);
-            return query.getResultList();
-        } catch(Exception e){
-            log.severe(e.getMessage());
-        }
-
-        return new ArrayList<>();
     }
 }

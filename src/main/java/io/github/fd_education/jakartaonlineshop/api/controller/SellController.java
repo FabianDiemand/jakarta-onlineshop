@@ -2,16 +2,14 @@ package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;
-import jakarta.annotation.Resource;
+import io.github.fd_education.jakartaonlineshop.model.repository.CustomerRepository;
+import io.github.fd_education.jakartaonlineshop.model.repository.ProductRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.Part;
-import jakarta.transaction.UserTransaction;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,12 +32,6 @@ public class SellController implements Serializable {
     private final static Logger log = Logger
             .getLogger(SellController.class.toString());
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Resource
-    private UserTransaction ut;
-
     @Getter
     @Setter
     private Part part;
@@ -49,6 +41,12 @@ public class SellController implements Serializable {
     @Setter
     private Product product;
 
+    @Inject
+    private CustomerRepository customerRepository;
+
+    @Inject
+    private ProductRepository productRepository;
+
     @SuppressWarnings("SameReturnValue")
     public String persist(LoginController loginController) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -56,7 +54,6 @@ public class SellController implements Serializable {
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         try {
-            ut.begin();
             InputStream input = part.getInputStream();
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buffer = new byte[10240];
@@ -67,13 +64,10 @@ public class SellController implements Serializable {
 
             Customer customer = loginController.getCustomer();
 
-            customer = em.find(Customer.class, customer.getId());
+            customer = customerRepository.getById(customer.getId());
 
             product.setSeller(customer);
-            em.persist(product);
-
-            ut.commit();
-
+            productRepository.create(product);
             log.info("Offered item: " + product);
 
             FacesMessage m = new FacesMessage(bundle.getString("offer_success"));
