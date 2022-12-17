@@ -8,9 +8,22 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * Utility class to scale images to a specified size.
+ *
+ * @author Fabian Diemand
+ */
 public class ScaleUtil {
+    // The length of the image
     private final static int MAX_IMAGE_LENGTH = 400;
 
+    /**
+     * Scale a foto down to a specified size.
+     *
+     * @param foto binary of the foto to scale
+     * @return scaled binary of the foto
+     * @throws IOException if there is an error whilst reading the input
+     */
     public static byte[] scale(byte[] foto) throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(foto);
         BufferedImage originalBufferedImage = ImageIO.read(byteArrayInputStream);

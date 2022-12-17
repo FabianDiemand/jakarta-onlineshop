@@ -3,7 +3,9 @@ package io.github.fd_education.jakartaonlineshop.domain.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-// According to ISO-639-1
+/**
+ * Enum contains Language Codes according to ISO-639-1 and date formats.
+ */
 @AllArgsConstructor
 public enum LocaleEnum {
     DE("de"){
