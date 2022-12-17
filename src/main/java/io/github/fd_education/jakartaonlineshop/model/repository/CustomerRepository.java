@@ -13,21 +13,37 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.logging.Logger;
 
+/**
+ * Customer repository as an abstraction of data layer access.
+ *
+ * @author Fabian Diemand
+ */
 @NoArgsConstructor
 public class CustomerRepository implements ICustomerRepository, Serializable {
-    private final static Logger log = Logger
-            .getLogger(CustomerRepository.class.toString());
+    private final static Logger log = Logger.getLogger(CustomerRepository.class.toString());
     @PersistenceContext
     private EntityManager em;
 
     @Resource
     private UserTransaction ut;
 
+    /**
+     * Return a customer identified by its ID.
+     *
+     * @param id the id of the customer to look up
+     * @return a customer object or null if the ID cannot be resolved
+     */
     @Override
     public Customer getById(Long id) {
         return em.find(Customer.class, id);
     }
 
+    /**
+     * Return a customer identified by its email.
+     *
+     * @param email the email of the customer to look up
+     * @return a customer object or null if the email cannot be resolved
+     */
     @Override
     public Customer getByEmail(String email) {
         try {
@@ -41,6 +57,11 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
         return null;
     }
 
+    /**
+     * Create a customer in the database.
+     *
+     * @param customer the customer to be persisted
+     */
     @Override
     public void create(Customer customer) {
         try {
@@ -54,6 +75,11 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
         }
     }
 
+    /**
+     * Create many customers in the database.
+     *
+     * @param customers a collection of customers to be persisted
+     */
     @Override
     public void createMany(Collection<Customer> customers) {
         try {
@@ -69,6 +95,12 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
         }
     }
 
+    /**
+     * Update a customer in the database
+     *
+     * @param customer the customer to merge in the database
+     * @return the managed customer object
+     */
     @Override
     public Customer update(Customer customer) {
         Customer c = null;
@@ -84,8 +116,19 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
         return c;
     }
 
+    /**
+     * Remove a customer from the database.
+     *
+     * @param customer the customer to remove
+     */
     @Override
-    public Customer remove(Customer customer) {
-        return null;
+    public void remove(Customer customer) {
+        try {
+            ut.begin();
+            em.remove(customer);
+            ut.commit();
+        } catch (Exception ex) {
+            log.severe(ex.toString());
+        }
     }
 }

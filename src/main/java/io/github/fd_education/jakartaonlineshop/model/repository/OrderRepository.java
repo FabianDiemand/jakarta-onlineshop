@@ -13,6 +13,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Order repository as an abstraction of data layer access.
+ *
+ * @author Fabian Diemand
+ */
 public class OrderRepository implements IOrderRepository, Serializable {
     private final static Logger log = Logger.getLogger(OrderRepository.class.toString());
     @Resource
@@ -21,6 +26,12 @@ public class OrderRepository implements IOrderRepository, Serializable {
     @PersistenceContext
     EntityManager em;
 
+    /**
+     * Get all orders of a customer.
+     *
+     * @param customer the customer whose orders to fetch.
+     * @return a list of orders
+     */
     @Override
     public List<Order> getByCustomer(Customer customer) {
         TypedQuery<Order> query = em.createNamedQuery("Order.findByCustomer", Order.class);
@@ -28,6 +39,11 @@ public class OrderRepository implements IOrderRepository, Serializable {
         return query.getResultList();
     }
 
+    /**
+     * Create an order in the database
+     *
+     * @param order the order to be persisted
+     */
     @Override
     public void create(Order order) {
         try {
@@ -39,6 +55,11 @@ public class OrderRepository implements IOrderRepository, Serializable {
         }
     }
 
+    /**
+     * Update an order in the database.
+     *
+     * @param order the order to update
+     */
     @Override
     public void update(Order order) {
         try {
@@ -50,6 +71,11 @@ public class OrderRepository implements IOrderRepository, Serializable {
         }
     }
 
+    /**
+     * Remove an order from the database.
+     *
+     * @param order the order to remove
+     */
     @Override
     public void remove(Order order) {
         try {

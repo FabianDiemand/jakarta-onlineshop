@@ -12,6 +12,11 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * JPA entity for Order data.
+ *
+ * @author Fabian Diemand
+ */
 @Getter
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
@@ -68,6 +73,11 @@ public class Order implements Serializable {
         return Objects.hash(id);
     }
 
+    /**
+     * Get the total of all ordered products
+     *
+     * @return the total price of all products in the order
+     */
     // Used in orderOverview facelet
     @SuppressWarnings("unused")
     public double getTotal() {

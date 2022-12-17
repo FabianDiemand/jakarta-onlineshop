@@ -16,8 +16,6 @@ import java.time.format.DateTimeFormatter;
  */
 @Named @SessionScoped
 public class LocaleController implements Serializable {
-    private static final long serialVersionUID = 1L;
-
     @Getter
     private LocaleEnum lang = LocaleEnum.DE;
 

@@ -4,6 +4,11 @@ import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 
 import java.util.Collection;
 
+/**
+ * The interface to be used for a customer repository.
+ *
+ * @author Fabian Diemand
+ */
 public interface ICustomerRepository {
     Customer getById(Long id);
 
@@ -15,5 +20,5 @@ public interface ICustomerRepository {
 
     Customer update(Customer customer);
 
-    Customer remove(Customer customer);
+    void remove(Customer customer);
 }

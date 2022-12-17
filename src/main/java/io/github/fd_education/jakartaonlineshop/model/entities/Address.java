@@ -6,11 +6,16 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * JPA entity for Address data.
+ * Has Many-to-one relation to Customer entity.
+ *
+ * @author Fabian Diemand
+ */
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name = "address", schema = "onlineshop")
 public class Address implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id", nullable = false)

@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * JPA entity for Product data.
+ *
+ * @author Fabian Diemand
+ */
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name = "product", schema = "onlineshop")
@@ -15,7 +20,6 @@ import java.util.Set;
         query = "SELECT p from Product p WHERE p.sold = false"
 )
 public class Product implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)

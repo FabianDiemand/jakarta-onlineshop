@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * JPA entity for Customer data.
+ *
+ * @author Fabian Diemand
+ */
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name = "customer", schema = "onlineshop")
@@ -26,7 +31,6 @@ import java.util.Set;
         }
 )
 public class Customer implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
@@ -70,19 +74,39 @@ public class Customer implements Serializable {
     @Transient
     private boolean loggedIn = false;
 
+    /**
+     * Custom setter for the password field to ensure that the password is hashed.
+     *
+     * @param password the password entered by the user
+     */
     public void setPassword(String password){
         this.password = HashingUtil.getHash(password);
     }
 
+    /**
+     * Add a product to the wishlist of the customer.
+     *
+     * @param product the product to add to the wishlist
+     */
     public void addToWishlist(Product product){
         wishlist.add(product);
     }
 
+    /**
+     * Check if the wishlist contains the product
+     *
+     * @param product the product to be looked up
+     * @return true if the product is in the wishlist, false otherwise
+     */
     public boolean wishlistContains(Product product){
-        product.getWishedBy().add(this);
         return wishlist.contains(product);
     }
 
+    /**
+     * Remove the product from the wishlist
+     *
+     * @param product the product to be removed
+     */
     public void removeFromWishlist(Product product){
         wishlist.remove(product);
     }

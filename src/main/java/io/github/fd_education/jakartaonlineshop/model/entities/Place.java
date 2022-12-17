@@ -6,12 +6,16 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * JPA entity for Place data.
+ *
+ * @author Fabian Diemand
+ */
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "place", schema = "onlineshop")
 public class Place implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id", nullable = false)
