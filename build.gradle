@@ -19,9 +19,9 @@ ext {
 }
 
 //noinspection GroovyUnusedAssignment
-sourceCompatibility = '1.8'
+sourceCompatibility = "1.9"
 //noinspection GroovyUnusedAssignment
-targetCompatibility = '1.8'
+targetCompatibility = "1.9"
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'

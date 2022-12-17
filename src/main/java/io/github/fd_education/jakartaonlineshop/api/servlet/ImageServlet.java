@@ -1,30 +1,37 @@
 package io.github.fd_education.jakartaonlineshop.api.servlet;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
+import io.github.fd_education.jakartaonlineshop.model.repository.ProductRepository;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * WebServlet to load a product image.
+ *
+ * @author Fabian Diemand
+ */
 @WebServlet("/image")
 public class ImageServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
-    @PersistenceContext
-    private EntityManager em;
+    // Abstraction of the data layer with a repository
+    @Inject
+    private ProductRepository productRepository;
 
+    /**
+     * Get request to get the image from the database and send it to the client.
+     *
+     * @param req an {@link HttpServletRequest} object that contains the request the client has made of the servlet
+     * @param resp an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         try{
             String id = req.getParameter("id");
 
-            Query query = em.createQuery("SELECT p.image FROM Product  p WHERE p.id = :id");
-            query.setParameter("id", Long.parseLong(id));
-
-            byte[] image = (byte[]) query.getSingleResult();
+            byte[] image = productRepository.getImageOfProductById(Long.parseLong(id));
             resp.reset();
             resp.getOutputStream().write(image);
         } catch(Exception ex){

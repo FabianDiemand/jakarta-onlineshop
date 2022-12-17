@@ -4,36 +4,44 @@ import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Place;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;
-import jakarta.annotation.Resource;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import io.github.fd_education.jakartaonlineshop.model.repository.CustomerRepository;
+import io.github.fd_education.jakartaonlineshop.model.repository.ProductRepository;
+import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.transaction.UserTransaction;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * Servlet to seed database at application startup (configured in web.xml)
+ *
+ * @author Fabian Diemand
+ */
 public class SeederServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    private final static Logger log = Logger.getLogger(SeederServlet.class.toString());
 
-    private final static Logger log = Logger
-            .getLogger(SeederServlet.class.toString());
+    // Abstraction of the data layer with repositories
+    @Inject
+    private ProductRepository productRepository;
+    @Inject
+    private CustomerRepository customerRepository;
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Resource
-    private UserTransaction ut;
-
+    /**
+     * Create a collection of customers and products to seed the database.
+     */
     @Override
     public void init(){
-        try{
-            ut.begin();
 
+        Collection<Customer> customers = new ArrayList<>();
+        Collection<Product> products = new ArrayList<>();
+
+        try{
             Customer johnDoe = createCustomer("John", "Doe", "john@doe.com", "Johndoe1!",
                     createAddress("DoeStreet", "1",
                             createPlace("1234", "DoePlace")));
@@ -74,15 +82,17 @@ public class SeederServlet extends HttpServlet {
                     999,
                     timTom);
 
-            em.persist(johnDoe);
-            em.persist(janeDoe);
-            em.persist(timTom);
-            em.persist(graka);
-            em.persist(harddisk);
-            em.persist(motherboard);
-            em.persist(ram);
+            customers.add(johnDoe);
+            customers.add(janeDoe);
+            customers.add(timTom);
 
-            ut.commit();
+            products.add(graka);
+            products.add(harddisk);
+            products.add(motherboard);
+            products.add(ram);
+
+            customerRepository.createMany(customers);
+            productRepository.createMany(products);
 
             log.info("Database Customer Seeded!");
         } catch(Exception e){
@@ -90,6 +100,7 @@ public class SeederServlet extends HttpServlet {
         }
     }
 
+    // Helper method to create place entities
     private Place createPlace(String postalCode, String placeName){
         Place p = new Place();
         p.setPostalCode(postalCode);
@@ -98,6 +109,7 @@ public class SeederServlet extends HttpServlet {
         return p;
     }
 
+    // Helper method to create address entities
     private Address createAddress(String streetname, String housenumber, Place place){
         Address a = new Address();
         a.setStreetname(streetname);
@@ -107,6 +119,7 @@ public class SeederServlet extends HttpServlet {
         return a;
     }
 
+    // Helper method to create customer entities
     private Customer createCustomer(String firstname, String lastname, String email, String password, Address address){
         Customer c = new Customer();
         c.setFirstName(firstname);
@@ -118,6 +131,7 @@ public class SeederServlet extends HttpServlet {
         return c;
     }
 
+    // Helper method to create product entities
     private Product createProduct(byte[] image, String name, String descr, double price, Customer customer){
         Product p = new Product();
         p.setImage(image);
@@ -129,6 +143,7 @@ public class SeederServlet extends HttpServlet {
         return p;
     }
 
+    // Fetch image from directory specified with the url
     private byte[] getImage(URL path) throws IOException {
         File file = new File(path.getPath());
         return Files.readAllBytes(file.toPath());

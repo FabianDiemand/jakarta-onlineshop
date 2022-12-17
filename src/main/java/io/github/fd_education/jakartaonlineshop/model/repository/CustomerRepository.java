@@ -10,6 +10,7 @@ import jakarta.transaction.UserTransaction;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.logging.Logger;
 
 @NoArgsConstructor
@@ -41,8 +42,31 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
     }
 
     @Override
-    public Customer create(Customer customer) {
-        return null;
+    public void create(Customer customer) {
+        try {
+            ut.begin();
+
+            em.persist(customer);
+
+            ut.commit();
+        } catch (Exception ex) {
+            log.severe(ex.toString());
+        }
+    }
+
+    @Override
+    public void createMany(Collection<Customer> customers) {
+        try {
+            ut.begin();
+
+            for(Customer customer: customers){
+                em.persist(customer);
+            }
+
+            ut.commit();
+        } catch (Exception ex) {
+            log.severe(ex.toString());
+        }
     }
 
     @Override
