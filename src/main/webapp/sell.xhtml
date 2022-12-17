@@ -54,7 +54,7 @@
 
             <h:commandButton
                     value="#{msg['sell']}"
-                    action="#{sellController.persist(loginController)}"/>
+                    action="#{sellController.persist(loginController.customer)}"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -34,7 +34,7 @@
         <h:commandButton
                 title="#{msg['cart']}"
                 styleClass="icon"
-                rendered="#{loginController.customer.loggedIn and !cartController.isEmpty()}"
+                rendered="#{loginController.customer.loggedIn and !cartController.cart.isEmpty()}"
                 action="/cart"
                 image="#{resource['img:cart_white.png']}"/>
         <h:commandButton
@@ -59,13 +59,13 @@
                 title="#{msg['english']}"
                 styleClass="flags"
                 rendered="#{localeController.lang != localeConstants.EN}"
-                action="#{localeController.change(localeConstants.EN)}"
+                action="#{localeController.setLang(localeConstants.EN)}"
                 image="#{resource['img:us.gif']}"/>
         <h:commandButton
                 title="#{msg['german']}"
                 styleClass="flags"
                 rendered="#{localeController.lang != localeConstants.DE}"
-                action="#{localeController.change(localeConstants.DE)}"
+                action="#{localeController.setLang(localeConstants.DE)}"
                 image="#{resource['img:de.gif']}"/>
     </h:form>
 </header>

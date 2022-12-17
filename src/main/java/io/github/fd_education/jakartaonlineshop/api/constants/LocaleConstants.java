@@ -5,6 +5,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 import lombok.Getter;
 
+/**
+ * Constants Bean to make enum values for locales available in JSF facelets.
+ * Offers lombok-created getters for each constant (DE, EN).
+ *
+ * @author Fabian Diemand
+ */
 @Named @ApplicationScoped
 @Getter
 public class LocaleConstants {

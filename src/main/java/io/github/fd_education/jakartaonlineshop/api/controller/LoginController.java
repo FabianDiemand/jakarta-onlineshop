@@ -16,29 +16,43 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+/**
+ * Controller Bean for the login process.
+ *
+ * @author Fabian Diemand
+ */
 @Named @SessionScoped
 @Setter @Getter
 public class LoginController implements Serializable {
     private final static Logger log = Logger.getLogger(LoginController.class.toString());
 
+    // Login information the user has to pass to the application (via form at login.xhtml)
     private String email, password;
 
+    // Customer object to hold all customer data and the login state
     @Inject
     private Customer customer;
 
+    // Abstraction of the data layer with a repository
     @Inject
     private CustomerRepository customerRepository;
 
+    // Inject profileController to set profile of the customer
     @Inject
     private ProfileController profileController;
 
+    /**
+     * Authenticate the user, using their email and password.
+     *
+     * @return outcome of index if login is successful, outcome of signin otherwise
+     */
     public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
+        // Check if the customer exists and if the password hashes match
         customer = customerRepository.getByEmail(email);
-
         if(customer == null || !HashingUtil.isMatchingHash(password, customer.getPassword())){
             log.warning("Login failed for email" + email);
             FacesMessage m = new FacesMessage(bundle.getString("signin_failure"));
@@ -53,6 +67,11 @@ public class LoginController implements Serializable {
         }
     }
 
+    /**
+     * Log out the customer.
+     *
+     * @return outcome of index
+     */
     @SuppressWarnings("SameReturnValue")
     public String logout(){
         customer.setLoggedIn(false);

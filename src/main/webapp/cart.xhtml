@@ -11,7 +11,7 @@
             </h1>
 
             <h:outputText id="empty_cart"
-                          rendered="#{cartController.isEmpty()}"
+                          rendered="#{cartController.cart.isEmpty()}"
                           value="#{msg['empty_cart']}"/>
 
             <h:form>
@@ -20,7 +20,7 @@
                         var="product"
                         styleClass="cart-list">
 
-                    <h:column rendered="#{!cartController.isEmpty()}">
+                    <h:column rendered="#{!cartController.cart.isEmpty()}">
                         <div class="product">
                             <h:graphicImage url="image?id=#{product.id}"/>
                             <div class="cart-product-details">
@@ -40,7 +40,7 @@
                                         <h:commandButton
                                                 title="#{msg['cart.remove_product']}"
                                                 styleClass="product-icon"
-                                                action="#{cartController.removeFromCart(product)}"
+                                                action="#{cartController.cart.removeProduct(product)}"
                                                 image="#{resource['img:bin.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['mark']}"
@@ -60,11 +60,11 @@
                         </div>
                     </h:column>
                 </h:dataTable>
-                <h:panelGroup layout="block" rendered="#{!cartController.isEmpty()}">
+                <h:panelGroup layout="block" rendered="#{!cartController.cart.isEmpty()}">
                     <hr/>
                     <div id="cart-total">
                         <h:outputText id="total-text" value="#{msg['total']}"/>
-                        <h:outputText id="total-sum" value="#{cartController.sum}"/>
+                        <h:outputText id="total-sum" value="#{cartController.cart.sum}"/>
                     </div>
                     <hr/>
                     <hr/>

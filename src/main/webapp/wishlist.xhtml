@@ -57,14 +57,14 @@
                                         <h:commandButton
                                                 title="#{msg['move_to_cart']}"
                                                 styleClass="product-icon"
-                                                rendered="#{!product.sold and loginController.customer.loggedIn and !cartController.containsProduct(product)}"
-                                                action="#{cartController.addToCart(product)}"
+                                                rendered="#{!product.sold and loginController.customer.loggedIn and !cartController.cart.containsProduct(product)}"
+                                                action="#{cartController.cart.addProduct(product)}"
                                                 image="#{resource['img:cart_black.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['is_in_cart']}"
                                                 styleClass="product-icon"
                                                 disabled="true"
-                                                rendered="#{!product.sold and loginController.customer.loggedIn and cartController.containsProduct(product)}"
+                                                rendered="#{!product.sold and loginController.customer.loggedIn and cartController.cart.containsProduct(product)}"
                                                 image="#{resource['img:cart_gray.png']}"/>
                                         <h:commandButton
                                                 title="#{msg['mark']}"
