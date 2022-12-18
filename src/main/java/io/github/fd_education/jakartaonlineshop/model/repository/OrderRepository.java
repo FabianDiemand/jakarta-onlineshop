@@ -11,6 +11,7 @@ import jakarta.transaction.UserTransaction;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -64,8 +65,33 @@ public class OrderRepository implements IOrderRepository, Serializable {
                 log.severe(e.toString());
             }
         }
+    }
 
+    /**
+     * Create many orders in the database.
+     *
+     * @param orders a collection of orders to be persisted
+     */
+    @Override
+    public void createMany(Collection<Order> orders) {
+        try {
+            ut.begin();
 
+            for(Order order: orders){
+                em.persist(order);
+            }
+
+            ut.commit();
+            log.info("Successfully persisted " + orders.size() + " orders.");
+        } catch (Exception ex) {
+            log.severe("Rollback: Exception " + ex + " when attempting to persist " + orders.size() + " orders.\n" + Arrays.toString(ex.getStackTrace()));
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        }
     }
 
     /**

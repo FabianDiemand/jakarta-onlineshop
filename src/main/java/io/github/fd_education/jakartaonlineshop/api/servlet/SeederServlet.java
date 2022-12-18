@@ -1,10 +1,9 @@
 package io.github.fd_education.jakartaonlineshop.api.servlet;
 
-import io.github.fd_education.jakartaonlineshop.model.entities.Address;
-import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
-import io.github.fd_education.jakartaonlineshop.model.entities.Place;
-import io.github.fd_education.jakartaonlineshop.model.entities.Product;
+import io.github.fd_education.jakartaonlineshop.domain.enums.OrderStatus;
+import io.github.fd_education.jakartaonlineshop.model.entities.*;
 import io.github.fd_education.jakartaonlineshop.model.repository.CustomerRepository;
+import io.github.fd_education.jakartaonlineshop.model.repository.OrderRepository;
 import io.github.fd_education.jakartaonlineshop.model.repository.ProductRepository;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServlet;
@@ -13,10 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -32,6 +29,8 @@ public class SeederServlet extends HttpServlet {
     private ProductRepository productRepository;
     @Inject
     private CustomerRepository customerRepository;
+    @Inject
+    private OrderRepository orderRepository;
 
     /**
      * Create a collection of customers and products to seed the database.
@@ -41,6 +40,7 @@ public class SeederServlet extends HttpServlet {
 
         Collection<Customer> customers = new ArrayList<>();
         Collection<Product> products = new ArrayList<>();
+        Collection<Order> orders = new ArrayList<>();
 
         try{
             Customer johnDoe = createCustomer("John", "Doe", "john@doe.com", "Johndoe1!",
@@ -83,6 +83,46 @@ public class SeederServlet extends HttpServlet {
                     999,
                     timTom);
 
+            Product keyboard = createSoldProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/tastatur.png"))),
+                    "Tastatur",
+                    "QWERTY Tastatur, Neuwertig, kann nur blau.",
+                    333,
+                    timTom,
+                    johnDoe);
+
+            Product headset = createSoldProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/headset.png"))),
+                    "Kopfhörer",
+                    "Logitech Kopfhörer Pro X, Kabel fehlt!!! :(",
+                    4,
+                    janeDoe,
+                    johnDoe);
+
+            Product screen = createSoldProduct(
+                    getImage(Objects.requireNonNull(getClass().getResource("/seed-images/screen.png"))),
+                    "Bildschirm",
+                    "Vorgestern gekauft. Fahrrad nicht im Lieferumfang enthalten.",
+                    600,
+                    janeDoe,
+                    johnDoe);
+
+            Order o1 = createPaidOrder(
+                    johnDoe,
+                    Set.of(headset),
+                    OrderStatus.DELIVERED,
+                    LocalDate.now().minusDays(30));
+
+            Order o2 = createPaidOrder(
+                    johnDoe,
+                    Set.of(screen),
+                    OrderStatus.SHIPPED,
+                    LocalDate.now().minusDays(3));
+
+            Order o3 = createUnpaidOrder(
+                    johnDoe,
+                    Set.of(keyboard));
+
             customers.add(johnDoe);
             customers.add(janeDoe);
             customers.add(timTom);
@@ -91,10 +131,17 @@ public class SeederServlet extends HttpServlet {
             products.add(harddisk);
             products.add(motherboard);
             products.add(ram);
+            products.add(keyboard);
+            products.add(headset);
+            products.add(screen);
 
+            orders.add(o1);
+            orders.add(o2);
+            orders.add(o3);
 
             customerRepository.createMany(customers);
             productRepository.createMany(products);
+            orderRepository.createMany(orders);
 
             log.info("Database Customer Seeded!");
         } catch(Exception e){
@@ -134,15 +181,51 @@ public class SeederServlet extends HttpServlet {
     }
 
     // Helper method to create product entities
-    private Product createProduct(byte[] image, String name, String descr, double price, Customer customer){
+    private Product createProduct(byte[] image, String name, String descr, double price, Customer seller){
         Product p = new Product();
         p.setImage(image);
         p.setName(name);
         p.setDescription(descr);
         p.setPrice(price);
-        p.setSeller(customer);
+        p.setSeller(seller);
 
         return p;
+    }
+
+    // Helper method to create sold product entities
+    private Product createSoldProduct(byte[] image, String name, String descr, double price, Customer seller, Customer buyer){
+        Product p = new Product();
+        p.setImage(image);
+        p.setName(name);
+        p.setDescription(descr);
+        p.setPrice(price);
+        p.setSeller(seller);
+        p.setSold(true);
+        p.setBuyer(buyer);
+
+        return p;
+    }
+
+    // Helper method to create unpaid order entities
+    private Order createUnpaidOrder(Customer customer, Set<Product> products){
+        Order o = new Order();
+        o.setOrderedAt(LocalDate.now());
+        o.setCustomer(customer);
+        o.setProducts(products);
+        o.setOrderStatus(OrderStatus.ORDERED.toString());
+        return o;
+    }
+
+    // Helper method to create paid order entities
+    private Order createPaidOrder(Customer customer, Set<Product> products, OrderStatus orderStatus, LocalDate payDate){
+        Order o = new Order();
+        o.setOrderedAt(LocalDate.now());
+        o.setCustomer(customer);
+        o.setProducts(products);
+        o.setOrderStatus(orderStatus.toString());
+        o.setIsPaid(true);
+        o.setPaidAt(payDate);
+        return o;
     }
 
     // Fetch image from directory specified with the url
