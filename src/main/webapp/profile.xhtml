@@ -25,10 +25,10 @@
             <h1 id="profile-title">
                 <h:outputText value="#{msg['profile.page_title']}"/>
             </h1>
-            <h:message for="profile_form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
+            <h:message for="profile-form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
                        fatalClass="fatal"/>
 
-            <h:form id="profile_form" prependId="false">
+            <h:form id="profile-form" prependId="false">
                 <div class="profile-block" id="profile-customer-name">
                     <h:outputLabel for="profile-firstname" value="#{msg['firstname']}">
                         <h:message for="profile-firstname" infoClass="info" warnClass="warn" errorClass="error"

@@ -32,6 +32,7 @@
                 <h:dataTable
                         value="#{profileController.customer.wishlist}"
                         var="product"
+                        rendered="#{!profileController.emptyWishlist}"
                         styleClass="product-list">
                     <h:column>
                         <div class="product">

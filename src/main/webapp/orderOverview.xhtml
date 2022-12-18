@@ -20,18 +20,17 @@
                     outcome="order_overview"
                     value="#{msg['order_overview.page_title']}"/>
         </div>
-
-        <div class="page-content">
             <!--@elvariable id="msg" type="java.util.Map"-->
             <h1 id="order_overview-title">
                 <h:outputText value="#{msg['order_overview.page_title']}"/>
             </h1>
             <h:outputText id="empty_wishlist"
-                          rendered="#{empty orderController.getOrdersByCustomer(loginController.customer)}"
+                          rendered="#{!loginController.customer.hasOrders()}"
                           value="#{msg['no_orders']}"/>
             <h:form
                     id="order_overview_form"
-                    prependId="false">
+                    prependId="false"
+                    rendered="#{loginController.customer.hasOrders()}">
                 <h:dataTable
                         value="#{orderController.getOrdersByCustomer(loginController.customer)}"
                         var="order"
@@ -64,7 +63,5 @@
                     </h:column>
                 </h:dataTable>
             </h:form>
-        </div>
-
     </ui:define>
 </ui:composition>

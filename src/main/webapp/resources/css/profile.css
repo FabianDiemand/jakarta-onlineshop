@@ -29,11 +29,10 @@
     display: flex;
     justify-content: center;
     width: 100%;
-
 }
 
 #profile-form{
-    padding-top: 20px;
+    margin-bottom: 20px;
 }
 
 .profile-block{

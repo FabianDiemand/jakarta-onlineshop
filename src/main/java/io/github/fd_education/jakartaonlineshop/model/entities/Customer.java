@@ -111,6 +111,15 @@ public class Customer implements Serializable {
         wishlist.remove(product);
     }
 
+    /**
+     * Check if the customer has any orders.
+     *
+     * @return true if the customer has orders, false otherwise
+     */
+    public boolean hasOrders(){
+        return !orders.isEmpty();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
