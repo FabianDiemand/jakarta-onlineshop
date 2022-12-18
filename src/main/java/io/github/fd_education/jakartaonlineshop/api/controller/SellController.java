@@ -1,5 +1,6 @@
 package io.github.fd_education.jakartaonlineshop.api.controller;
 
+import io.github.fd_education.jakartaonlineshop.domain.utils.MessageUtil;
 import io.github.fd_education.jakartaonlineshop.domain.utils.ScaleUtil;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Product;
@@ -18,7 +19,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 /**
@@ -59,7 +59,6 @@ public class SellController implements Serializable {
     public String persist(Customer customer) {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         try {
             // Scale the product image
@@ -77,7 +76,7 @@ public class SellController implements Serializable {
             productRepository.create(product);
             log.info("Offered item: " + product);
 
-            FacesMessage m = new FacesMessage(bundle.getString("offer_success"));
+            FacesMessage m = MessageUtil.getMessage(locale, "messages", "offer_success");
             context.getExternalContext().getFlash().setKeepMessages(true);
             context.addMessage("sell-form", m);
         } catch (Exception e) {

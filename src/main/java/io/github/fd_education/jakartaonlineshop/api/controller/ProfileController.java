@@ -1,5 +1,6 @@
 package io.github.fd_education.jakartaonlineshop.api.controller;
 
+import io.github.fd_education.jakartaonlineshop.domain.utils.MessageUtil;
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Place;
@@ -16,7 +17,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 /**
@@ -52,7 +52,6 @@ public class ProfileController implements Serializable {
     public void updateCustomer() {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         try {
             // Set place and address and update customer
@@ -63,11 +62,10 @@ public class ProfileController implements Serializable {
             address = customer.getAddress();
             place = customer.getAddress().getPlace();
 
-            FacesMessage m = new FacesMessage(bundle.getString("profile.update_success"));
+            FacesMessage m = MessageUtil.getMessage(locale, "messages", "profile.update_success");
             context.addMessage("profile_form", m);
         } catch (Exception exception) {
-            FacesMessage fm = new FacesMessage(bundle.getString("profile.update_failure"));
-            fm.setSeverity(FacesMessage.SEVERITY_WARN);
+            FacesMessage fm = MessageUtil.getMessageWithSeverity(locale, "messages", "profile.update_failure", FacesMessage.SEVERITY_WARN);
             context.addMessage("profile_form", fm);
 
             log.warning(exception.toString());

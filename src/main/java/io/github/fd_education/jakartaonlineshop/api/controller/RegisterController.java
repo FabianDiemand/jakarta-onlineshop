@@ -1,5 +1,6 @@
 package io.github.fd_education.jakartaonlineshop.api.controller;
 
+import io.github.fd_education.jakartaonlineshop.domain.utils.MessageUtil;
 import io.github.fd_education.jakartaonlineshop.model.entities.Address;
 import io.github.fd_education.jakartaonlineshop.model.entities.Customer;
 import io.github.fd_education.jakartaonlineshop.model.entities.Place;
@@ -14,7 +15,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * Controller Bean for the registration process.
@@ -48,12 +48,10 @@ public class RegisterController implements Serializable {
     public String persist() {
         FacesContext context = FacesContext.getCurrentInstance();
         Locale locale = context.getViewRoot().getLocale();
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
 
         // Check if the email address is already blocked
         if(customerRepository.getByEmail(customer.getEmail()) != null){
-            FacesMessage m = new FacesMessage(bundle.getString("customer_exists"));
-            m.setSeverity(FacesMessage.SEVERITY_WARN);
+            FacesMessage m = MessageUtil.getMessageWithSeverity(locale, "messages", "customer_exists", FacesMessage.SEVERITY_WARN);
             context.addMessage("registration-form", m);
 
             return "/register.jsf";
@@ -65,13 +63,12 @@ public class RegisterController implements Serializable {
             customer.setAddress(address);
             customerRepository.create(customer);
 
-            FacesMessage m = new FacesMessage(bundle.getString("register_success"));
+            FacesMessage m = MessageUtil.getMessage(locale, "messages", "register_success");
             context.getExternalContext().getFlash().setKeepMessages(true);
             context.addMessage("registration-form", m);
 
         } catch(Exception e){
-            FacesMessage fm = new FacesMessage(bundle.getString("register_failure"));
-            fm.setSeverity(FacesMessage.SEVERITY_WARN);
+            FacesMessage fm = MessageUtil.getMessageWithSeverity(locale, "messages", "register_failure", FacesMessage.SEVERITY_WARN);
             context.getExternalContext().getFlash().setKeepMessages(true);
             context.addMessage("registration-form", fm);
         }
