@@ -10,6 +10,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.UserTransaction;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,7 +37,10 @@ public class OrderRepository implements IOrderRepository, Serializable {
     public List<Order> getByCustomer(Customer customer) {
         TypedQuery<Order> query = em.createNamedQuery("Order.findByCustomer", Order.class);
         query.setParameter("customer", customer);
-        return query.getResultList();
+        List<Order> o = query.getResultList();
+        log.info("Found " + o.size() + " orders for customer " + customer);
+
+        return o;
     }
 
     /**
@@ -50,8 +54,9 @@ public class OrderRepository implements IOrderRepository, Serializable {
             ut.begin();
             em.persist(order);
             ut.commit();
+            log.info("Successfully persisted order " + order);
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to persist order " + order + "\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();
@@ -59,6 +64,8 @@ public class OrderRepository implements IOrderRepository, Serializable {
                 log.severe(e.toString());
             }
         }
+
+
     }
 
     /**
@@ -67,13 +74,16 @@ public class OrderRepository implements IOrderRepository, Serializable {
      * @param order the order to update
      */
     @Override
-    public void update(Order order) {
+    public Order update(Order order) {
+        Order o = null;
+
         try {
             ut.begin();
-            em.merge(order);
+            o = em.merge(order);
             ut.commit();
+            log.info("Successfully updated order " + order);
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to update order " + order + "\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();
@@ -81,5 +91,7 @@ public class OrderRepository implements IOrderRepository, Serializable {
                 log.severe(e.toString());
             }
         }
+
+        return o;
     }
 }

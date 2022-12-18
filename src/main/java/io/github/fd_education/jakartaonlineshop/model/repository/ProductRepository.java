@@ -10,6 +10,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.UserTransaction;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
@@ -46,7 +47,10 @@ public class ProductRepository implements IProductRepository, Serializable {
     @Override
     public List<Product> getAll() {
         TypedQuery<Product> query = em.createNamedQuery("Product.findAllAvailable", Product.class);
-        return query.getResultList();
+        List<Product> p = query.getResultList();
+        log.info("Found " + p.size() + " available products.");
+
+        return p;
     }
 
     /**
@@ -59,6 +63,8 @@ public class ProductRepository implements IProductRepository, Serializable {
     public byte[] getImageOfProductById(Long id){
         Query query = em.createQuery("SELECT p.image FROM Product  p WHERE p.id = :id");
         query.setParameter("id", id);
+
+        log.info("Found image of product with id " + id);
 
         return (byte[]) query.getSingleResult();
     }
@@ -74,8 +80,10 @@ public class ProductRepository implements IProductRepository, Serializable {
             ut.begin();
             em.persist(product);
             ut.commit();
+            log.info("Successfully persisted product " + product);
+
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to persist product " + product + "\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();
@@ -100,8 +108,10 @@ public class ProductRepository implements IProductRepository, Serializable {
             }
 
             ut.commit();
+            log.info("Successfully persisted " + products.size() + " products.");
+
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to persist " + products.size() + " products.\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();
@@ -122,8 +132,9 @@ public class ProductRepository implements IProductRepository, Serializable {
             ut.begin();
             em.merge(product);
             ut.commit();
+            log.info("Successfully updated product " + product);
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to update product " + product + "\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();

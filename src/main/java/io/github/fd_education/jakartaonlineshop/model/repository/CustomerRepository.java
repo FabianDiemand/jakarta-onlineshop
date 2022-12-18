@@ -10,6 +10,7 @@ import jakarta.transaction.UserTransaction;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.logging.Logger;
 
@@ -35,7 +36,9 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
      */
     @Override
     public Customer getById(Long id) {
-        return em.find(Customer.class, id);
+        Customer c = em.find(Customer.class, id);
+        log.info("Found customer for id " + id + "\n" + c);
+        return c;
     }
 
     /**
@@ -49,11 +52,15 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
         try {
             TypedQuery<Customer> query = em.createNamedQuery("Customer.findByEmail", Customer.class);
             query.setParameter("email", email);
-            return query.getSingleResult();
+            Customer c = query.getSingleResult();
+
+            log.info("Found customer for email " + email + "\n" + c);
+            return c;
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Exception when trying to fetch customer by email: " + ex + "\n" + Arrays.toString(ex.getStackTrace()));
         }
 
+        log.info("Found no customer for email " + email);
         return null;
     }
 
@@ -68,11 +75,13 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             ut.begin();
             em.persist(customer);
             ut.commit();
+            log.info("Successfully persisted customer " + customer);
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to persist customer " + customer + "\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();
+
             } catch(Exception e){
                 log.severe(e.toString());
             }
@@ -94,8 +103,9 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             }
 
             ut.commit();
+            log.info("Successfully persisted " + customers.size() + " customers.");
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to persist " + customers.size() + " customers.\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();
@@ -119,8 +129,9 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             ut.begin();
             c = em.merge(customer);
             ut.commit();
+            log.info("Successfully updated customer " + customer);
         } catch (Exception ex) {
-            log.severe(ex.toString());
+            log.severe("Rollback: Exception " + ex + " when attempting to update customer " + customer + "\n" + Arrays.toString(ex.getStackTrace()));
 
             try{
                 ut.rollback();

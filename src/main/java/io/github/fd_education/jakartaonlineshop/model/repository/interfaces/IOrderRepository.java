@@ -15,5 +15,5 @@ public interface IOrderRepository {
 
     void create(Order order);
 
-    void update(Order order);
+    Order update(Order order);
 }
