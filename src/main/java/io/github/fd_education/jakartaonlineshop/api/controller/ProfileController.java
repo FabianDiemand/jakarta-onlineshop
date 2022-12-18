@@ -63,10 +63,10 @@ public class ProfileController implements Serializable {
             place = customer.getAddress().getPlace();
 
             FacesMessage m = MessageUtil.getMessage(locale, "messages", "profile.update_success");
-            context.addMessage("profile_form", m);
+            context.addMessage("profile-form", m);
         } catch (Exception exception) {
             FacesMessage fm = MessageUtil.getMessageWithSeverity(locale, "messages", "profile.update_failure", FacesMessage.SEVERITY_WARN);
-            context.addMessage("profile_form", fm);
+            context.addMessage("profile-form", fm);
 
             log.warning(exception.toString());
         }
