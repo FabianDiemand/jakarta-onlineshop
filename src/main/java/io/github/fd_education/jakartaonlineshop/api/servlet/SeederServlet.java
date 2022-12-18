@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -91,12 +92,13 @@ public class SeederServlet extends HttpServlet {
             products.add(motherboard);
             products.add(ram);
 
+
             customerRepository.createMany(customers);
             productRepository.createMany(products);
 
             log.info("Database Customer Seeded!");
         } catch(Exception e){
-            log.severe("FAILED SEED: " + getClass().getResource("/seed-images/graka.png") + e);
+            log.severe("FAILED SEED: " + e + "\n Trace:" + Arrays.toString(e.getStackTrace()));
         }
     }
 

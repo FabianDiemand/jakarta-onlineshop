@@ -6,11 +6,14 @@ services:
     image: postgres
     environment:
       # Notice: User, Password and Database will automatically be created according to the env variables
-      - POSTGRES_USER=onlineshop_user
-      - POSTGRES_PASSWORD=shop_12345
-      - POSTGRES_DB=jak_onlineshop
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin
+      - APP_DB_USER=onlineshop_user
+      - APP_DB_PASS=shop_12345
+      - APP_DB_NAME=jak_onlineshop
     volumes:
       - postgres:/data/postgres
+      - ./db:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     networks:
