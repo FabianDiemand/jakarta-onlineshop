@@ -82,26 +82,4 @@ public class OrderRepository implements IOrderRepository, Serializable {
             }
         }
     }
-
-    /**
-     * Remove an order from the database.
-     *
-     * @param order the order to remove
-     */
-    @Override
-    public void remove(Order order) {
-        try {
-            ut.begin();
-            em.remove(order);
-            ut.commit();
-        } catch (Exception ex) {
-            log.severe(ex.toString());
-
-            try{
-                ut.rollback();
-            } catch(Exception e){
-                log.severe(e.toString());
-            }
-        }
-    }
 }

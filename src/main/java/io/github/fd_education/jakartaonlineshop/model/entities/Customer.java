@@ -56,16 +56,16 @@ public class Customer implements Serializable {
     @JoinColumn(name = "address", unique = true)
     private Address address;
 
-    @OneToMany(mappedBy = "seller")
+    @OneToMany(mappedBy = "seller", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     @ToString.Exclude
     private List<Product> offers;
 
-    @OneToMany(mappedBy = "buyer")
+    @OneToMany(mappedBy = "buyer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @ToString.Exclude
     private List<Product> orders;
 
     @ToString.Exclude
-    @ManyToMany(targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
     @JoinTable(name = "wishlist", schema = "onlineshop",
             joinColumns = @JoinColumn(name = "customer_fk", referencedColumnName = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "product_fk", referencedColumnName = "product_id"))
@@ -117,7 +117,7 @@ public class Customer implements Serializable {
      * @return true if the customer has orders, false otherwise
      */
     public boolean hasOrders(){
-        return !orders.isEmpty();
+        return orders != null && !orders.isEmpty();
     }
 
     @Override

@@ -131,26 +131,4 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
 
         return c;
     }
-
-    /**
-     * Remove a customer from the database.
-     *
-     * @param customer the customer to remove
-     */
-    @Override
-    public void remove(Customer customer) {
-        try {
-            ut.begin();
-            em.remove(customer);
-            ut.commit();
-        } catch (Exception ex) {
-            log.severe(ex.toString());
-
-            try{
-                ut.rollback();
-            } catch(Exception e){
-                log.severe(e.toString());
-            }
-        }
-    }
 }

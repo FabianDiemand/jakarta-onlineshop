@@ -22,6 +22,4 @@ public interface IProductRepository {
     void createMany(Collection<Product> products);
 
     void update(Product product);
-
-    void remove(Product product);
 }

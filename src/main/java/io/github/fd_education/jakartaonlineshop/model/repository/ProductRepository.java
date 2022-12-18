@@ -132,26 +132,4 @@ public class ProductRepository implements IProductRepository, Serializable {
             }
         }
     }
-
-    /**
-     * Remove a product from the database.
-     *
-     * @param product the product to remove
-     */
-    @Override
-    public void remove(Product product) {
-        try {
-            ut.begin();
-            em.remove(product);
-            ut.commit();
-        } catch (Exception ex) {
-            log.severe(ex.toString());
-
-            try{
-                ut.rollback();
-            } catch(Exception e){
-                log.severe(e.toString());
-            }
-        }
-    }
 }

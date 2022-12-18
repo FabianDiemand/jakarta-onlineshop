@@ -19,6 +19,4 @@ public interface ICustomerRepository {
     void createMany(Collection<Customer> customers);
 
     Customer update(Customer customer);
-
-    void remove(Customer customer);
 }
