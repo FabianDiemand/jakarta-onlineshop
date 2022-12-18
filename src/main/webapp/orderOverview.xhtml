@@ -25,14 +25,14 @@
                 <h:outputText value="#{msg['order_overview.page_title']}"/>
             </h1>
             <h:outputText id="empty_wishlist"
-                          rendered="#{!loginController.customer.hasOrders()}"
+                          rendered="#{orderController.getOrdersByCustomer(loginController.customer).rowCount == 0}"
                           value="#{msg['no_orders']}"/>
             <h:form
                     id="order_overview_form"
-                    prependId="false"
-                    rendered="#{loginController.customer.hasOrders()}">
+                    prependId="false">
                 <h:dataTable
                         value="#{orderController.getOrdersByCustomer(loginController.customer)}"
+                        rendered="#{!(orderController.getOrdersByCustomer(loginController.customer).rowCount == 0)}"
                         var="order"
                         styleClass="order-list">
                     <h:column styleClass="order-overview">

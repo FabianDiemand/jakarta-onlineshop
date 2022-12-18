@@ -47,11 +47,11 @@ public class SeederServlet extends HttpServlet {
                     createAddress("DoeStreet", "1",
                             createPlace("1234", "DoePlace")));
 
-            Customer janeDoe = createCustomer("Jane", "Doe", "jane@doe.com", "JaneDoe1!",
+            Customer janeDoe = createCustomer("Jane", "Doe", "jane@doe.com", "Janedoe1!",
                     createAddress("DoeStreet", "3",
                             createPlace("1234", "DoePlace")));
 
-            Customer timTom = createCustomer("Tim", "Tom", "tim@tom.com", "TimTom1!",
+            Customer timTom = createCustomer("Tim", "Tom", "tim@tom.com", "Timtom1!",
                     createAddress("TimStreet", "99",
                             createPlace("5678", "TimPlace")));
 
@@ -212,7 +212,7 @@ public class SeederServlet extends HttpServlet {
         o.setOrderedAt(LocalDate.now());
         o.setCustomer(customer);
         o.setProducts(products);
-        o.setOrderStatus(OrderStatus.ORDERED.toString());
+        o.setOrderStatus(OrderStatus.ORDERED.getStatus());
         return o;
     }
 
@@ -222,7 +222,7 @@ public class SeederServlet extends HttpServlet {
         o.setOrderedAt(LocalDate.now());
         o.setCustomer(customer);
         o.setProducts(products);
-        o.setOrderStatus(orderStatus.toString());
+        o.setOrderStatus(orderStatus.getStatus());
         o.setIsPaid(true);
         o.setPaidAt(payDate);
         return o;
