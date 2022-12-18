@@ -32,7 +32,7 @@
 
                                 <div class="cart-details-bottomgroup">
                                     <h:outputText styleClass="product-price"
-                                                  value="CHF #{product.price}">
+                                                  value="CHF #{product.getPriceString()}">
                                         <f:convertNumber
                                                 minFractionDigits="2"/>
                                     </h:outputText>
@@ -64,7 +64,7 @@
                     <hr/>
                     <div id="cart-total">
                         <h:outputText id="total-text" value="#{msg['total']}"/>
-                        <h:outputText id="total-sum" value="#{cartController.cart.sum}"/>
+                        <h:outputText id="total-sum" value="CHF #{cartController.cart.getSumString()}"/>
                     </div>
                     <hr/>
                     <hr/>

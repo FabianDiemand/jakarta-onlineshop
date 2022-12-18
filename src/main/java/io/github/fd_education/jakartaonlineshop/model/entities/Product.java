@@ -55,6 +55,16 @@ public class Product implements Serializable {
     @ToString.Exclude
     private Set<Customer> wishedBy;
 
+    /**
+     * Return price as String with two fraction digits.
+     *
+     * @return price with two fraction digits
+     */
+    @SuppressWarnings("unused")
+    public String getPriceString(){
+        return String.format("%.2f", price);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

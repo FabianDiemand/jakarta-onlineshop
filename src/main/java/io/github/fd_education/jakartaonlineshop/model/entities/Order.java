@@ -85,4 +85,15 @@ public class Order implements Serializable {
 
         return total;
     }
+
+    /**
+     * Return total as String with two fraction digits.
+     *
+     * @return total with two fraction digits
+     */
+    @SuppressWarnings("unused")
+    public String getTotalString(){
+        total = products.stream().mapToDouble(Product::getPrice).sum();
+        return String.format("%.2f", total);
+    }
 }

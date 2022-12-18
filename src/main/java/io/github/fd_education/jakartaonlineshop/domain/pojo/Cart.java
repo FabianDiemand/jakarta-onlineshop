@@ -79,10 +79,22 @@ public class Cart implements Serializable {
      *
      * @return the sum of all prices of products in the cart
      */
+    @SuppressWarnings("unused")
     public double getSum(){
         calculateSum();
 
         return sum;
+    }
+
+    /**
+     * Return total as String with two fraction digits.
+     *
+     * @return total with two fraction digits
+     */
+    @SuppressWarnings("unused")
+    public String getSumString(){
+        calculateSum();
+        return String.format("%.2f", sum);
     }
 
     // Calculate the sum of all products in the cart

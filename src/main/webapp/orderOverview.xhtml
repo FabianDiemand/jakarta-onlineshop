@@ -44,7 +44,7 @@
                                               value="#{localeController.formatDate(order.orderedAt)}"/>
                                 <h:outputText styleClass="order-payment-status #{order.isPaid? 'paid': 'unpaid'}"
                                               value="#{order.isPaid? msg['paid'] : msg['unpaid']}"/>
-                                <h:outputText styleClass="order-order-status" value="#{order.orderStatus}"/>
+                                <h:outputText styleClass="order-order-status" value="#{msg[order.orderStatus]}"/>
                             </div>
                             <h:dataTable
                                     value="#{order.products}"
@@ -52,13 +52,13 @@
                                     styleClass="order-products">
                                 <h:column styleClass="order-product-list">
                                     <h:outputText styleClass="order-product-name" value="#{product.name}"/>
-                                    <h:outputText styleClass="order-product-price" value="#{product.price}"/>
+                                    <h:outputText styleClass="order-product-price" value="CHF #{product.getPriceString()}"/>
                                 </h:column>
                             </h:dataTable>
                             <hr/>
                             <div class="order-total">
                                 <h:outputText styleClass="order-total-text" value="#{msg['total']}"/>
-                                <h:outputText styleClass="order-total-value" value="#{order.total}"/>
+                                <h:outputText styleClass="order-total-value" value="CHF #{order.getTotalString()}"/>
                             </div>
                         </div>
                     </h:column>

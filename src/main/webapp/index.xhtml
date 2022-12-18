@@ -27,9 +27,9 @@
 
                                 <div class="details-bottomgroup">
                                     <h:outputText styleClass="product-price"
-                                                  value="CHF #{product.price}">
+                                                  value="CHF #{product.getPriceString()}">
                                         <f:convertNumber
-                                                minFractionDigits="2"/>
+                                                pattern="#.##"/>
                                     </h:outputText>
                                     <div class="product-controls">
                                         <h:commandButton

@@ -3,7 +3,7 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core">
+>
     <ui:define name="content">
         <!--@elvariable id="msg" type="java.util.Map"-->
         <div class="profile_nav">
@@ -49,10 +49,7 @@
 
                                 <div class="details-bottomgroup">
                                     <h:outputText styleClass="product-price"
-                                                  value="CHF #{product.price}">
-                                        <f:convertNumber
-                                                minFractionDigits="2"/>
-                                    </h:outputText>
+                                                  value="CHF #{product.getPriceString()}"/>
                                     <div class="product-controls">
                                         <h:commandButton
                                                 title="#{msg['move_to_cart']}"
