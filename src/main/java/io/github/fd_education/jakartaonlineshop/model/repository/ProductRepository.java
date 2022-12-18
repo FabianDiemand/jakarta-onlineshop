@@ -76,6 +76,14 @@ public class ProductRepository implements IProductRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -96,6 +104,14 @@ public class ProductRepository implements IProductRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -112,6 +128,14 @@ public class ProductRepository implements IProductRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -128,6 +152,14 @@ public class ProductRepository implements IProductRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 }

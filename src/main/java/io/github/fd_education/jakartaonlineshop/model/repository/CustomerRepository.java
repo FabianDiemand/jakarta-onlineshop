@@ -66,12 +66,18 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
     public void create(Customer customer) {
         try {
             ut.begin();
-
             em.persist(customer);
-
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -92,6 +98,14 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -111,6 +125,14 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
 
         return c;
@@ -129,6 +151,14 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 }

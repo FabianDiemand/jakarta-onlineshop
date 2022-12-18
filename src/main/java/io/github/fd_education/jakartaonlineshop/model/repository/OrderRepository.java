@@ -52,6 +52,14 @@ public class OrderRepository implements IOrderRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -68,6 +76,14 @@ public class OrderRepository implements IOrderRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 
@@ -84,6 +100,14 @@ public class OrderRepository implements IOrderRepository, Serializable {
             ut.commit();
         } catch (Exception ex) {
             log.severe(ex.toString());
+
+            try{
+                ut.rollback();
+            } catch(Exception e){
+                log.severe(e.toString());
+            }
+        } finally {
+            em.close();
         }
     }
 }
