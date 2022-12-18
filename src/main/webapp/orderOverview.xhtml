@@ -42,7 +42,7 @@
                                 <h:outputText styleClass="order-date"
                                               value="#{localeController.formatDate(order.orderedAt)}"/>
                                 <h:outputText styleClass="order-payment-status #{order.isPaid? 'paid': 'unpaid'}"
-                                              value="#{order.isPaid? msg['paid'] : msg['unpaid']}"/>
+                                              value="#{order.isPaid? msg['paid'].concat(' (').concat(localeController.formatDate(order.paidAt)).concat(')'): msg['unpaid']}"/>
                                 <h:outputText styleClass="order-order-status" value="#{msg[order.orderStatus]}"/>
                             </div>
                             <h:dataTable

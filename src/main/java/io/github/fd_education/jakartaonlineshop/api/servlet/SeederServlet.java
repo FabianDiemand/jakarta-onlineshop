@@ -108,18 +108,21 @@ public class SeederServlet extends HttpServlet {
                     johnDoe);
 
             Order o1 = createPaidOrder(
+                    LocalDate.now().minusDays(40),
                     johnDoe,
                     Set.of(headset),
                     OrderStatus.DELIVERED,
                     LocalDate.now().minusDays(30));
 
             Order o2 = createPaidOrder(
+                    LocalDate.now().minusDays(6),
                     johnDoe,
                     Set.of(screen),
                     OrderStatus.SHIPPED,
                     LocalDate.now().minusDays(3));
 
             Order o3 = createUnpaidOrder(
+                    LocalDate.now().minusDays(2),
                     johnDoe,
                     Set.of(keyboard));
 
@@ -207,9 +210,9 @@ public class SeederServlet extends HttpServlet {
     }
 
     // Helper method to create unpaid order entities
-    private Order createUnpaidOrder(Customer customer, Set<Product> products){
+    private Order createUnpaidOrder(LocalDate orderDate, Customer customer, Set<Product> products){
         Order o = new Order();
-        o.setOrderedAt(LocalDate.now());
+        o.setOrderedAt(orderDate);
         o.setCustomer(customer);
         o.setProducts(products);
         o.setOrderStatus(OrderStatus.ORDERED.getStatus());
@@ -217,9 +220,9 @@ public class SeederServlet extends HttpServlet {
     }
 
     // Helper method to create paid order entities
-    private Order createPaidOrder(Customer customer, Set<Product> products, OrderStatus orderStatus, LocalDate payDate){
+    private Order createPaidOrder(LocalDate orderDate, Customer customer, Set<Product> products, OrderStatus orderStatus, LocalDate payDate){
         Order o = new Order();
-        o.setOrderedAt(LocalDate.now());
+        o.setOrderedAt(orderDate);
         o.setCustomer(customer);
         o.setProducts(products);
         o.setOrderStatus(orderStatus.getStatus());
