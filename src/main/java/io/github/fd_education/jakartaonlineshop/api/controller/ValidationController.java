@@ -167,6 +167,30 @@ public class ValidationController implements Serializable {
     }
 
     /**
+     * Validate that the password is not matches the constraints. Required when setting a new password.
+     * Constraints:
+     *   - at least one digit
+     *   - at least one uppercase character
+     *   - at least one lowercase character
+     *   - at least one special character
+     *   - a length of 8 to 20 characters
+     *
+     * @param fc state information of the request facelet
+     * @param ignored_ the component whose content to validate (not used)
+     * @param obj the content to validate
+     */
+    public void isStrongNewPasswort(FacesContext fc,@SuppressWarnings("unused") UIComponent ignored_, Object obj) throws ValidatorException{
+        String value = (String) obj;
+        if(value.isEmpty()) return;
+
+        //noinspection RegExpRedundantNestedCharacterClass
+        if(isWeakPasswort(value)){
+            FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "password_weak", FacesMessage.SEVERITY_WARN);
+            throw new ValidatorException(fm);
+        }
+    }
+
+    /**
      * Validate that the password and the verification password match.
      *
      * @param fc state information of the request facelet
@@ -175,8 +199,10 @@ public class ValidationController implements Serializable {
      */
     public void isMatchingPassword(FacesContext fc, UIComponent uic, Object obj) {
         String password = (String) obj;
+
         // get the password from the bound attribute
         String verificationPassword = (String) uic.getAttributes().get("password");
+        if(verificationPassword.isEmpty()) return;
 
         if(!isMatchingPassword(password, verificationPassword)){
             FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "passwords_not_matching", FacesMessage.SEVERITY_WARN);

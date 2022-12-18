@@ -103,7 +103,7 @@
                                 id="password"
                                 binding="#{passwordComponent}"
                                 value="#{profileController.customer.password}"
-                                validator="#{validationController.isStrongPassword}">
+                                validator="#{validationController.isStrongNewPasswort}">
                         </h:inputSecret>
                         <pre>
                         <h:outputText value="#{msg['password_rules']}"/>
