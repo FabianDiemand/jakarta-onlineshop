@@ -76,8 +76,6 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -104,8 +102,6 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -131,8 +127,6 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
 
         return c;
@@ -157,8 +151,6 @@ public class CustomerRepository implements ICustomerRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 }

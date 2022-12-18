@@ -82,8 +82,6 @@ public class ProductRepository implements IProductRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -110,8 +108,6 @@ public class ProductRepository implements IProductRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -134,8 +130,6 @@ public class ProductRepository implements IProductRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -158,8 +152,6 @@ public class ProductRepository implements IProductRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 }

@@ -58,8 +58,6 @@ public class OrderRepository implements IOrderRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -82,8 +80,6 @@ public class OrderRepository implements IOrderRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 
@@ -106,8 +102,6 @@ public class OrderRepository implements IOrderRepository, Serializable {
             } catch(Exception e){
                 log.severe(e.toString());
             }
-        } finally {
-            em.close();
         }
     }
 }
