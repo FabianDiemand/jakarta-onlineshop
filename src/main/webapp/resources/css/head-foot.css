@@ -14,6 +14,7 @@ footer {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%
 }
 
 header {
@@ -21,7 +22,6 @@ header {
   position: sticky;
   top: 0;
   justify-content: space-between;
-  width: 100vw;
 }
 
 header > nav > a,
@@ -61,7 +61,6 @@ a:hover {
 
 footer{
   align-self: flex-end;
-  width: 100vw;
   justify-content: end;
   color: white;
   font-weight: bold;
