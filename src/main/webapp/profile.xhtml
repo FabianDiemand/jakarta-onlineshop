@@ -1,0 +1,139 @@
+<ui:composition
+        template="/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content" id="test_id" class="test_class">
+        <!--@elvariable id="msg" type="java.util.Map"-->
+        <div class="profile_nav">
+            <h:link
+                    styleClass="profile_nav_element active"
+                    outcome="profile"
+                    value="#{msg['profile.page_title']}"/>
+            <h:link
+                    styleClass="profile_nav_element"
+                    outcome="wishlist"
+                    value="#{msg['wishlist.page_title']}"/>
+            <h:link
+                    styleClass="profile_nav_element"
+                    outcome="order_overview"
+                    value="#{msg['order_overview.page_title']}"/>
+        </div>
+
+        <div id="profile_flex_container profile" class="page_content">
+            <h1 id="profile-title">
+                <h:outputText value="#{msg['profile.page_title']}"/>
+            </h1>
+            <h:message for="profile-form" id="profile-feedback" infoClass="info" warnClass="warn" errorClass="error"
+                       fatalClass="fatal"/>
+
+            <h:form id="profile-form" prependId="false">
+                <div class="profile-block" id="profile-customer-name">
+                    <h:outputLabel for="profile-firstname" value="#{msg['firstname']}">
+                        <h:message for="profile-firstname" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="profile-firstname"
+                                value="#{profileController.customer.firstName}"
+                                validator="#{validationController.isFirstName}"/>
+                    </h:outputLabel>
+                    <h:outputLabel for="profile-lastname" value="#{msg['lastname']}">
+                        <h:message for="profile-lastname" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="profile-lastname"
+                                value="#{profileController.customer.lastName}"
+                                validator="#{validationController.isLastName}"/>
+                    </h:outputLabel>
+                </div>
+                <div class="profile-block" id="profile-customer-address-street">
+                    <h:outputLabel for="profile-streetname" value="#{msg['street']}">
+                        <h:message for="profile-streetname" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="profile-streetname"
+                                value="#{profileController.address.streetname}"
+                                validator="#{validationController.isStreet}"/>
+                    </h:outputLabel>
+                    <h:outputLabel for="profile-house_number" value="#{msg['house_number']}">
+                        <h:message for="profile-house_number" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="profile-house_number"
+                                value="#{profileController.address.housenumber}"
+                                validator="#{validationController.isHouseNumber}"/>
+                    </h:outputLabel>
+                </div>
+                <div class="profile-block" id="profile-customer-address-place">
+                    <h:outputLabel for="profile-postal_code" value="#{msg['postal_code']}">
+                        <h:message for="profile-postal_code" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="profile-postal_code"
+                                value="#{profileController.place.postalCode}"
+                                validator="#{validationController.isPostalCode}"/>
+                    </h:outputLabel>
+                    <h:outputLabel for="profile-place" value="#{msg['place']}">
+                        <h:message for="profile-place" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="profile-place"
+                                value="#{profileController.place.placeName}"
+                                validator="#{validationController.isPlace}"/>
+                    </h:outputLabel>
+                </div>
+                <div class="profile-block" id="profile-customer-email">
+                    <h:outputLabel value="#{msg['email']}">
+                        <h:message for="email" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputText
+                                id="email"
+                                value="#{profileController.customer.email}"
+                                validator="#{validationController.isEmail}">
+                        </h:inputText>
+                    </h:outputLabel>
+                </div>
+                <!--@elvariable id="passwordComponent" type="jakarta.faces.component"-->
+                <div class="profile-block" id="customer-auth">
+                    <h:outputLabel value="#{msg['profile.new_password']}">
+                        <h:message for="password" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputSecret
+                                id="password"
+                                binding="#{passwordComponent}"
+                                value="#{profileController.customer.password}"
+                                validator="#{validationController.isStrongNewPasswort}">
+                        </h:inputSecret>
+                        <pre>
+                        <h:outputText value="#{msg['password_rules']}"/>
+                    </pre>
+                    </h:outputLabel>
+
+                    <h:outputLabel value="#{msg['profile.new_password_confirmation']}">
+                        <h:message for="password_confirmation" infoClass="info" warnClass="warn" errorClass="error"
+                                   fatalClass="fatal"/>
+                        <h:inputSecret
+                                id="password_confirmation"
+                                validator="#{validationController.isMatchingPassword}">
+                            <f:attribute name="password" value="#{passwordComponent.value}"/>
+                        </h:inputSecret>
+                    </h:outputLabel>
+                </div>
+
+                <div class="profile-block" id="profile-controls">
+                    <h:commandButton
+                            id="profile-update"
+                            action="#{profileController.updateCustomer()}"
+                            value="#{msg['update_profile']}"/>
+                    <h:message for="profile-update"/>
+                    <h:button
+                            id="cancel"
+                            outcome="/index.jsf"
+                            value="#{msg['cancel']}"/>
+                </div>
+            </h:form>
+
+        </div>
+    </ui:define>
+</ui:composition>
