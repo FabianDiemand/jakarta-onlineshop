@@ -1,6 +1,7 @@
 package io.github.fd_education.jakartaonlineshop.api.controller;
 
 import io.github.fd_education.jakartaonlineshop.domain.utils.MessageUtil;
+import io.github.fd_education.jakartaonlineshop.domain.utils.ValidationUtil;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
@@ -9,8 +10,6 @@ import jakarta.faces.validator.ValidatorException;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * Controller Bean for forms validation logic.
@@ -132,7 +131,7 @@ public class ValidationController implements Serializable {
             throw new ValidatorException(fm);
         }
 
-        if(isInvalidEmail(value)){
+        if(ValidationUtil.isInvalidEmail(value)){
             FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "email_invalid", FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
         }
@@ -159,8 +158,7 @@ public class ValidationController implements Serializable {
             throw new ValidatorException(fm);
         }
 
-        //noinspection RegExpRedundantNestedCharacterClass
-        if(isWeakPasswort(value)){
+        if(ValidationUtil.isWeakPasswort(value)){
             FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "password_weak", FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
         }
@@ -183,8 +181,7 @@ public class ValidationController implements Serializable {
         String value = (String) obj;
         if(value.isEmpty()) return;
 
-        //noinspection RegExpRedundantNestedCharacterClass
-        if(isWeakPasswort(value)){
+        if(ValidationUtil.isWeakPasswort(value)){
             FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "password_weak", FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
         }
@@ -202,39 +199,11 @@ public class ValidationController implements Serializable {
 
         // get the password from the bound attribute
         String verificationPassword = (String) uic.getAttributes().get("password");
-        if(verificationPassword.isEmpty()) return;
+        if(verificationPassword == null || verificationPassword.isEmpty()) return;
 
-        if(!isMatchingPassword(password, verificationPassword)){
+        if(!ValidationUtil.isMatchingPassword(password, verificationPassword)){
             FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "passwords_not_matching", FacesMessage.SEVERITY_WARN);
             throw new ValidatorException(fm);
         }
-    }
-
-    /* Validate the email against a validation regex:
-       Start with letters or numbers, @-separation, dot-separated domains
-    */
-    private boolean isInvalidEmail(String value){
-        String emailPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
-        return !Pattern.matches(emailPattern, value);
-    }
-
-    /* Validate the password against a validation regex:
-        - at least one digit
-        - at least one uppercase character
-        - at least one lowercase character
-        - at least one special character
-        - a length of 8 to 20 characters
-     */
-    @SuppressWarnings("RegExpRedundantNestedCharacterClass")
-    private boolean isWeakPasswort(String value){
-        String strongPasswordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,}$";
-        return !Pattern.matches(strongPasswordPattern, value);
-    }
-
-    /*
-        Compare passwords for equality.
-     */
-    private boolean isMatchingPassword(String password, String value){
-        return Objects.equals(password, value);
     }
 }

@@ -8,6 +8,10 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
  * @author Fabian Diemand
  */
 public class HashingUtil {
+
+    // Don't allow instantiation for utility class
+    private HashingUtil(){}
+
     /**
      * Get a PBKDF2 hash from a string.
      *

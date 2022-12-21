@@ -14,8 +14,10 @@ import java.io.IOException;
  * @author Fabian Diemand
  */
 public class ScaleUtil {
-    // The length of the image
-    private final static int MAX_IMAGE_LENGTH = 400;
+
+    // Don't allow instantiation for utility class
+    private ScaleUtil(){}
+
 
     /**
      * Scale a foto down to a specified size.
@@ -24,7 +26,7 @@ public class ScaleUtil {
      * @return scaled binary of the foto
      * @throws IOException if there is an error whilst reading the input
      */
-    public static byte[] scale(byte[] foto) throws IOException {
+    public static byte[] scale(byte[] foto, int maxImageLength) throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(foto);
         BufferedImage originalBufferedImage = ImageIO.read(byteArrayInputStream);
 
@@ -32,7 +34,7 @@ public class ScaleUtil {
         double originalHeight = originalBufferedImage.getHeight();
         double relevantLength = Math.max(originalWidth, originalHeight);
 
-        double transformationScale = MAX_IMAGE_LENGTH / relevantLength;
+        double transformationScale = maxImageLength / relevantLength;
         int width = (int) Math.round(transformationScale * originalWidth);
         int height = (int) Math.round(transformationScale * originalHeight);
 

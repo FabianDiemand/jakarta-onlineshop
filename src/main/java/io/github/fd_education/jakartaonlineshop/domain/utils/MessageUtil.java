@@ -11,6 +11,10 @@ import java.util.ResourceBundle;
  * @author Fabian Diemand
  */
 public class MessageUtil {
+
+    // Don't allow instantiation for utility class
+    private MessageUtil(){}
+
     /**
      * Create a faces message with default severity (INFO).
      *

@@ -8,23 +8,12 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public enum LocaleEnum {
-    DE("de"){
-        @Override
-        public String getDatePattern(){
-            return "dd.MM.uuuu";
-        }
-    },
-    EN("en"){
-        @Override
-        public String getDatePattern(){
-            return "MM/dd/uuuu";
-        }
-    };
+    DE("de", "dd.MM.uuuu"),
+    EN("en", "MM/dd/uuuu");
 
     @Getter
     private final String code;
 
-    public String getDatePattern(){
-        return null;
-    }
+    @Getter
+    private final String datePattern;
 }
