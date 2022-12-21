@@ -11,7 +11,7 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [1.2 Glossar](#el_glossar)
 - [2 Verwendete Technologien](#vt_verwendetetechnologien)
   - [2.1 IntelliJ IDEA](#vt_intellij)
-  - [2.2 Java EE 8](#vt_javaee8)
+  - [2.2 Java EE 9](#vt_javaee)
   - [2.3 Glassfish Server](#vt_glassfish)
   - [2.4 PostgreSQL](#vt_postgresql)
   - [2.5 GitLab](#vt_gitlab)
@@ -29,9 +29,8 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
 - [4 Datenmodell](#dm_datenmodell)
   - [4.1 Customer](#dm_customer)
   - [4.2 Product](#dm_product)
-  - [4.3 Cart](#dm_cart)
-  - [4.4 Order](#dm_order)
-  - [4.5 Wishlist](#dm_wishlist)
+  - [4.3 Order](#dm_order)
+  - [4.4 Wishlist](#dm_wishlist)
 - [5 UI & Bedienungsprototyp](#ui_prototyp)
 - [6 Architekturentscheidungen](#ae_architekturentscheidungen)
 - [7 Installation](#i_installation)
@@ -47,23 +46,21 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
 <a name="el_einleitung"></a>
 ## 1 Einleitung
 Das folgende Dokument enthält die Dokumentation der Semesterarbeit im Modul JEE (Java Enterprise Edition),
-des Herbstsemesters 2022/23 an der Fernfachhochschule Schweiz.
+des Herbstsemesters 2022/23 an der Fernfachhochschule Schweiz (nachfolgend FFHS).
 Im Kern geht es dabei um die Erweiterung des Onlineshops aus der Literatur zum Unterricht (Java EE 8, Alexander Salvanos).
 
 <a name="el_abgrenzung"></a>
 ### 1.1 Abgrenzung
 Im Rahmen der Semesterarbeit wird sich vordergründig auf die Implementation eines Kundenprofils zum Onlineshop konzentriert.
 Dabei wird das Hauptaugenmerk auf die serverseitigen Funktionen gelegt. Die Klienten-Seite wird nur in einem für eine Demo nötigen Umfang
-umgesetzt.
+umgesetzt. 
 
 <a name="el_glossar"></a>
 ### 1.2 Glossar
-| Begriff    | Erklärung                                                                                                                |
-|------------|--------------------------------------------------------------------------------------------------------------------------|
-| Besuchende | Personen, die den Onlineshop besuchen, dabei jedoch noch nicht unbedingt etwas kaufen wollen und nicht registriert sind. |
-| Gastkäufer | Personen, die einen Kauf beabsichtigen ohne sich aber als feste Kundschaft registrieren zu wollen.                       |
-| Kundschaft | Personen, die einen Kauf beabsichtigen, sich dabei registrieren oder bereits registriert sind.                           |
-
+| Begriff    | Erklärung                                                                                      |
+|------------|------------------------------------------------------------------------------------------------|
+| Kundschaft | Personen, die einen Kauf beabsichtigen, sich dabei registrieren oder bereits registriert sind. |
+| Besuchende | Personen, die einen Kauf beabsichtigen, jedoch noch nicht registriert sind.                    |
 ---
 
 <a name="vt_verwendetetechnologien"></a>
@@ -74,10 +71,10 @@ Der Onlineshop soll eine Web-Applikation sein. Zu deren Umsetzung werden folgend
 ### 2.1 IntelliJ IDEA
 Als Entwicklungsumgebung für die Java EE Web-Applikation dient IntelliJ IDEA von Jetbrains.
 
-<a name="vt_javaee8"></a>
-### 2.2 Java EE 8
-Gemäss der verwendeten Literatur soll für die Web-Applikation Java als Programmiersprache, in der Spezifikation EE 8,
-verwendet werden. Hinsichtlich der Version behält sich der Autor Änderungen vor. Diese würden entsprechend dokumentiert werden.
+<a name="vt_javaee"></a>
+### 2.2 Java EE 9
+Gemäss der verwendeten Literatur soll für die Web-Applikation Java als Programmiersprache, in der Spezifikation EE 9,
+verwendet werden.
 
 <a name="vt_glassfish"></a>
 ### 2.3 Oracle Glassfish Server 6.2.5
@@ -100,7 +97,8 @@ Die Branch-Strategie folgt grundsätzlich den Empfehlungen des Git-flow-Workflow
 ### 2.6 Docker  
 Für das Deployment bzw. die Abgabe der Applikation wird eine Container-Gruppe mit Docker Compose zur Verfügung gestellt.
 
-<a name="vt_spezifikation></a>
+
+<a name="vt_spezifikation"></a>
 ### 2.7 Spezifikation (Drawio, Figma)
 Für sämtliche Modelle und Diagramme wurde [Drawio](https://www.diagrams.net/) verwendet.
 Der UI- und Bedienungsprototyp wurde mit [Figma](https://www.figma.com/de) erstellt.
@@ -127,13 +125,12 @@ diese in Use-Case-Form erfasst.
   <tr>
     <th>Ziel</th>
     <td>
-      Akteure erhalten einen Überblick über die zur Verfügung stehenden Produkte mit den Optionen, sich diese
-      anzuschauen, zu kaufen oder auf eine Favoritenliste zu legen.
+      Akteure erhalten einen Überblick über die zur Verfügung stehenden Produkte mit den Optionen diese in einem Warenkorb oder einer Favoritenliste abzulegen.
     </td>
   </tr>
   <tr>
     <th>Akteure</th>
-    <td>Besuchende, Gäste, Kundschaft</td>
+    <td>Kundschaft</td>
   </tr>
   <tr>
     <th>Vorbedingung</th>
@@ -148,19 +145,11 @@ diese in Use-Case-Form erfasst.
     <td>Akteure sehen alle zur Verfügung stehenden Produkte.</td>
   </tr>
   <tr>
-    <th>Nachbedingung Sonderfall</th>
-    <td>Akteure werden mit einer Nachricht, an Stelle der Übersicht, darüber informiert, dass aktuell keine Produkte zum Verkauf stehen.</td>
-  </tr>
-  <tr>
     <th>Normalfall</th>
     <td>
       1. Akteure besuchen den Onlineshop<br>
       2. Akteure werden direkt auf die Produktübersicht geroutet<br>
     </td>
-  </tr>
-  <tr>
-    <th>Sonderfall</th>
-    <td>2a. Es stehen aktuell keine Produkte zum Verkauf</td>
   </tr>
 </table>
 
@@ -177,7 +166,7 @@ diese in Use-Case-Form erfasst.
   </tr>
   <tr>
     <th>Akteure</th>
-    <td>Gäste, Kundschaft</td>
+    <td>Kundschaft</td>
   </tr>
   <tr>
     <th>Vorbedingung</th>
@@ -194,7 +183,7 @@ diese in Use-Case-Form erfasst.
   <tr>
     <th>Nachbedingung Sonderfall</th>
     <td>
-      1a. Produkte, die im Warenkorb liegen, werden ohne den entsprechenden Knopf für die Ablage dargestellt.
+      1a. Produkte, die im Warenkorb liegen, werden mit ausgegrautem Knopf für die Ablage dargestellt.
       2a. Kaufknopf steht erst ab mindestens einem Produkt im Warenkorb zur Verfügung.
     </td>
   </tr>
@@ -203,22 +192,19 @@ diese in Use-Case-Form erfasst.
     <td>
       1. Akteur klickt auf den Knopf, der ein Produkt in den Warenkorb legt<br>
       2. Akteur klickt im Warenkorb auf den Knopf, um die abgelegten Produkte zu kaufen<br>
-      3. Akteur wird auf die Kaufmaske weitergeleitet<br>
     </td>
   </tr>
   <tr>
     <th>Sonderfall</th>
     <td>
       1a. Akteur will Produkt in den Warenkorb legen, das bereits in diesem liegt.<br>
-      2a. Akteur will den Kaufknopf eines leeren Warenkorbs klicken
+      2a. Akteur will den Kaufknopf eines leeren Warenkorbs klicken <br>
     </td>
   </tr>
 </table>
 
 <a name="fa_buyproduct"></a>
-### 3.3 Shop - Buy Product (Customer Only)
-Die Klammerbemerkung "Customer Only" bezieht sich auf den Umstand, dass im Rahmen der Semesterarbeit nur der Prozess für registrierte Kundschaft
-umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
+### 3.3 Shop - Buy Product
 <table>
   <tr>
     <th>Name</th>
@@ -242,30 +228,13 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
   </tr>
   <tr>
     <th>Nachbedingung Normalfall</th>
-    <td>Waren wurden bezahlt und bestellt.</td>
-  </tr>
-  <tr>
-    <th>Nachbedingung Sonderfall</th>
-    <td>
-      1a. Prozess kann ohne Wahl der Zahlungsart nicht abgeschlossen werden <br>
-      2a. Prozess kann ohne Festlegung der Adressen nicht abgeschlossen werden <br>
-      3a. Prozess kann ohne Bestätigung der Geschäftsbedingungen nicht abgeschlossen werden <br>
-    </td>
+    <td>Waren wurden bestellt.</td>
   </tr>
   <tr>
     <th>Normalfall</th>
     <td>
-      1. Kundschaft muss sich für eine Zahlungsart entscheiden <br>  
-      2. Kundschaft muss eine Liefer- und eine Rechnungsadresse spezifizieren <br>
-      3. Kundschaft muss den Kaufprozess durch eine Bestätigung der Kaufbedingungen  <br>
-    </td>
-  </tr>
-  <tr>
-    <th>Sonderfall</th>
-    <td>
-      1a. Kundschaft wählt keine Zahlungsart aus <br>
-      2a. Kundschaft legt keine Adressen fest <br>
-      3a. Kundschaft verweigert die Bestätigung der Geschäftsbedingungen zum Kauf eines Produkts <br>
+      1. Akteur klickt auf die Schaltfläche zum Kauf <br>
+      2. Produkte sind im Profil unter Bestellungen zu finden <br>
     </td>
   </tr>
 </table>
@@ -280,8 +249,8 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
   <tr>
     <th>Ziel</th>
     <td>
-      Besuchende des Onlineshops sollen sich registrieren können, um persönliche Informationen abzulegen,
-      den Kaufprozess zu vereinfachen und Produkte in einer Wunschliste erfassen zu können.. 
+      Besuchende des Onlineshops sollen sich registrieren können, um persönliche Informationen abzulegen, 
+      Produkte kaufen und in einer Wunschliste erfassen zu können.
     </td>
   </tr>
   <tr>
@@ -299,34 +268,31 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
   <tr>
     <th>Nachbedingung Normalfall</th>
     <td>
-      Ehemals Besuchende sind als registrierte Kundschaft mit eigenem Profil, Authentifikationsdaten und persönlichen Informationen erfasst.
+      Akteure sind als registrierte Kundschaft mit eigenem Profil, Authentifikationsdaten und persönlichen Informationen erfasst.
     </td>
   </tr>
   <tr>
     <th>Nachbedingung Sonderfall</th>
     <td>
-      1a. Besuchende müssen einen im System einzigartigen Usernamen wählen. <br>
-      1b. Es muss eine einmalig erfasste E-Mail-Adresse angegeben werden. <br>
-      3a. Besuchende werden durch eine Fehlermeldung auf den falschen Verifizierungscode aufmerksam gemacht. <br>
-      4a. Profil bleibt ohne Adresse, in Konsequenz muss diese bei jedem Bestellvorgang manuell eingetragen werden. <br>
+      2a. Formular kann nicht abgeschlossen werden, solange noch Informationen fehlen <br>
+      3a. Akteur wird darauf aufmerksam gemacht, dass die E-Mail Adresse bereits vergeben ist <br>
     </td>
   </tr>
   <tr>
     <th>Normalfall</th>
     <td>
-      1. Besuchende werden dazu angehalten, einen Usernamen, ein Passwort und eine E-Mail-Adresse festzulegen <br>
-      2. An die angegebene E-Mail-Adresse wird ein Code verschickt. <br>
-      3. Besuchende geben den Code in der Maske ein, um die E-Mail-Adresse zu verifizieren und werden nun registrierte Kundschaft<br>
-      4. Registrierte Kundschaft wird aufgefordert, das Profil um Adressinformationen zu erweitern.
+      1. Akteure klicken auf das Login-Icon in der Nav-Bar & anschliessend auf den "Registrieren"-Link <br>
+      2. Akteure tippen ihre persönlichen Informationen Formularfeldern ein <br>
+      3. Akteure legen eine E-Mail Adresse fest <br>
+      3. Akteure legen ein Passwort fest und bestätigen dieses <br>
+      4. Akteure klicken den "Registrieren"-Knopf <br>
     </td>
   </tr>
   <tr>
     <th>Sonderfall</th>
     <td>
-      1a. Username wird bereits verwendet. <br>
-      1b. E-Mail-Adresse ist bereits im Kundensystem erfasst. <br>
-      3a. Verifizierungscode der E-Mail-Adresse ist nicht valide. <br>
-      4a. Adressinformationen werden von der Kundschaft nicht ergänzt. <br>
+      2a. Persönliche Informationen werden von der Kundschaft nicht ergänzt. <br>
+      3a. E-Mail-Adresse ist bereits im Kundensystem erfasst. <br>
     </td>
   </tr>
 </table>
@@ -370,16 +336,15 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
   <tr>
     <th>Normalfall</th>
     <td>
-      1. Akteure wird zur Eingabe des Usernamens aufgefordert <br>
-      2. Akteure wird zur Eingabe des Passworts aufgefordert <br>
-      3. Akteure wählen, ob sie während der Session bleiben sollen <br>
-      4. Akteure bestätigen das Login <br>
+      1. Akteur wird zur Eingabe der E-Mail aufgefordert <br>
+      2. Akteur wird zur Eingabe des Passworts aufgefordert <br>
+      4. Akteur bestätigt das Login <br>
     </td>
   </tr>
   <tr>
     <th>Sonderfall</th>
     <td> 
-      1a./2a. Username und Passwort stimmen nicht überein <br> 
+      1a./2a. E-Mail oder Passwort stimmen nicht überein <br> 
     </td>
   </tr>
 </table>
@@ -425,7 +390,7 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
       1. Akteure sehen auf einer Übersicht alle persönlichen Informationen im Profil <br>
       2. Akteure klicken "Information bearbeiten" <br>
       3. Akteure sehen eine Formular-Ansicht, die die Bearbeitung der Daten erlaubt <br>
-      4. Akteure klicken "Abschliessen", um die Änderungen zu persistieren <br>
+      4. Akteure klicken "Profil aktualisieren", um die Änderungen zu persistieren <br>
     </td>
   </tr>
   <tr>
@@ -531,30 +496,48 @@ umgesetzt wird. Der Prozess für Gastkäufer ist out-of-scope.
 
 <a name="dm_datenmodell"></a>
 ## 4 Datenmodell
-<img src="./img/erd_onlineshop.jpg" alt="Datenmodell für den gesamten Onlineshop.">
+Das gesamte Datenmodell enthält Kunden (mit Adressen & Wohnorten, vgl. 4.1), Produkte (vgl. 4.2),
+Bestellungen (vgl. 4.3) und einer Merkliste (vgl. 4.4).
+<img  src="img/erd/erd_onlineshop.jpg" alt="Datenmodell für den gesamten Onlineshop.">
+
 
 <a name="dm_customer"></a>
 ## 4.1 Customer
-<img src="./img/erd_customer.jpg" alt="ERD für die Customer Entity.">
+Die Tabelle für die Kundendaten enthält persönliche Informationen über die Kundschaft, sowie die Authentifikationsdaten (E-Mail, Passwort).
+Die Einzigartigkeit jedes Kunden wird über die E-Mail-Adresse sichergestellt. Die Customer-Entitäten werden versioniert, um die Aktualität
+der Daten in der Applikation sicherzustellen.
+
+Die Daten zur Adresse der Kunden sind in eine eigene Tabelle ausgelagert, um den Ansprüchen der Normalisierung zu entsprechen.
+Bei der Adresstabelle sind aus demselben Grund wiederum ausgelagert. Beide Tabellen haben ein Versionsattribut.
+<img src="img/erd/erd_customer.jpg" alt="ERD für die Customer Entity.">
 
 <a name="dm_product"></a>
 ## 4.2 Product
-<img src="./img/erd_product.jpg" alt="ERD für die Product Entity.">
-
-<a name="dm_cart"></a>
-## 4.3 Cart
-<img src="./img/erd_cart.jpg" alt="ERD für die Cart Entity.">
+Die Tabelle für Produktdaten enthält alle notwendigen Daten über ein Produkt, wie Name, Beschreibung und Preis. Daneben auch 
+ein Attribut für den Fremdschlüssel des Verkäufers und den Fremdschlüssel eines potenziellen Käufers.
+Speziell an der Produkttabelle ist das Image Attribut, das eine Binär-Repräsentation eines Produktbilds enthält. 
+Wie alle anderen Entitäten sind auch die Produkt-Entitäten versioniert.<br>
+<img src="img/erd/erd_product.jpg" alt="ERD für die Product Entity.">
 
 <a name="dm_order"></a>
-## 4.4 Order
-<img src="./img/erd_order.jpg" alt="ERD für die Order Entity.">
+## 4.3 Order
+Bestellungen werden mithilfe einer Tabelle für die Informationen über eine Bestellung und einer Hilfstabelle für die Many-to-Many
+Beziehung zwischen Produkten und Bestellungen abgebildet.
+Die Many-to-Many Beziehung wäre in dieser Form für den aktuellen Stand des Onlineshops nicht nötig. Im Sinne der Erweiterbarkeit
+hat sich der Entwickler dazu entschieden, die Relation dennoch als M-to-M und nicht als M-to-1 zu modellieren.
+Auf die Bestellungs-Entitäten wird nach der Erstellung nur noch lesend zugegriffen. Daher entfällt hier die Versionierung. <br>
+<img src="img/erd/erd_order.jpg" alt="ERD für die Order Entity.">
 
 <a name="dm_wishlist"></a>
-## 4.5 Wishlist
-<img src="./img/erd_wishlist.jpg" alt="ERD für die Wishlist Entity.">
+## 4.4 Wishlist
+Die Wishlist-Tabelle ist eine einfache Hilfstabelle für die Many-to-Many Beziehung zwischen Kunden und Produkten in Form einer Merkliste.
+Zu der Merkliste sind auch keine weiteren Informationen notwendig, weshalb eine eigene Tabelle (vgl. 4.3 Orders) entfällt.<br>
+<img src="img/erd/erd_wishlist.jpg" alt="ERD für die Wishlist Entity.">
 
 <a name="ui_prototyp"></a>
 ## 5 UI & Bedienungsprototyp
+
+
 
 <a name="ae_architekturentscheidungen"></a>
 ## 6 Architekturentscheidungen
