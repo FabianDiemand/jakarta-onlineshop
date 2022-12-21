@@ -18,7 +18,7 @@ class HashingUtilTest {
     }
 
     @Test
-    void is_matching_hash() {
+    void is_matching_hash_test() {
         String password = "testpassword";
         String hash = HashingUtil.getHash(password);
 

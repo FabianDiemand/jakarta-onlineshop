@@ -14,6 +14,10 @@ import java.io.IOException;
  * @author Fabian Diemand
  */
 public class ScaleUtil {
+
+    // Don't allow instantiation for utility class
+    private ScaleUtil(){}
+
     // The length of the image
     private final static int MAX_IMAGE_LENGTH = 400;
 
