@@ -32,6 +32,9 @@ public class SellController implements Serializable {
 
     private final static Logger log = Logger.getLogger(SellController.class.toString());
 
+    // The length of the image
+    private final static int MAX_IMAGE_LENGTH = 400;
+
     // Part object for the product image
     @Getter
     @Setter
@@ -68,7 +71,7 @@ public class SellController implements Serializable {
             for (int length; (length = input.read(buffer)) > 0; ) {
                 output.write(buffer, 0, length);
             }
-            product.setImage(ScaleUtil.scale(output.toByteArray()));
+            product.setImage(ScaleUtil.scale(output.toByteArray(), MAX_IMAGE_LENGTH));
 
             // Make sure to have the latest version of the customer and persist the product
             Customer c = customerRepository.getById(customer.getId());
