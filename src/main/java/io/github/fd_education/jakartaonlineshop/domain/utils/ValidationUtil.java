@@ -17,6 +17,8 @@ public class ValidationUtil {
      */
     @SuppressWarnings("RegExpRedundantNestedCharacterClass")
     public static boolean isInvalidEmail(String email){
+        if(email == null || email.isEmpty()) return true;
+
         String emailPattern = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
         return !Pattern.matches(emailPattern, email);
     }
@@ -33,6 +35,8 @@ public class ValidationUtil {
      */
     @SuppressWarnings("RegExpRedundantNestedCharacterClass")
     public static boolean isWeakPasswort(String password){
+        if(password == null) return true;
+
         String strongPasswordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,}$";
         return !Pattern.matches(strongPasswordPattern, password);
     }
@@ -45,6 +49,8 @@ public class ValidationUtil {
      * @return true if the passwords are equal, false otherwise
      */
     public static boolean isMatchingPassword(String password, String value){
+        if(password == null || password.isEmpty() || value == null || value.isEmpty()) return false;
+
         return Objects.equals(password, value);
     }
 }

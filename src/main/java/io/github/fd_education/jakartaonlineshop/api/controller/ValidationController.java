@@ -199,7 +199,7 @@ public class ValidationController implements Serializable {
 
         // get the password from the bound attribute
         String verificationPassword = (String) uic.getAttributes().get("password");
-        if(verificationPassword.isEmpty()) return;
+        if(verificationPassword == null || verificationPassword.isEmpty()) return;
 
         if(!ValidationUtil.isMatchingPassword(password, verificationPassword)){
             FacesMessage fm = MessageUtil.getMessageWithSeverity(fc.getViewRoot().getLocale(), "messages", "passwords_not_matching", FacesMessage.SEVERITY_WARN);
