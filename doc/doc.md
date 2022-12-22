@@ -32,6 +32,13 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [4.3 Order](#dm_order)
   - [4.4 Wishlist](#dm_wishlist)
 - [5 UI & Bedienungsprototyp](#ui_prototyp)
+  - [5.1](#ui_welcome)
+  - [5.2](#ui_login)
+  - [5.3](#ui_register)
+  - [5.4](#ui_profile_info)
+  - [5.5](#ui_profile_wishlist)
+  - [5.6](#ui_cart)
+  - [5.7](#ui_profile_orders)
 - [6 Architekturentscheidungen](#ae_architekturentscheidungen)
 - [7 Installation](#i_installation)
   - [7.1 Container: jak-onlineshop-database](#i_dbcontainer)  
@@ -502,7 +509,7 @@ Bestellungen (vgl. 4.3) und einer Merkliste (vgl. 4.4).
 
 
 <a name="dm_customer"></a>
-## 4.1 Customer
+### 4.1 Customer
 Die Tabelle für die Kundendaten enthält persönliche Informationen über die Kundschaft, sowie die Authentifikationsdaten (E-Mail, Passwort).
 Die Einzigartigkeit jedes Kunden wird über die E-Mail-Adresse sichergestellt. Die Customer-Entitäten werden versioniert, um die Aktualität
 der Daten in der Applikation sicherzustellen.
@@ -512,7 +519,7 @@ Bei der Adresstabelle sind aus demselben Grund wiederum ausgelagert. Beide Tabel
 <img src="img/erd/erd_customer.jpg" alt="ERD für die Customer Entity.">
 
 <a name="dm_product"></a>
-## 4.2 Product
+### 4.2 Product
 Die Tabelle für Produktdaten enthält alle notwendigen Daten über ein Produkt, wie Name, Beschreibung und Preis. Daneben auch 
 ein Attribut für den Fremdschlüssel des Verkäufers und den Fremdschlüssel eines potenziellen Käufers.
 Speziell an der Produkttabelle ist das Image Attribut, das eine Binär-Repräsentation eines Produktbilds enthält. 
@@ -520,7 +527,7 @@ Wie alle anderen Entitäten sind auch die Produkt-Entitäten versioniert.<br>
 <img src="img/erd/erd_product.jpg" alt="ERD für die Product Entity.">
 
 <a name="dm_order"></a>
-## 4.3 Order
+### 4.3 Order
 Bestellungen werden mithilfe einer Tabelle für die Informationen über eine Bestellung und einer Hilfstabelle für die Many-to-Many
 Beziehung zwischen Produkten und Bestellungen abgebildet.
 Die Many-to-Many Beziehung wäre in dieser Form für den aktuellen Stand des Onlineshops nicht nötig. Im Sinne der Erweiterbarkeit
@@ -529,15 +536,74 @@ Auf die Bestellungs-Entitäten wird nach der Erstellung nur noch lesend zugegrif
 <img src="img/erd/erd_order.jpg" alt="ERD für die Order Entity.">
 
 <a name="dm_wishlist"></a>
-## 4.4 Wishlist
+### 4.4 Wishlist
 Die Wishlist-Tabelle ist eine einfache Hilfstabelle für die Many-to-Many Beziehung zwischen Kunden und Produkten in Form einer Merkliste.
 Zu der Merkliste sind auch keine weiteren Informationen notwendig, weshalb eine eigene Tabelle (vgl. 4.3 Orders) entfällt.<br>
 <img src="img/erd/erd_wishlist.jpg" alt="ERD für die Wishlist Entity.">
 
 <a name="ui_prototyp"></a>
 ## 5 UI & Bedienungsprototyp
+Die UI und Bedienungsprototypen wurden im Vorgang zum eigentlichen Entwicklungsprozess erstellt, um bei der Umsetzung
+nicht mehr viel Zeit in die Konzeption der Oberflächen stecken zu müssen, sondern direkt mit deren Umsetzung als Code beginnen zu können.
+Wie eingangs erwähnt, wurde für die Umsetzung der Prototypen [Figma](https://www.figma.com/de) verwendet. 
 
+Letztlich kam es bei der Umsetzung zu kleineren Abweichungen, teils weil die Technologie (JSF) gewisse Dinge nicht im Rahmen
+der sinnvollen Zeit erlaubte, teils weil der Entwickler sich zu praktischeren Ansätzen entschied, als im Entwurf vorgesehen.
 
+<a name="ui_welcome"></a>
+### 5.1 Welcome Page
+Besucher des Onlineshops werden direkt mit einer Übersicht über alle verfügbaren Produkte begrüsst. Im nicht-eingeloggten Zustand, ist auf 
+dieser Seite kaum etwas möglich. Lediglich die Navigationsoptionen für die Homepage, fürs Login bzw. die Registrierung und den Wechsel der Sprache
+stehen zur Verfügung. <br>
+<img src="img/ui/welcome.jpg" alt="Welcome Page für Besucher (nicht eingeloggt)."> <br> <br>
+Einmal eingeloggt, werden zusätzlich die Navigationsoptionen für den Einkaufswagen und das Kundenprofil verfügbar. Die Option fürs Login wird
+nun durch die Möglichkeit fürs Logout ersetzt. Die Produktkarten bieten im eingeloggten Zustand die Funktionalität, zum Warenkorb hinzugefügt,
+oder in einer Wunschliste abgelegt zu werden. <br>
+<img src="img/ui/welcome_loggedin.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+
+<a name="ui_login"></a>
+### 5.2 Login Page
+Klickt der Besucher auf der Welcome Page den Login-Knopf, kann er sich entweder einloggen, oder sich auf die Registrationsseite (vgl. 5.3)
+weiterleiten lassen. Im Login-Formular müssen die E-Mail-Adresse und das Passwort eingetragen werden. Können diese nicht verifiziert werden,
+wird der Besucher mit einer Fehlernachricht darauf hingewiesen.<br>
+<img src="img/ui/login.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+
+<a name="ui_register"></a>
+### 5.3 Register Page
+Will sich der Besucher des Onlineshops nicht einloggen, sondern zuerst registrieren, lässt er sich auf die Regirationsseite weiterleiten. 
+Hier wird er dazu aufgefordert, seine persönlichen Informationen in einem Formular einzutragen.
+Das Passwort muss bestätigt werden. Passwort und E-Mail-Adresse dienen letztlich der Authentifizierung. <br>
+<img src="img/ui/register.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+
+<a name="ui_profile_info"></a>
+### 5.4 Profile Info Page
+Ist ein Kunde im Onlineshop eingeloggt, hat er die Möglichkeit, seine persönlichen Daten zu verändern. Das Formular sieht jenem der
+Registrationsseite sehr ähnlich, beinhaltet allerdings bereits die jeweiligen Daten des Kunden. Dadurch dient es der Übersicht und 
+Anpassung gleichermassen. <br>
+<img src="img/ui/customer_info.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+
+<a name="ui_profile_wishlist"></a>
+### 5.5 Profile Wishlist Page
+Produkte, die auf der Hauptseite in die Merkliste verschoben wurden, werden in der Merkliste angezeigt. Die Merkliste
+ist über ein Drop-Down-Menü von der Profil-Option in der Navigation aus erreichbar. Produkte sehen identisch aus, wie 
+jene der Welcome Page (vgl. 5.1), können von hier aus ebenfalls in den Warenkorb verschoben, oder direkt wieder aus der
+Merkliste entfernt werden. Produkte auf der Merkliste, die zwischenzeitlich verkauft wurden, werden entsprechend markiert. <br>
+<img src="img/ui/wishlist.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+
+<a name="ui_cart"></a>
+### 5.6 Cart Page
+Produkte, die auf der Hauptseite in den Warenkorb verschoben wurden, werden hier angezeigt. Die Merkliste ist über ein Drop-Down-Menü
+von der Profil-Option in der Navigation aus erreichbar. Die Darstellung der Produkte weicht von der bisherigen Card-Darstellung ab.
+Dies damit die Preise horizontal untereinander stehen und somit visuell besser mit der Darstellung des Totals vereinbar sind. Produkte 
+können über das Kreuz oben rechts wieder aus dem Warenkorb entfernt werden. Wird der Kaufen-Knopf geklickt, ist die Liste danach in der
+Bestellübersicht (vgl. 5.7) ersichtlich.<br>
+<img src="img/ui/cart.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+
+<a name="ui_profile_orders"></a>
+### 5.7 Orders Page
+Wurde die Bestellung einer Liste von Produkten im Warenkorb ausgelöst, ist diese danach in der Bestellübersicht auffindbar. 
+Eine Bestellung enthält hier die Übersicht über Bezahlungsstatus, Versandstatus, Produktliste und Totalpreis der Bestellung. <br>
+<img src="img/ui/orders.jpg" alt="Welcome Page für Kunden (eingeloggt).">
 
 <a name="ae_architekturentscheidungen"></a>
 ## 6 Architekturentscheidungen
