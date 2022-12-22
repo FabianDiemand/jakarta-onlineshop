@@ -567,21 +567,21 @@ oder in einer Wunschliste abgelegt zu werden. <br>
 Klickt der Besucher auf der Welcome Page den Login-Knopf, kann er sich entweder einloggen, oder sich auf die Registrationsseite (vgl. 5.3)
 weiterleiten lassen. Im Login-Formular müssen die E-Mail-Adresse und das Passwort eingetragen werden. Können diese nicht verifiziert werden,
 wird der Besucher mit einer Fehlernachricht darauf hingewiesen.<br>
-<img width=75% src="img/ui/login.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+<img width=75% src="img/ui/login.jpg" alt="Login-Seite">
 
 <a name="ui_register"></a>
 ### 5.3 Register Page
 Will sich der Besucher des Onlineshops nicht einloggen, sondern zuerst registrieren, lässt er sich auf die Regirationsseite weiterleiten. 
 Hier wird er dazu aufgefordert, seine persönlichen Informationen in einem Formular einzutragen.
 Das Passwort muss bestätigt werden. Passwort und E-Mail-Adresse dienen letztlich der Authentifizierung. <br>
-<img width=75% src="img/ui/register.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+<img width=75% src="img/ui/register.jpg" alt="Registrationsseite.">
 
 <a name="ui_profile_info"></a>
 ### 5.4 Profile Info Page
 Ist ein Kunde im Onlineshop eingeloggt, hat er die Möglichkeit, seine persönlichen Daten zu verändern. Das Formular sieht jenem der
 Registrationsseite sehr ähnlich, beinhaltet allerdings bereits die jeweiligen Daten des Kunden. Dadurch dient es der Übersicht und 
 Anpassung gleichermassen. <br>
-<img width=75% src="img/ui/customer_info.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+<img width=75% src="img/ui/customer_info.jpg" alt="Persönliche Informationen der Kunden und die Möglichkeit, diese zu bearbeiten.">
 
 <a name="ui_profile_wishlist"></a>
 ### 5.5 Profile Wishlist Page
@@ -598,18 +598,35 @@ von der Profil-Option in der Navigation aus erreichbar. Die Darstellung der Prod
 Dies damit die Preise horizontal untereinander stehen und somit visuell besser mit der Darstellung des Totals vereinbar sind. Produkte 
 können über das Kreuz oben rechts wieder aus dem Warenkorb entfernt werden. Wird der Kaufen-Knopf geklickt, ist die Liste danach in der
 Bestellübersicht (vgl. 5.7) ersichtlich.<br>
-<img width=75% src="img/ui/cart.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+<img width=75% src="img/ui/cart.jpg" alt="Warenkorb-Ansicht.">
 
 <a name="ui_profile_orders"></a>
 ### 5.7 Orders Page
 Wurde die Bestellung einer Liste von Produkten im Warenkorb ausgelöst, ist diese danach in der Bestellübersicht auffindbar. 
 Eine Bestellung enthält hier die Übersicht über Bezahlungsstatus, Versandstatus, Produktliste und Totalpreis der Bestellung. <br>
-<img width=75% src="img/ui/orders.jpg" alt="Welcome Page für Kunden (eingeloggt).">
+<img width=75% src="img/ui/orders.jpg" alt="Übersicht der Bestellungen.">
 
 ---
 
 <a name="ae_architekturentscheidungen"></a>
 ## 6 Architekturentscheidungen
+Die Dokumentation der Architekturentscheidungen bezieht sich nur auf den gewählten Fokusbereich des Kundenprofils, sowie auf 
+die Funktionalitäten der Registration und des Logins.
+
+Die nachfolgende Darstellung zeigt den Aufbau der Applikation. Dieser Aufbau folgt einem MVC-Pattern. 
+
+Für die Umsetzung des Data-Layer (Model) wird die Jakarta Persistence API (JPA) verwendet. Der Datenbankzugriff wird dabei zusätzlich durch ein Repository-Pattern abstrahiert.
+Im Business-Layer (Controller; nicht verwechseln mit der Controller-Komponente des Präsentations-Layers!) kommen Utility-Klassen zum Einsatz, Enums und ein Pojo für die Warenkorb-Funktionalität.
+Der Präsentations-Layer (View) setzt auf Jakarta Server Faces (JSF) und JSF-Facelets für die Oberflächengestaltung bzw. -generierung. Mit Controllern wird die Business-Logik abstrahiert.
+Servlets werden für asynchrone Operationen (Bilder laden) eingesetzt.
+
+<img src="img/arch/architecture.jpg" alt="Aufbau des Onlineshops.">
+
+<a name="ae_sequenzdiagramme"></a>
+### 6.1 Sequenzdiagramme
+
+<a name="ae_seq_registration"></a>
+
 
 ---
 
