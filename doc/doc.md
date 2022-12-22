@@ -40,6 +40,13 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [5.6 Cart Page](#ui_cart)
   - [5.7 Orders Page](#ui_profile_orders)
 - [6 Architekturentscheidungen](#ae_architekturentscheidungen)
+  - [6.1 Sequenzdiagramme](#ae_sequenzdiagramme)
+    - [6.1.1 Registrierung](#ae_seq_registration)
+    - [6.1.2 Login](#ae_seq_login)
+    - [6.1.3 Profil-Update](#ae_seq_profile_update)
+    - [6.1.4 Warenkorb](#ae_seq_cart)
+    - [6.1.5 Merkliste](#ae_seq_wishlist)
+    - [6.1.6 Bestellungen](#ae_seq_orders)
 - [7 Installation](#i_installation)
   - [7.1 Container: jak-onlineshop-database](#i_dbcontainer)  
   - [7.2 Container: jak-onlineshop-webapp](#i_webappcontainer)  
@@ -624,9 +631,61 @@ Servlets werden für asynchrone Operationen (Bilder laden) eingesetzt.
 
 <a name="ae_sequenzdiagramme"></a>
 ### 6.1 Sequenzdiagramme
+Anstelle eines komplexen, unübersichtlichen Klassendiagramms wird die Kernfunktionalität in Sequenzdiagrammen aufgezeigt.
 
 <a name="ae_seq_registration"></a>
+#### 6.1.1 Registrierung
+Eine wichtige Komponente bei der Registrierung ist die Validierung der eingetragenen Daten. Werden Teile der Informationen 
+zu einem Kunden als nicht valide erkannt, wird dem Kunden die entsprechende Fehlermeldung in der UI angezeigt und das Formular
+kann nicht abgeschlossen werden.
+Mit korrekten Daten kann das Formular abgeschlossen werden. Eine weitere Prüfung erfolgt, um sicherzustellen, dass die E-Mail-Adresse
+des Kunden nicht bereits verwendet wird. Schlägt diese Prüfung fehl, wird auch dieser Umstand in der UI angezeigt.
+Sofern die E-Mail-Adresse frei war, wird der Kunde nun in der Datenbank persistiert und eine entsprechende Erfolgsnachricht in der UI angezeigt.<br>
+<img src="img/arch/seq_registration.jpg" alt="Sequenzdiagramm für die Registrierung eines Kunden.">
 
+<a name="ae_seq_login"></a>
+#### 6.1.2 Login
+Beim Login findet keine unmittelbare Validierung der eingegebenen Werte statt. Wichtig ist jedoch, dass eine E-Mail und ein Passwort
+angegeben werden. Andernfalls kann das Formular nicht abgeschlossen werden.
+Mit dem Abschluss des Formulars wird versucht, einen Kunden mit der entsprechenden E-Mail-Adresse zu finden. 
+Das eingegebene Passwort wird anschliessend mit dem gehashten Passwort des gefundenen Kunden abgeglichen.
+Passen Passwort und Hash-Wert, wird der Kunde eingeloggt und auf die Homepage (vgl. 5.1) umgeleitet.
+Schlägt die Authentifikation fehl, wird eine entsprechende Meldung angezeigt und der Kunde bleibt ausgeloggt.<br>
+<img src="img/arch/seq_login.jpg" alt="Sequenzdiagramm für das Login eines Kunden.">
+
+<a name="ae_seq_profile_update"></a>
+#### 6.1.3 Profil-Update
+Das Update der Kundeninformationen im Kundenprofil ähnelt stark der Registration. Der Validierungsprozess ist identisch, weshalb darauf
+nicht mehr eingegangen wird.
+Nun wird allerdings der Kunde am Ende nicht neu erstellt, sondern die Informationen des bestehenden Kunden überschrieben.<br>
+<img src="img/arch/seq_profile_update.jpg" alt="Sequenzdiagramm für das Profilupdate eines Kunden.">
+
+<a name="ae_seq_cart"></a>
+#### 6.1.4 Warenkorb
+Der Warenkorb wird nicht in der Datenbank persistiert, sondern existiert nur innerhalb der aktuellen Browser Session. 
+Entsprechend ist er auch nicht als JPA-Entity im Data Layer, sondern als einfaches Pojo im Domain-Layer umgesetzt.
+Die Interaktionen zum Hinzufügen und Entfernen von Produkten zum und aus dem Warenkorb laufen somit gänzlich ohne ein Repository bzw. den Data Layer ab.
+Eine Produktbestellung wird ausgelöst, indem die Liste der Produkte im Warenkorb dem Bestell-Controller übergeben wird.
+Der Bestell-Controller löst in den Repositories der Produkte und der Bestellungen die entsprechenden Änderungen aus, 
+um ein Produkt als verkauft zu markieren und eine Bestellung zu erzeugen. Zuletzt wird der Warenkorb geleert.<br>
+<img src="img/arch/seq_cart.jpg" alt="Sequenzdiagramm für die Warenkorb-Funktion.">
+
+<a name="ae_seq_wishlist"></a>
+#### 6.1.5 Merkliste
+Der Zustand der Merkliste wird persistiert. Allerdings gehört die Merkliste immer zu einem Kunden und ist somit als Liste direkt 
+in der Kunden-Entität umgesetzt. Es gibt nie ein eigenes Merklisten-Objekt und entsprechend auch kein Merklisten-Repository.
+Sämtliche Änderungen der Merkliste laufen über das Kunden-Repository. Für die Darstellung der Merkliste wird diese vom Kunden im Profil-Controller abgefragt.
+Das Hinzufügen von Produkten kann vom Index oder aus dem Warenkorb geschehen. Stellvertretend ist im Sequenzdiagramm nur der Index gelistet.
+Beim Hinzufügen und Entfernen von Produkten wird der Profil-Controller beauftragt, welcher das Kunden-Repository die entsprechenden Updates in der 
+Datenbank durchführen lässt.<br>
+<img src="img/arch/seq_wishlist.jpg" alt="Sequenzdiagramm für die Merkliste eines Kunden.">
+
+<a name="ae_seq_orders"></a>
+#### 6.1.6 Bestellungen
+Die Erstellung von Bestellungen ist im Abschnitt des Warenkorbs (vgl. 6.1.4) dokumentiert.
+Für die Darstellung der Bestellungen wird der Bestellungs-Controller beim Repository die Bestellungen des Kunden abfragen und diese
+dann dem Facelet für die Darstellung übergeben.<br>
+<img src="img/arch/seq_orders.jpg" alt="Sequenzdiagramm für die Bestellungen eines Kunden.">
 
 ---
 
@@ -699,11 +758,11 @@ und Docker bzw. Docker Desktop installiert hat.
 
 <br>
 
-### Vorlage Statusbericht <#>: <Datum>
-| Teilbereiche                      | Status [%] | Bemerkungen |
-|-----------------------------------|------------|-------------|
-| Spezifikation                     |            |             |
-| Entwurf                           |            |             |
-| Programmierung                    |            |             |
-| Validierung                       |            |             |
-| Präsentation, Dokumentation, Demo |            |             |
+### Statusbericht 3: 27.11.2022
+| Teilbereiche                      | Status [%] | Bemerkungen                                                         |
+|-----------------------------------|------------|---------------------------------------------------------------------|
+| Spezifikation                     | 100        |                                                                     |
+| Entwurf                           | 100        | - Diagramme abgeschlossen <br>- Oberflächenprototypen abgeschlossen |
+| Programmierung                    | 60         | - Facelets, Datenlayer und Controller weit fortgeschritten          |
+| Validierung                       | 40         | - einzelne Tests geschrieben                                        |
+| Präsentation, Dokumentation, Demo | 40         | - Entwurf fertig dokumentiert                                       |
