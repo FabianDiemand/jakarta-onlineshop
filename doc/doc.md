@@ -1,4 +1,4 @@
-# Dokumentation: JEE Onlineshop
+# Dokumentation: Jakarta Onlineshop
 HS 2022, Java Enterprise Edition, Fabian Diemand <br>
 Dozent: Daniel Senften <br>
 Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
@@ -11,7 +11,7 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [1.2 Glossar](#el_glossar)
 - [2 Verwendete Technologien](#vt_verwendetetechnologien)
   - [2.1 IntelliJ IDEA](#vt_intellij)
-  - [2.2 Java EE 9](#vt_javaee)
+  - [2.2 Jakarta EE 9](#vt_jakartaee)
   - [2.3 Glassfish Server](#vt_glassfish)
   - [2.4 PostgreSQL](#vt_postgresql)
   - [2.5 GitLab](#vt_gitlab)
@@ -85,8 +85,8 @@ Der Onlineshop soll eine Web-Applikation sein. Zu deren Umsetzung werden folgend
 ### 2.1 IntelliJ IDEA
 Als Entwicklungsumgebung für die Java EE Web-Applikation dient IntelliJ IDEA von Jetbrains.
 
-<a name="vt_javaee"></a>
-### 2.2 Java EE 9
+<a name="vt_jakartaee"></a>
+### 2.2 Jakarta EE 9
 Gemäss der verwendeten Literatur soll für die Web-Applikation Java als Programmiersprache, in der Spezifikation EE 9,
 verwendet werden.
 
