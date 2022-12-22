@@ -606,8 +606,12 @@ Wurde die Bestellung einer Liste von Produkten im Warenkorb ausgelöst, ist dies
 Eine Bestellung enthält hier die Übersicht über Bezahlungsstatus, Versandstatus, Produktliste und Totalpreis der Bestellung. <br>
 <img width=75% src="img/ui/orders.jpg" alt="Welcome Page für Kunden (eingeloggt).">
 
+---
+
 <a name="ae_architekturentscheidungen"></a>
 ## 6 Architekturentscheidungen
+
+---
 
 <a name="i_installation"></a>
 ## 7 Installation
@@ -622,6 +626,7 @@ Der ganze Prozess wird in einer Run-Konfiguration zusammengehalten.
 Der Container basiert auf dem aktuellsten PostgreSQL Image. Darin werden ein User (onlineshop_user), mit Passwort (shop_12345) und eine Datenbank (jak_onlineshop)
 aufgesetzt. Mit diesen Credentials kann z.B. über das Database Widget in IntelliJ über _host.docker.internal:5432/jak_onlineshop_ eine Verbindung zu der Datenbank
 hergestellt werden.
+Die Datenbank wird mit einem Script beim Start des Containers entsprechend der Bedürfnisse der Applikation aufgesetzt.
 
 <a name="i_webappcontainer"></a>
 ### 7.2 Container: jak-onlineshop-webapp
@@ -639,13 +644,15 @@ Danach werden die beiden Container mit den bereits erwähnten Konfigurationen au
 Die Anleitung geht davon aus, dass der Anwender den aktuellsten Release im Main-Branch des [Repositories](https://git.ffhs.ch/fabian.diemand/jakarta-onlineshop/-/tree/main) gecloned 
 und Docker bzw. Docker Desktop installiert hat.
 
+0. Ports 5432, 8080, 8181, 4848 müssen frei sein; das Script 'jakarta-onlineshop/docker/db/01-init.sh' muss mit Unix-Style Line-Endings (LF) aufweisen
 1. Starte Docker Desktop
 2. In IntelliJ: Öffne die Run-Konfiguration 'Jakarta Onlineshop.run.xml' im 'jakarta-onlineshop/.run'-Verzeichnis
 3. In IntelliJ: Klicke rechts im blauen Banner 'Open/ Debug Configurations...'
-4. In IntelliJ: In der folgenden Übersicht der Run-Konfiguration muss 'Docker' als Server noch spezifiziert werden
+4. In IntelliJ: In der folgenden Übersicht der Run-Konfiguration muss evtl. 'Docker' als Server noch spezifiziert werden
 5. In IntelliJ: Lasse die Konfiguration mit einem Klick auf das grüne Dreieck neben der Run-Konfiguration laufen
 6. Im Browser: Besuche die URL [localhost:8080/tech2go](http://localhost:8080/tech2go/)
 
+---
 
 <a name="quellen"></a>
 ## Quellen
