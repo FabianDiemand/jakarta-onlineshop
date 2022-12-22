@@ -1,0 +1,60 @@
+<ui:composition
+        template="/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+    <ui:define name="content">
+        <!--@elvariable id="msg" type="java.util.Map"-->
+        <h1 id="sell-title">
+            <h:outputText value="#{msg['sell']}"/>
+        </h1>
+        <h:message for="sell-form" id="sell-feedback" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+
+        <h:form
+                id="sell-form"
+                prependId="false"
+                enctype="multipart/form-data">
+
+            <h:outputLabel for="sell_title" value="#{msg['product.title']}:">
+                <h:message for="sell_title" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:inputText
+                        required="true"
+                        requiredMessage="#{msg['empty_product_title']}"
+                        id="sell_title"
+                        value="#{sellController.product.name}"/>
+            </h:outputLabel>
+
+            <h:outputLabel for="sell_description" value="#{msg['product.description']}:">
+                <h:message for="sell_description" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:inputTextarea
+                        id="sell_description"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_description']}"
+                        value="#{sellController.product.description}"/>
+            </h:outputLabel>
+
+            <h:outputLabel for="sell_price" value="#{msg['product.price']}:">
+                <h:message for="sell_price" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:inputText
+                        id="sell_price"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_price']}"
+                        value="#{sellController.product.price}"/>
+            </h:outputLabel>
+
+            <h:outputLabel for="sell_image" value="#{msg['product.foto']}:">
+                <h:message for="sell_image" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal"/>
+                <h:inputFile
+                        id="sell_image"
+                        required="true"
+                        requiredMessage="#{msg['empty_product_image']}"
+                        value="#{sellController.part}"/>
+            </h:outputLabel>
+
+            <h:commandButton
+                    value="#{msg['sell']}"
+                    action="#{sellController.persist(loginController.customer)}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
