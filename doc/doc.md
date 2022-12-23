@@ -52,6 +52,7 @@ Repository: https://git.ffhs.ch/fabian.diemand/jee-onlineshop/ <br>
   - [7.2 Container: jak-onlineshop-webapp](#i_webappcontainer)  
   - [7.3 Run-Konfiguration](#i_runconfig)
   - [7.4 Setup-Anleitung](#i_setup)
+  - [7.5 Demo-Anwendung](#i_demo)
 - [Quellen](#quellen)
 - [Statusberichte](#statusberichte)
 
@@ -728,6 +729,13 @@ und Docker bzw. Docker Desktop installiert hat.
 5. In IntelliJ: Lasse die Konfiguration mit einem Klick auf das grüne Dreieck neben der Run-Konfiguration laufen
 6. Im Browser: Besuche die URL [localhost:8080/tech2go](http://localhost:8080/tech2go/)
 
+
+<a name="i_demo"></a>
+### 7.5 Demo-Anwendung
+Die Anwendung wird geseeded, da einige Funktionalitäten nur in der Darstellung umgesetzt sind, jedoch aktuell nicht mit
+der Applikation erzeugt werden können (z.B. Bezahlungs- und Bestellstatus).
+Mit dem Kunden "John Doe" (E-Mail: _john@doe.com_, Passwort: _Johndoe1!_) können alle Funktionen des Onlineshops genutzt werden.
+In den Bestellungen seines Profils sind alle Bestell- und Bezahlstatus einsehbar. <br>
 ---
 
 <a name="quellen"></a>
